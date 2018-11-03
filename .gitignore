@@ -1,0 +1,6 @@
+# Dependencies
+kvasir-env/
+
+# Python temp
+__pycache__/
+*.pyc
