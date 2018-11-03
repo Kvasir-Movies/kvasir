@@ -1,6 +1,9 @@
 # Dependencies
 kvasir-env/
 
+# Editor
+.vscode/
+
 # Python temp
 __pycache__/
 *.pyc
