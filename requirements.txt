@@ -1,3 +1,4 @@
 flask
+flask-shell-ipython
 gunicorn
 ipython
