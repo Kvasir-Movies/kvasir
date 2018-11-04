@@ -6,3 +6,4 @@ Flask-SQLAlchemy
 gunicorn
 ipython
 psycopg2
+python-dotenv
