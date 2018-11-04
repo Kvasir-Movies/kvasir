@@ -9,11 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from kvasir.models import User
-
-@app.route('/')
-def hello():
-    return 'Hello world!'
+from app import routes
 
 if __name__ == '__main__':
     app.run()
