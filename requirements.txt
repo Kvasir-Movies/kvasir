@@ -1,4 +1,8 @@
-flask
+click
+Flask
+Flask-Migrate
 flask-shell-ipython
+Flask-SQLAlchemy
 gunicorn
 ipython
+psycopg2

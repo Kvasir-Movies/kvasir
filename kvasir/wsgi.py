@@ -1,0 +1,1 @@
+from kvasir.app import app as application

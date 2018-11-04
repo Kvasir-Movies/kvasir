@@ -1,11 +1,21 @@
-class Config(object):
-    pass
+import os
 
-class ProdConfig(Config):
-    pass
+class Config(object):
+    ENV = None
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    TESTING = False
+
+class ProductionConfig(Config):
+    ENV = 'production'
 
 class StageConfig(Config):
-    pass
+    DEBUG = True
+    ENV = 'stage'
+    TESTING = True
 
-class DevConfig(Config):
-    pass
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    ENV = 'development'
+    TESTING = True
