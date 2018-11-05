@@ -20,3 +20,7 @@ Create db
 
 # Upgrade db
 > flask db upgrade
+
+########FRONTEND########
+# Install node
+# Install yarn
