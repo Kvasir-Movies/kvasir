@@ -5,6 +5,9 @@ node_modules/
 # Editor
 .vscode/
 
-# Python temp
+# Temp
 __pycache__/
 *.pyc
+
+# Logs
+yarn-error.log
