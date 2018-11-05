@@ -21,6 +21,12 @@ Create db
 # Upgrade db
 > flask db upgrade
 
+# OMDB API Key
+Vist http://www.omdbapi.com/apikey.aspx to generate an OMDB API key. Add a `.env` file to the root, with contents of
+```
+OMDB_API_KEY=YOUR_KEY
+```
+
 ########FRONTEND########
 # Install node
 # Install yarn
