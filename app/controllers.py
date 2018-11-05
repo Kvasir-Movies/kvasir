@@ -20,7 +20,12 @@ class LoginController():
         email = req_data['email']
         password = req_data['password']
 
-        password_hash = User.query.filter(User.email == email)[0].password_hash # email is unique
+        user = User.query.filter(User.email == email).first() # email is unique
+
+        if not user:
+            return "No user found!"
+
+        password_hash = user.password_hash
         is_password_valid = validate_password(password, password_hash)
         if (is_password_valid):
             return "Login success!"
