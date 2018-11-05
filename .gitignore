@@ -11,3 +11,7 @@ __pycache__/
 
 # Logs
 yarn-error.log
+
+# Env
+.env
+venv/
