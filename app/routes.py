@@ -1,10 +1,5 @@
-import json
-
 from app import app
-from app.controllers import HomeController
-
-from flask import request
-from .omdb_helpers import search_movies
+from app.controllers import HomeController, OMDBSearchController
 
 @app.route('/')
 def hello():
@@ -12,10 +7,7 @@ def hello():
 
 @app.route('/search-movies')
 def search_omdb_movies():
-    searchword = request.args.get('search', '')
-    return json.dumps({
-        'searchResults': search_movies(searchword),
-    })
+    return OMDBSearchController().handle()
 
 @app.route('/')
 def home():
