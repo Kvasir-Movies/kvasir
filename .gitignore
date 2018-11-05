@@ -1,5 +1,6 @@
 # Dependencies
 kvasir-env/
+node_modules/
 
 # Editor
 .vscode/
