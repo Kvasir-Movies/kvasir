@@ -1,5 +1,5 @@
 from app import db
-from app.password_util import PasswordUtil
+from app.password_util import hash_password
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -9,7 +9,7 @@ class User(db.Model):
 
     def __init__(self, email, password):
         self.email = email
-        self.password_hash = PasswordUtil.hash_password(password)
+        self.password_hash = hash_password(password)
 
     def __repr__(self):
         return '<User {}: {}>'.format(self.id, self.email)
