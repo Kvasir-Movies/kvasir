@@ -16,7 +16,7 @@ from app import routes
 @app.before_request
 def make_session_permanent():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=5)
+    app.permanent_session_lifetime = timedelta(days=7)
 
 @app.shell_context_processor
 def make_shell_context():
