@@ -2,15 +2,18 @@ from app.models import User
 
 from app.password_util import hash_password, validate_password
 
-from flask import request
+from flask import session, request, redirect, url_for
+
+from app.session_util import is_user_logged_in, create_session, delete_session
 
 class HomeController():
     def handle(self):
-        user = User.query.first()
-        if user:
-            return f"Hello, {user.email}!"
-        else:
-            return "No users. Sad!"
+        if not is_user_logged_in():
+            return redirect(url_for('login'))
+
+        email = session['email']
+        user = User.query.filter(User.email == email).one()
+        return f"Hello, {user.email}!"
 
 class LoginController():
     def handle(self):
@@ -21,13 +24,16 @@ class LoginController():
         user = User.query.filter(User.email == email).one_or_none()
 
         if not user:
+            delete_session()
             return "No user found!"
 
         password_hash = user.password_hash
         is_password_valid = validate_password(password, password_hash)
         if (is_password_valid):
-            return "Login success!"
+            create_session(email)
+            return redirect(url_for('home'))
         else:
+            delete_session()
             return "Hacker detected! FBI enroute."
 
 class LoginPageController():

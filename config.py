@@ -14,8 +14,8 @@ class StageConfig(Config):
     ENV = 'stage'
     TESTING = True
 
-
 class DevelopmentConfig(Config):
     DEBUG = True
     ENV = 'development'
     TESTING = True
+    SECRET_KEY = 'default_secret'
