@@ -17,7 +17,29 @@ class AppRouter extends Component {
   }
 }
 
+interface User {
+  email: string;
+}
+interface UserResponseData {
+  user: User;
+}
+interface HomePageState {
+  user: User | null;
+}
 class HomePage extends Component {
+  state: HomePageState = {user: null};
+  componentDidMount() {
+    this.fetchUser();
+  }
+
+  fetchUser() {
+    fetch('/current-user')
+      .then((response) => response.json())
+      .then((data: UserResponseData) => {
+        this.setState({user: data.user});
+      });
+  }
+
   render() {
     return (
       <div className="App">
@@ -25,6 +47,7 @@ class HomePage extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Kvasir Movies</h1>
           <p>
+            {this.state.user != null ? `Hi ${this.state.user.email}! ` : ''}
             Find 🎬 with 👫 :D
           </p>
           <a href='/login'>Log In</a>
