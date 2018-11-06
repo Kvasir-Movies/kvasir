@@ -4,8 +4,8 @@
 https://docs.python-guide.org/dev/virtualenvs/
 https://stackoverflow.com/questions/31133050/virtualenv-command-not-found
 
-# Make virtual env
-virtualenv -p python3 kvasir
+# Make virtual env and activate it
+virtualenv -p python3 kvasir-env
 source ~/kvasir/kvasir-env/bin/activate
 
 # Install dependencies
