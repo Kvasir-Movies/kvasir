@@ -16,6 +16,8 @@ from app import routes
 def make_shell_context():
     return {
         'db': db,
+        'dsc': db.session.commit,
+        'dsr': db.session.rollback,
         'User': models.User,
         'MoviePreference': models.MoviePreference,
     }
