@@ -12,15 +12,13 @@ class HomeController():
         else:
             return "No users. Sad!"
 
-from app.password_util import validate_password
-
 class LoginController():
     def handle(self):
         req_data = request.form
         email = req_data['email']
         password = req_data['password']
 
-        user = User.query.filter(User.email == email).first() # email is unique
+        user = User.query.filter(User.email == email).one_or_none()
 
         if not user:
             return "No user found!"

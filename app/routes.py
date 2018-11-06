@@ -7,9 +7,10 @@ from flask import request
 def home():
     return HomeController().handle()
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        return LoginController().handle()
-    else:
-        return LoginPageController().handle()
+    return LoginController().handle()
+
+@app.route('/login', methods=['GET'])
+def login_page():
+    return LoginPageController().handle()
