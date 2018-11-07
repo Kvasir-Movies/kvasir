@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
-// @ts-ignore
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,14 +19,10 @@ class AppRouter extends Component {
 interface User {
   email: string;
 }
-interface UserResponseData {
-  user: User;
-}
-interface HomePageState {
-  user: User | null;
-}
+
 class HomePage extends Component {
-  state: HomePageState = {user: null};
+  readonly state: {user: User | null} = {user: null};
+
   componentDidMount() {
     this.fetchUser();
   }
@@ -35,7 +30,7 @@ class HomePage extends Component {
   fetchUser() {
     fetch('/current-user')
       .then((response) => response.json())
-      .then((data: UserResponseData) => {
+      .then((data: {user: User}) => {
         this.setState({user: data.user});
       });
   }
