@@ -10,8 +10,6 @@ class AppRouter extends Component {
         <div>
           <Route path='/' exact component={HomePage} />
           <Route path='/login' component={LoginPage} />
-          <Route path='/foo' component={LoginPage} />
-          <Route path='foo/bar' component={LoginPage} />
         </div>
       </Router>
     );
