@@ -3,6 +3,7 @@ import os
 class Config(object):
     ENV = None
     DEBUG = False
+    SECRET_KEY = os.environ['SECRET_KEY']
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     TESTING = False
 
@@ -18,4 +19,3 @@ class DevelopmentConfig(Config):
     DEBUG = True
     ENV = 'development'
     TESTING = True
-    SECRET_KEY = 'default_secret'
