@@ -1,11 +1,11 @@
 # Dependencies
-kvasir-env/
 node_modules/
 
 # Editor
 .vscode/
 
 # Temp
+build/
 __pycache__/
 *.pyc
 
