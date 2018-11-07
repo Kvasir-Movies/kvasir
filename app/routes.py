@@ -12,10 +12,10 @@ def get_current_user():
     user_dict = {'email': user.email} if user else None
     return jsonify(user=user_dict)
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return render_template('index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def catch_all(path):
+#     return render_template('index.html')
 
 # Routes for serving html and js (deprecated)
 # @app.route('/')
@@ -28,10 +28,10 @@ def catch_all(path):
 def search_omdb_movies():
     return OMDBSearchController().handle()
 
-@app.route('/login', methods=['POST'])
-def login():
-    return LoginController().handle()
+# @app.route('/login', methods=['POST'])
+# def login():
+#     return LoginController().handle()
 
-@app.route('/login', methods=['GET'])
-def login_page():
-    return LoginPageController().handle()
+# @app.route('/login', methods=['GET'])
+# def login_page():
+#     return LoginPageController().handle()
