@@ -4,13 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import timedelta
 
-BUILD_DIR = os.path.join(os.getcwd(), 'build')
-
-app = Flask(__name__, static_folder=os.path.join(BUILD_DIR, 'static'))
+app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+BUILD_DIR = os.path.join(os.path.dirname(app.root_path), 'build')
+app.static_folder = os.path.join(BUILD_DIR, 'static')
+
 
 from app import models
 from app import routes
