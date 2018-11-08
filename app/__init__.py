@@ -10,6 +10,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+BUILD_DIR = os.path.join(os.path.dirname(app.root_path), 'build')
+app.static_folder = os.path.join(BUILD_DIR, 'static')
+
+
 from app import models
 from app import routes
 
