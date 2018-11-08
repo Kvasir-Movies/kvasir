@@ -1,6 +1,6 @@
 from app.models import User
 
-from flask import request, redirect, url_for
+from flask import jsonify, request, redirect, url_for
 
 from app.password_util import hash_password, validate_password
 from app.session_util import is_user_logged_in, create_session, delete_session
@@ -15,13 +15,13 @@ class LoginController():
 
         if not user:
             delete_session()
-            return "No user found!"
+            return jsonify(success=False)
 
         password_hash = user.password_hash
         is_password_valid = validate_password(password, password_hash)
         if (is_password_valid):
             create_session(email)
-            return redirect(url_for('home'))
+            return jsonify(success=True)
         else:
             delete_session()
-            return "Hacker detected! FBI enroute."
+            return jsonify(success=False)

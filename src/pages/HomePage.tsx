@@ -2,23 +2,21 @@ import React, { Component } from 'react';
 
 import logo from '../logo.svg';
 
-interface User {
-    email: string;
-  }
+import SessionInfo from '../types.js'
 
 class HomePage extends Component {
-    readonly state: {user: User | null} = {user: null};
+    readonly state: {sessionInfo: SessionInfo | null} = {sessionInfo: null};
 
     componentDidMount() {
-        this.fetchUser();
+        this.fetchSession()
     }
 
-    fetchUser() {
-        fetch('/current-user')
-        .then((response) => response.json())
-        .then((data: {user: User}) => {
-            this.setState({user: data.user});
-        });
+    fetchSession() {
+        fetch('/session')
+            .then((response) => response.json())
+            .then((data: {sessionInfo: SessionInfo}) => {
+              this.setState({sessionInfo: data});
+            });
     }
 
     render() {
@@ -28,7 +26,7 @@ class HomePage extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1>Kvasir Movies</h1>
             <p>
-                {this.state.user != null ? `Hi ${this.state.user.email}! ` : ''}
+                {this.state.sessionInfo && this.state.sessionInfo.is_session_active ? `Welcome back, ${this.state.sessionInfo.email}! ` : ''}
                 Find 🎬 with 👫 :D
             </p>
             <a href='/login'>Log In</a>
