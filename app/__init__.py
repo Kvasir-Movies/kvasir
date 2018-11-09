@@ -17,10 +17,12 @@ app.static_folder = os.path.join(BUILD_DIR, 'static')
 from app import models
 from app import routes
 
+
 @app.before_request
 def make_session_permanent():
     session.permanent = True
     app.permanent_session_lifetime = timedelta(days=7)
+
 
 @app.shell_context_processor
 def make_shell_context():
@@ -31,6 +33,7 @@ def make_shell_context():
         'User': models.User,
         'MoviePreference': models.MoviePreference,
     }
+
 
 if __name__ == '__main__':
     app.run()

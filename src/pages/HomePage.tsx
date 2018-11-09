@@ -42,8 +42,12 @@ class HomePage extends Component {
             <button onClick={this.handleLogout}>Log Out</button>
           ) : (
             <>
-              <a href="/login">Log In</a>
-              <a href="/signup">Sign Up</a>
+              <a className="login" href="/login">
+                Log In
+              </a>
+              <a className="signup" href="/signup">
+                Sign Up
+              </a>
             </>
           )}
         </header>
