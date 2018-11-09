@@ -22,7 +22,7 @@ class HomePage extends Component {
     handleLogout = () => {
       fetch('/logout', {method: 'POST'})
       .then(() => {
-        this.setState({user: null});
+        this.setState({sessionInfo: null});
       });
     }
 
@@ -37,7 +37,7 @@ class HomePage extends Component {
                 Find 🎬 with 👫 :D
             </p>
             {
-              this.state.user ? (
+              this.state.sessionInfo && this.state.sessionInfo.is_session_active ? (
                 <button onClick={this.handleLogout}>Log Out</button>
               ) : (
                 <>
