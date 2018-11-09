@@ -1,18 +1,19 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Redirect} from 'react-router';
 
+import useFormInput from '../hooks/useFormInput';
+
 export default function SignupPage(): JSX.Element {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const email = useFormInput('');
+	const password = useFormInput('');
 	const [signedUp, setSignedUp] = useState(false);
 
 	function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		console.log("email: ", email)
-		console.log("password: ", password)
+
 		fetch('/signup', {
 			method: 'POST',
-			body: JSON.stringify({email, password}),
+			body: JSON.stringify({email: email.value, password: password.value}),
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
 			}
@@ -28,18 +29,10 @@ export default function SignupPage(): JSX.Element {
 		.catch((errorMessage) => alert(errorMessage));
 	}
 
-	function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
-		setEmail(e.target.value);
-	}
-
-	function handlePasswordChange(e: ChangeEvent<HTMLInputElement>) {
-		setPassword(e.target.value);
-	}
-
 	return signedUp ? (<Redirect to='/' />) : (
 		<form onSubmit={handleOnSubmit} >
-			Email: <input type="text" name="email" onChange={handleEmailChange} /><br/>
-			Password: <input type="text" name="password" onChange={handlePasswordChange} /><br/>
+			Email: <input type="text" name="email" value={email.value} onChange={email.handleChange} /><br/>
+			Password: <input type="text" name="password" value={password.value} onChange={password.handleChange} /><br/>
 			<input type="submit" value="Submit" /><br/>
 		</form>
 	);
