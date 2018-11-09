@@ -21,6 +21,13 @@ class HomePage extends Component {
         });
     }
 
+    handleLogout = () => {
+      fetch('/logout', {method: 'POST'})
+      .then(() => {
+        this.setState({user: null});
+      });
+    }
+
     render() {
         return (
         <div className="App">
@@ -32,7 +39,9 @@ class HomePage extends Component {
                 Find 🎬 with 👫 :D
             </p>
             {
-              !this.state.user && (
+              this.state.user ? (
+                <button onClick={this.handleLogout}>Log Out</button>
+              ) : (
                 <>
                   <a href='/login'>Log In</a>
                   <a href='/signup'>Sign Up</a>
