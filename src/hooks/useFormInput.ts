@@ -1,6 +1,8 @@
-import {ChangeEvent, useState} from 'react';
+import { ChangeEvent, useState } from "react";
 
-export default function useFormInput(initialValue: string): {
+export default function useFormInput(
+  initialValue: string
+): {
   value: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } {
@@ -12,6 +14,6 @@ export default function useFormInput(initialValue: string): {
 
   return {
     value,
-    handleChange,
+    handleChange
   };
 }
