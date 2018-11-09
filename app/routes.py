@@ -1,8 +1,8 @@
 from app import app, BUILD_DIR
 from app.controllers import (HomeController, LoginController,
-                             LoginPageController, OMDBSearchController)
+                             LoginPageController, OMDBSearchController, SignupController)
 from app.models import User
-from app.session_util import login_required
+from app.session_util import is_user_logged_in, login_required, get_current_session_user
 
 from flask import jsonify, send_from_directory
 
@@ -19,8 +19,11 @@ def serve(path):
 
 @app.route('/current-user')
 def get_current_user():
-    user = User.query.first()
-    user_dict = {'email': user.email} if user else None
+    if is_user_logged_in():
+        user = get_current_session_user()
+        user_dict = {'email': user.email}
+    else:
+        user_dict = None
     return jsonify(user=user_dict)
 
 
@@ -28,6 +31,11 @@ def get_current_user():
 @login_required
 def search_omdb_movies():
     return OMDBSearchController().handle()
+
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    return SignupController().handle()
 
 
 #############################################
