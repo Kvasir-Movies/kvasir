@@ -32,6 +32,7 @@ class HomePage extends Component {
                 Find 🎬 with 👫 :D
             </p>
             <a href='/login'>Log In</a>
+            <a href='/signup'>Sign Up</a>
             </header>
         </div>
         );
