@@ -31,8 +31,13 @@ class HomePage extends Component {
                 {this.state.user != null ? `Hi ${this.state.user.email}! ` : ''}
                 Find 🎬 with 👫 :D
             </p>
-            <a href='/login'>Log In</a>
-            <a href='/signup'>Sign Up</a>
+            {
+              !this.state.user && (
+                <>
+                  <a href='/login'>Log In</a>
+                  <a href='/signup'>Sign Up</a>
+                </>
+            )}
             </header>
         </div>
         );
