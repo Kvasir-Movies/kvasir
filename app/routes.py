@@ -1,15 +1,13 @@
 from app import app, BUILD_DIR
-from app.controllers import (HomeController, LoginController,
-                             LoginPageController, LogoutController, OMDBSearchController, SignupController)
+from app.controllers import LoginController, LogoutController, OMDBSearchController, SignupController
 from app.session_util import is_user_logged_in, login_required, get_current_session_user
 
-from flask import jsonify, send_from_directory
+from flask import jsonify, send_from_directory, session
 
 
 # For all routes, return index.html (so that React Router can handle routing).
 # Flask matches the most specific routes first, so this will only be called
 # if nothing else matches.
-# TODO: Add all login_required logic back
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
@@ -24,6 +22,19 @@ def get_current_user():
     else:
         user_dict = None
     return jsonify(user=user_dict)
+
+
+@app.route('/session', methods=['GET'])
+def is_session_valid():
+    if is_user_logged_in():
+        return jsonify(is_session_active=True, email=session['email'])
+    else:
+        return jsonify(is_session_active=False, email='')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    return LoginController().handle()
 
 
 @app.route('/search-movies')
@@ -41,22 +52,3 @@ def signup():
 def logout():
     return LogoutController().handle()
 
-
-#############################################
-# Deprecated routes for serving html and js #
-#############################################
-
-@app.route('/deprecated/')
-@login_required
-def home():
-    return HomeController().handle()
-
-
-@app.route('/deprecated/login', methods=['POST'])
-def login():
-    return LoginController().handle()
-
-
-@app.route('/deprecated/login', methods=['GET'])
-def login_page():
-    return LoginPageController().handle()
