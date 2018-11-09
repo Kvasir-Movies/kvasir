@@ -1,7 +1,6 @@
 from app import app, BUILD_DIR
 from app.controllers import (HomeController, LoginController,
-                             LoginPageController, OMDBSearchController, SignupController)
-from app.models import User
+                             LoginPageController, LogoutController, OMDBSearchController, SignupController)
 from app.session_util import is_user_logged_in, login_required, get_current_session_user
 
 from flask import jsonify, send_from_directory
@@ -36,6 +35,11 @@ def search_omdb_movies():
 @app.route('/signup', methods=['POST'])
 def signup():
     return SignupController().handle()
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    return LogoutController().handle()
 
 
 #############################################
