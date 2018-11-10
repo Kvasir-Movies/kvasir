@@ -18,7 +18,7 @@ def create_session(email):
 
 
 def get_current_session_user():
-    return User.query.filter(User.email == session['email']).first()
+    return User.query.filter(User.email == session['email']).one_or_none()
 
 
 def login_required(f):
