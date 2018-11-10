@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
+import MovieAdder from '../components/MovieAdder';
 import logo from '../logo.svg';
-
 import SessionInfo from '../types.js'
 
 class HomePage extends Component {
@@ -29,6 +29,7 @@ class HomePage extends Component {
                 {this.state.sessionInfo && this.state.sessionInfo.is_session_active ? `Welcome back, ${this.state.sessionInfo.email}! ` : ''}
                 Find 🎬 with 👫 :D
             </p>
+    {this.state.sessionInfo && this.state.sessionInfo.is_session_active && <div style={{width: '600px'}}><MovieAdder email={this.state.sessionInfo.email} /></div> }
             <a href='/login'>Log In</a>
             </header>
         </div>

@@ -1,12 +1,10 @@
-import json
-
-from flask import request
+from flask import jsonify, request
 
 from app.omdb_helpers import search_movies
 
-class OMDBSearchController():
+class MovieSearchController():
     def handle(self):
         searchword = request.args.get('search', '')
-        return json.dumps({
+        return jsonify({
             'searchResults': search_movies(searchword),
         })
