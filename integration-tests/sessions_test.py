@@ -12,7 +12,8 @@ class SignupTest(unittest.TestCase):
         if os.environ.get('CI', False):
             chrome_options.add_argument('headless')
             chrome_options.add_argument('window-size=1400x800')
-        driver = webdriver.Chrome(options=chrome_options)
+            chrome_options.binary_location="/usr/bin/google-chrome-stable"
+        driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=chrome_options)
         driver.get(LOCAL_HOST)
 
         self.assertEqual(driver.title, "Kvasir Movies")
