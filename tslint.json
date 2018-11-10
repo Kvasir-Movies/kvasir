@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "adjacent-overload-signatures": true,
+    "array-type": [true, "generic"],
+    "await-promise": true,
+    "ordered-imports": true,
+    "no-any": true,
+    "no-misused-new": true,
+    "no-void-expression": true,
+    "no-namespace": true,
+    "no-internal-module": true,
+    "no-unbound-method": true,
+    "no-unnecessary-type-assertion": true,
+    "interface-over-type-literal": true,
+    "typedef": [true, "call-signature", "parameter", "property-declaration"]
+  }
+}
