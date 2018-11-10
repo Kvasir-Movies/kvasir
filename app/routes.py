@@ -1,9 +1,11 @@
-from app import app, BUILD_DIR
-from app.controllers import LoginController, LogoutController, OMDBSearchController, SignupController
-from app.session_util import is_user_logged_in, login_required, get_current_session_user
-
 from flask import jsonify, send_from_directory, session
 
+from app import app, BUILD_DIR
+from app.controllers import (LoginController, LogoutController,
+                             MovieSearchController, SignupController)
+from app.session_util import (is_user_logged_in, login_required,
+                              get_current_session_user)
+from app.util.session_util import is_user_logged_in, login_required
 
 # For all routes, return index.html (so that React Router can handle routing).
 # Flask matches the most specific routes first, so this will only be called
@@ -29,8 +31,8 @@ def login():
 
 @app.route('/search-movies')
 @login_required
-def search_omdb_movies():
-    return OMDBSearchController().handle()
+def search_movies():
+    return MovieSearchController().handle()
 
 
 @app.route('/signup', methods=['POST'])
@@ -41,4 +43,3 @@ def signup():
 @app.route('/logout', methods=['POST'])
 def logout():
     return LogoutController().handle()
-
