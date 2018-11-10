@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import logo from "../logo.svg";
-
 class HomePage extends Component {
   readonly state: { email: string } = { email: "" };
 
@@ -25,16 +23,15 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <div className="app">
+        <header className="header">
           <h1>Kvasir Movies</h1>
           <p>
             {this.state.email ? `Welcome back, ${this.state.email}! ` : ""}
             Find 🎬 with 👫 :D
           </p>
           {this.state.email ? (
-            <button onClick={this.handleLogout}>Log Out</button>
+            <a onClick={this.handleLogout}>Log Out</a>
           ) : (
             <>
               <a className="login" href="/login">
