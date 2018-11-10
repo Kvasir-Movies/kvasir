@@ -35,7 +35,7 @@ export default function SignupPage(): JSX.Element {
     <Redirect to="/" />
   ) : (
     <form onSubmit={handleOnSubmit}>
-      Email:{" "}
+      Email:
       <input
         type="text"
         name="email"
@@ -43,7 +43,7 @@ export default function SignupPage(): JSX.Element {
         onChange={email.handleChange}
       />
       <br />
-      Password:{" "}
+      Password:
       <input
         type="text"
         name="password"

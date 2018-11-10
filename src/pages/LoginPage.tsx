@@ -45,10 +45,10 @@ class LoginPage extends Component {
       <Redirect to="/" />
     ) : (
       <form onSubmit={this.handleSubmit}>
-        Email:{" "}
+        Email:
         <input type="text" name="email" onChange={this.handleInputChange} />
         <br />
-        Password:{" "}
+        Password:
         <input
           type="password"
           name="password"
