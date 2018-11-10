@@ -10,7 +10,7 @@ from app.session_util import create_session
 
 class SignupController():
     def handle(self):
-        data = json.loads(request.data)
+        data = request.json
         email = data['email']
         password = data['password']
 

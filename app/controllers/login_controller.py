@@ -8,7 +8,7 @@ from app.session_util import is_user_logged_in, create_session, delete_session
 
 class LoginController():
     def handle(self):
-        data = json.loads(request.data)
+        data = request.json
         email = data['email']
         password = data['password']
 
