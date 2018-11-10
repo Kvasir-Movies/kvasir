@@ -8,3 +8,4 @@ ipython
 omdb
 psycopg2
 python-dotenv
+selenium
