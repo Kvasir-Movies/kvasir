@@ -20,9 +20,10 @@ class LoginController():
 
         password_hash = user.password_hash
         is_password_valid = validate_password(password, password_hash)
-        if (is_password_valid):
+
+        if is_password_valid:
             create_session(email)
-            return jsonify(is_session_active=True, email=session['email'])
+            return jsonify(email=session['email'])
         else:
             delete_session()
             return '', 401

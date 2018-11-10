@@ -1,16 +1,15 @@
-import React, { Component, FormEvent, ChangeEvent } from "react";
-import SessionInfo from "../types";
+import React, { Component, ChangeEvent } from "react";
 import { Redirect } from "react-router";
 
 class LoginPage extends Component {
   readonly state: {
     email: string | null;
     password: string | null;
-    sessionInfo: SessionInfo | null;
+    sessionEmail: string | null;
   } = {
     email: null,
     password: null,
-    sessionInfo: null
+    sessionEmail: null
   };
 
   handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,14 +34,14 @@ class LoginPage extends Component {
           );
         }
       })
-      .then((data: { sessionInfo: SessionInfo }) => {
-        this.setState({ sessionInfo: data });
+      .then((data: { email: string }) => {
+        this.setState({ sessionEmail: data.email });
       })
       .catch(errorMessage => alert(errorMessage));
   };
 
   render() {
-    return this.state.sessionInfo ? (
+    return this.state.sessionEmail ? (
       <Redirect to="/" />
     ) : (
       <form onSubmit={this.handleSubmit}>
