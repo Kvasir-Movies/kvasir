@@ -3,6 +3,7 @@ from app.password_util import hash_password
 from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
+
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -16,6 +17,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}: {}>'.format(self.id, self.email)
+
 
 class MoviePreference(db.Model):
     __tablename__ = 'movie_preferences'

@@ -8,7 +8,7 @@ from app.session_util import is_user_logged_in, create_session, delete_session
 
 class LoginController():
     def handle(self):
-        data = json.loads(request.data)
+        data = request.json
         email = data['email']
         password = data['password']
 
@@ -20,9 +20,10 @@ class LoginController():
 
         password_hash = user.password_hash
         is_password_valid = validate_password(password, password_hash)
-        if (is_password_valid):
+
+        if is_password_valid:
             create_session(email)
-            return jsonify(is_session_active=True, email=session['email'])
+            return jsonify(email=session['email'])
         else:
             delete_session()
             return '', 401
