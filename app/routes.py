@@ -14,16 +14,6 @@ def serve(path):
     return send_from_directory(BUILD_DIR, 'index.html')
 
 
-@app.route('/current-user')
-def get_current_user():
-    if is_user_logged_in():
-        user = get_current_session_user()
-        user_dict = {'email': user.email}
-    else:
-        user_dict = None
-    return jsonify(user=user_dict)
-
-
 @app.route('/session', methods=['GET'])
 def get_session():
     if is_user_logged_in():
