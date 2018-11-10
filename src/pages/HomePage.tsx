@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 
 import logo from '../logo.svg';
 
-import SessionInfo from '../types.js'
-
 class HomePage extends Component {
-    readonly state: {sessionInfo: SessionInfo | null} = {sessionInfo: null};
+    readonly state: {email: string} = {email: ''};
 
     componentDidMount() {
         this.fetchSession()
@@ -14,8 +12,8 @@ class HomePage extends Component {
     fetchSession() {
         fetch('/session')
             .then((response) => response.json())
-            .then((data: {sessionInfo: SessionInfo}) => {
-              this.setState({sessionInfo: data});
+            .then((data: {email: string}) => {
+              this.setState(data);
             });
     }
 
@@ -26,7 +24,7 @@ class HomePage extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1>Kvasir Movies</h1>
             <p>
-                {this.state.sessionInfo && this.state.sessionInfo.is_session_active ? `Welcome back, ${this.state.sessionInfo.email}! ` : ''}
+                {this.state.email ? `Welcome back, ${this.state.email}! ` : ''}
                 Find 🎬 with 👫 :D
             </p>
             <a href='/login'>Log In</a>
