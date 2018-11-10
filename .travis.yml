@@ -1,5 +1,7 @@
 language: python
 python:
   - "3.6"
+addons:
+  chrome: stable
 script:
   - python integration-tests/sessions_test.py
