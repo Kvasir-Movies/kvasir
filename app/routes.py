@@ -25,11 +25,11 @@ def get_current_user():
 
 
 @app.route('/session', methods=['GET'])
-def is_session_valid():
+def get_session():
     if is_user_logged_in():
-        return jsonify(is_session_active=True, email=session['email'])
+        return jsonify(email=session['email'])
     else:
-        return jsonify(is_session_active=False, email='')
+        return jsonify(email='')
 
 
 @app.route('/login', methods=['POST'])
