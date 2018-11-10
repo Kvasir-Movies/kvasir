@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from selenium import webdriver
@@ -7,7 +8,11 @@ LOCAL_HOST = 'http://localhost:3000/'
 
 class SignupTest(unittest.TestCase):
     def test_signup(self):
-        driver = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        if os.environ.get('CI', False):
+            chrome_options.add_argument('headless')
+            chrome_options.add_argument('window-size=1400x800')
+        driver = webdriver.Chrome(options=chrome_options)
         driver.get(LOCAL_HOST)
 
         self.assertEqual(driver.title, "Kvasir Movies")
