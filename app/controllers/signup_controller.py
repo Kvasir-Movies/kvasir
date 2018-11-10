@@ -1,11 +1,9 @@
-import json
-
 from app import db
 from app.models import User
 
 from flask import jsonify, request
 
-from app.session_util import create_session
+from app.util.session_util import create_session
 
 
 class SignupController():
