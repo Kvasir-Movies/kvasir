@@ -1,26 +1,18 @@
-import React, { Component, ChangeEvent } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router";
 
-class LoginPage extends Component {
-  readonly state: {
-    email: string | null;
-    password: string | null;
-    sessionEmail: string | null;
-  } = {
-    email: null,
-    password: null,
-    sessionEmail: null
-  };
+import useFormInput from "../hooks/useFormInput";
 
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+export default function LoginPage(): JSX.Element {
+  const email = useFormInput("");
+  const password = useFormInput("");
+  const [sessionEmail, setSessionEmail] = useState("");
 
-  handleSubmit = (event: any) => {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     fetch("/login", {
       method: "POST",
-      body: JSON.stringify(this.state),
+      body: JSON.stringify({ email: email.value, password: password.value }),
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       }
@@ -35,31 +27,33 @@ class LoginPage extends Component {
         }
       })
       .then((data: { email: string }) => {
-        this.setState({ sessionEmail: data.email });
+        setSessionEmail(data.email);
       })
       .catch(errorMessage => alert(errorMessage));
-  };
-
-  render() {
-    return this.state.sessionEmail ? (
-      <Redirect to="/" />
-    ) : (
-      <form onSubmit={this.handleSubmit}>
-        Email:
-        <input type="text" name="email" onChange={this.handleInputChange} />
-        <br />
-        Password:
-        <input
-          type="password"
-          name="password"
-          onChange={this.handleInputChange}
-        />
-        <br />
-        <input type="submit" value="Submit" />
-        <br />
-      </form>
-    );
   }
-}
 
-export default LoginPage;
+  return sessionEmail ? (
+    <Redirect to="/" />
+  ) : (
+    <form onSubmit={handleSubmit}>
+      Email:
+      <input
+        type="text"
+        name="email"
+        value={email.value}
+        onChange={email.handleChange}
+      />
+      <br />
+      Password:
+      <input
+        type="password"
+        name="password"
+        value={password.value}
+        onChange={password.handleChange}
+      />
+      <br />
+      <input type="submit" value="Submit" />
+      <br />
+    </form>
+  );
+}
