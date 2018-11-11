@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
+import MovieAdder from "../components/MovieAdder";
 import logo from "../logo.svg";
 import { User } from "../types";
 
@@ -27,6 +28,7 @@ const HomePage = (): JSX.Element => {
         <h1>Kvasir Movies</h1>
         {user !== null && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 :D</p>
+        {user !== null && <MovieAdder />}
         {user ? (
           <button onClick={handleLogout}>Log Out</button>
         ) : (

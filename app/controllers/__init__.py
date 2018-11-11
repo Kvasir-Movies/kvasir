@@ -7,6 +7,7 @@ __all__ = [
     'LoginController',
     'LoginController',
     'LogoutController',
+    'MoviePreferenceController',
     'MovieSearchController',
     'SignupController',
 ]
