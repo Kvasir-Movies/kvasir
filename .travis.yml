@@ -27,7 +27,7 @@ before_script:
   - flask run &
   - yarn && yarn start &
 
-  # Wait for them to get booted up
-  - sleep 2m
+  # Wait for them to install and get booted up
+  - sleep 30s
 script:
   - python integration-tests/sessions_test.py
