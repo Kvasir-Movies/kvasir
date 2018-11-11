@@ -3,18 +3,25 @@ python:
   - "3.6"
 node_js:
   - "8"
-cache: pip
+cache: pip # caches pip requirements to speed up builds
 env:
   - MOZ_HEADLESS=1
 addons:
   firefox: latest
 before_script:
+  - which node
+
+  # fetches Firefox driver for integration tests
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
+
+  # Start server and dev server in the background
   - flask run &
   - yarn && yarn start &
+
+  # Wait for them to get booted up
   - sleep 2m
 script:
   - python integration-tests/sessions_test.py
