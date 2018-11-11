@@ -7,7 +7,6 @@ from app.controllers import (
     MovieSearchController,
     SignupController
 )
-from app.models import User
 from app.util.session_util import is_user_logged_in, login_required
 
 

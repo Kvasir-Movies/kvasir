@@ -1,4 +1,6 @@
-from flask import jsonify, request
+import json
+
+from flask import request
 
 from app.util.tmdb_helpers import search_movies
 
@@ -6,6 +8,6 @@ from app.util.tmdb_helpers import search_movies
 class MovieSearchController():
     def handle(self):
         searchword = request.args.get('search', '')
-        return jsonify({
+        return json.dumps({
             'searchResults': search_movies(searchword),
         })
