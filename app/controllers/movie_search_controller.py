@@ -1,6 +1,7 @@
 from flask import jsonify, request
 
-from app.omdb_helpers import search_movies
+from app.util.tmdb_helpers import search_movies
+
 
 class MovieSearchController():
     def handle(self):

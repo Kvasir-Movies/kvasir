@@ -3,14 +3,15 @@ import { Redirect } from "react-router";
 
 import useFormInput from "../hooks/useFormInput";
 
-export default function LoginPage(): JSX.Element {
+export default function SignupPage(): JSX.Element {
   const email = useFormInput("");
   const password = useFormInput("");
-  const [sessionEmail, setSessionEmail] = useState("");
+  const [signedUp, setSignedUp] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
-    fetch("/login", {
+  function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    fetch("/signup", {
       method: "POST",
       body: JSON.stringify({ email: email.value, password: password.value }),
       headers: {
@@ -26,16 +27,14 @@ export default function LoginPage(): JSX.Element {
           );
         }
       })
-      .then((data: { email: string }) => {
-        setSessionEmail(data.email);
-      })
+      .then(() => setSignedUp(true))
       .catch(errorMessage => alert(errorMessage));
   }
 
-  return sessionEmail ? (
+  return signedUp ? (
     <Redirect to="/" />
   ) : (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleOnSubmit}>
       Email:
       <input
         type="text"
@@ -46,7 +45,7 @@ export default function LoginPage(): JSX.Element {
       <br />
       Password:
       <input
-        type="password"
+        type="text"
         name="password"
         value={password.value}
         onChange={password.handleChange}

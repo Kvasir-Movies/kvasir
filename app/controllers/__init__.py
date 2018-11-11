@@ -1,7 +1,12 @@
 from .login_controller import LoginController
-from .omdb_search_controller import OMDBSearchController
+from .logout_controller import LogoutController
+from .movie_search_controller import MovieSearchController
+from .signup_controller import SignupController
 
 __all__ = [
     'LoginController',
-    'OMDBSearchController'
+    'LoginController',
+    'LogoutController',
+    'MovieSearchController',
+    'SignupController',
 ]

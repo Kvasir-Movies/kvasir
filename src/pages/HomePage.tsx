@@ -1,40 +1,46 @@
-import React, { Component } from 'react';
+import React, { ChangeEvent, useState, useEffect } from "react";
 
-import MovieAdder from '../components/MovieAdder';
-import logo from '../logo.svg';
-import SessionInfo from '../types.js'
+import logo from "../logo.svg";
 
-class HomePage extends Component {
-    readonly state: {sessionInfo: SessionInfo | null} = {sessionInfo: null};
+const HomePage = (): JSX.Element => {
+  const [email, setEmail] = useState("");
 
-    componentDidMount() {
-        this.fetchSession()
-    }
+  useEffect(() => {
+    fetch("/session")
+      .then(response => response.json())
+      .then((data: { email: string }) => {
+        setEmail(data.email);
+      });
+  }, []);
 
-    fetchSession() {
-        fetch('/session')
-            .then((response) => response.json())
-            .then((data: {sessionInfo: SessionInfo}) => {
-              this.setState({sessionInfo: data});
-            });
-    }
+  const handleLogout = () => {
+    fetch("/logout", { method: "POST" }).then(() => {
+      setEmail("");
+    });
+  };
 
-    render() {
-        return (
-        <div className="App">
-            <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1>Kvasir Movies</h1>
-            <p>
-                {this.state.sessionInfo && this.state.sessionInfo.is_session_active ? `Welcome back, ${this.state.sessionInfo.email}! ` : ''}
-                Find 🎬 with 👫 :D
-            </p>
-    {this.state.sessionInfo && this.state.sessionInfo.is_session_active && <div style={{width: '600px'}}><MovieAdder email={this.state.sessionInfo.email} /></div> }
-            <a href='/login'>Log In</a>
-            </header>
-        </div>
-        );
-    }
-}
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1>Kvasir Movies</h1>
+        {Boolean(email) && <p>Welcome back, {email}!</p>}
+        <p>Find 🎬 with 👫 :D</p>
+        {email ? (
+          <button onClick={handleLogout}>Log Out</button>
+        ) : (
+          <>
+            <a className="login" href="/login">
+              Log In
+            </a>
+            <a className="signup" href="/signup">
+              Sign Up
+            </a>
+          </>
+        )}
+      </header>
+    </div>
+  );
+};
 
 export default HomePage;
