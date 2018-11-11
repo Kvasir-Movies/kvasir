@@ -1,17 +1,20 @@
 language: python
 python:
   - "3.6"
-node_js:
-  - "9"
 cache:
   - pip # caches pip requirements to speed up builds
   - yarn # caches node modules
 env:
   - MOZ_HEADLESS=1
+  - NODE_JS_VERSION=8.10.0
 addons:
   firefox: latest
 before_script:
-  - nvm which node
+  # Use correct node version since travis doesn't support multiple languages
+  # See https://github.com/travis-ci/travis-ci/issues/4090 for the BS
+  - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
+  - bash -c "nvm use $NODE_JS_VERSION" || true
+  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
 
   # fetches Firefox driver for integration tests
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
