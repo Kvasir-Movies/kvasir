@@ -1,6 +1,7 @@
 language: python
 python:
   - "3.6"
+cache: pip
 env:
   - MOZ_HEADLESS=1
 addons:
@@ -12,6 +13,6 @@ before_script:
   - export PATH=$PATH:$PWD/geckodriver
   - flask run &
   - yarn && yarn start &
-  - sleep 30s
+  - sleep 2m
 script:
   - python integration-tests/sessions_test.py
