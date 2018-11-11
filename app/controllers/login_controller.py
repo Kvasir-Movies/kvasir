@@ -1,5 +1,4 @@
 from flask import jsonify, request, session
-
 from app.models import User
 from app.util.password_util import validate_password
 from app.util.session_util import create_session, delete_session
