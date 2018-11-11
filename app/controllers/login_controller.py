@@ -1,10 +1,9 @@
-import json
-
-from flask import jsonify, request, redirect, session, url_for
+from flask import jsonify, request, session
 
 from app.models import User
-from app.password_util import hash_password, validate_password
-from app.session_util import is_user_logged_in, create_session, delete_session
+from app.util.password_util import validate_password
+from app.util.session_util import create_session, delete_session
+
 
 class LoginController():
     def handle(self):
