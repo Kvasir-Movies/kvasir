@@ -28,19 +28,19 @@ class HomePage extends Component {
           <h1>Kvasir Movies</h1>
           <p>
             {this.state.email ? `Welcome back, ${this.state.email}! ` : ""}
-            Find 🎬 with 👫 :D
+            Find 🎬 with 👫 😄
           </p>
           {this.state.email ? (
             <a onClick={this.handleLogout}>Log Out</a>
           ) : (
-            <>
+            <div className="links">
               <a className="login" href="/login">
                 Log In
               </a>
               <a className="signup" href="/signup">
                 Sign Up
               </a>
-            </>
+            </div>
           )}
         </header>
       </div>
