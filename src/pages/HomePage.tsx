@@ -1,21 +1,22 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
 
 import logo from "../logo.svg";
+import { User } from "../types";
 
 const HomePage = (): JSX.Element => {
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
-      .then((data: { email: string }) => {
-        setEmail(data.email);
+      .then((data: { user: User }) => {
+        setUser(data.user);
       });
   }, []);
 
   const handleLogout = () => {
     fetch("/logout", { method: "POST" }).then(() => {
-      setEmail("");
+      setUser(null);
     });
   };
 
@@ -24,9 +25,9 @@ const HomePage = (): JSX.Element => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Kvasir Movies</h1>
-        {Boolean(email) && <p>Welcome back, {email}!</p>}
+        {user !== null && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 :D</p>
-        {email ? (
+        {user ? (
           <button onClick={handleLogout}>Log Out</button>
         ) : (
           <>
