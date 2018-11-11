@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6"
 node_js:
-  - "8.10.0"
+  - "9"
 cache:
   - pip # caches pip requirements to speed up builds
   - yarn # caches node modules
@@ -11,7 +11,7 @@ env:
 addons:
   firefox: latest
 before_script:
-  - which node
+  - nvm which node
 
   # fetches Firefox driver for integration tests
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
