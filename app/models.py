@@ -1,5 +1,5 @@
 from app import db
-from app.password_util import hash_password
+from app.util.password_util import hash_password
 from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
@@ -23,12 +23,12 @@ class MoviePreference(db.Model):
     __tablename__ = 'movie_preferences'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    omdb_movie_id = Column(String(20), nullable=False)
+    external_movie_id = Column(String(20), nullable=False)
 
-    UniqueConstraint('user_id', 'omdb_movie_id')
+    UniqueConstraint('user_id', 'external_movie_id')
 
     user = relationship("User", back_populates="movies")
 
-    def __init__(self, user, omdb_movie_id):
+    def __init__(self, user, external_movie_id):
         self.user = user
-        self.omdb_movie_id = omdb_movie_id
+        self.external_movie_id = external_movie_id

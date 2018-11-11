@@ -26,8 +26,15 @@ Create db
 
 > flask db upgrade
 
+# TMDB API Key
+Vist https://www.themoviedb.org/, make an account, and generate an API key. Add a `.env` file to the root, with contents of
+```
+TMDB_API_KEY=YOUR_KEY
+```
+
 # OMDB API Key
 
+*Note*: This is possibly deprecated now, b/c OMDB doesn't support prefix search.
 Vist http://www.omdbapi.com/apikey.aspx to generate an OMDB API key. Add a `.env` file to the root, with contents of
 
 ```

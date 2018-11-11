@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask import session, redirect, url_for
 
-from .models import User
+from ..models import User
 
 
 def is_user_logged_in():
