@@ -11,7 +11,8 @@ before_script:
   # See https://github.com/travis-ci/travis-ci/issues/4090
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
   - bash -c "nvm use $NODE_JS_VERSION" || true
-  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; nvm use $NODE_JS_VERSION"
+  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION"
+  - nvm use $NODE_JS_VERSION
   - nvm which node
 
   # fetches Firefox driver for integration tests
