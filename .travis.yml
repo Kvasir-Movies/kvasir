@@ -10,5 +10,7 @@ before_script:
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
+  - flask run
+  - yarn && yarn start
 script:
   - python integration-tests/sessions_test.py
