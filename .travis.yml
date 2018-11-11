@@ -5,7 +5,10 @@ env:
   - MOZ_HEADLESS=1
 addons:
   firefox: latest
+before_script:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.23.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
 script:
-  - whereis google-chrome-stable
-  - whereis chromedriver
   - python integration-tests/sessions_test.py
