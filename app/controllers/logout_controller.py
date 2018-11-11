@@ -1,4 +1,4 @@
-from app.session_util import delete_session
+from app.util.session_util import delete_session
 
 
 class LogoutController():

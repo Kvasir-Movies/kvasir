@@ -8,4 +8,5 @@ ipython
 omdb
 psycopg2
 python-dotenv
+requests
 selenium

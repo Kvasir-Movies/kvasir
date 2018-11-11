@@ -1,13 +1,18 @@
+import os
 import unittest
 
-from selenium import webdriver
+from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.options import Options
 
 LOCAL_HOST = 'http://localhost:3000/'
 
 
 class SignupTest(unittest.TestCase):
     def test_signup(self):
-        driver = webdriver.Chrome()
+        options = Options()
+        if os.environ.get('CI', False):
+            options.add_argument('-headless')
+        driver = Firefox(options=options)
         driver.get(LOCAL_HOST)
 
         self.assertEqual(driver.title, "Kvasir Movies")

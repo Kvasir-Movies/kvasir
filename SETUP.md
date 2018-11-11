@@ -26,8 +26,24 @@ Create db
 
 > flask db upgrade
 
+# Test Setup
+
+Our integration tests use Firefox. In order to run tests, you'll need the geckodriver. Download [here](https://github.com/mozilla/geckodriver/releases).
+Once you've downloaded it, unzip the file and move it to `/usr/local/bin`: `mv ~/Downloads/geckodriver /usr/local/bin`.
+
+To run the integration tests, run `python integration-tests/sessions_test.py`.
+
+# TMDB API Key
+
+Vist https://www.themoviedb.org/, make an account, and generate an API key. Add a `.env` file to the root, with contents of
+
+```
+TMDB_API_KEY=YOUR_KEY
+```
+
 # OMDB API Key
 
+_Note_: This is possibly deprecated now, b/c OMDB doesn't support prefix search.
 Vist http://www.omdbapi.com/apikey.aspx to generate an OMDB API key. Add a `.env` file to the root, with contents of
 
 ```
