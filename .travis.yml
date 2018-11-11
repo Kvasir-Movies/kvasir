@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.6"
+node_js:
+  - "8"
 cache: pip
 env:
   - MOZ_HEADLESS=1
