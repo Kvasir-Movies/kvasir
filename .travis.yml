@@ -28,6 +28,6 @@ before_script:
   - yarn && yarn start &
 
   # Wait for them to get booted up
-  - sleep 3m
+  - sleep 2m
 script:
   - python integration-tests/sessions_test.py
