@@ -1,8 +1,12 @@
 from flask import jsonify, send_from_directory, session
 
 from app import app, BUILD_DIR
-from app.controllers import (LoginController, LogoutController,
-                             MovieSearchController, SignupController)
+from app.controllers import (
+    LoginController,
+    LogoutController,
+    MovieSearchController,
+    SignupController
+)
 from app.util.session_util import is_user_logged_in, login_required
 
 
