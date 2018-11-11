@@ -3,7 +3,9 @@ python:
   - "3.6"
 node_js:
   - "8"
-cache: pip # caches pip requirements to speed up builds
+cache:
+  - pip # caches pip requirements to speed up builds
+  - yarn # caches node modules
 env:
   - MOZ_HEADLESS=1
 addons:
@@ -22,6 +24,6 @@ before_script:
   - yarn && yarn start &
 
   # Wait for them to get booted up
-  - sleep 2m
+  - sleep 3m
 script:
   - python integration-tests/sessions_test.py
