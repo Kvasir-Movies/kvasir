@@ -26,6 +26,10 @@ Create db
 
 > flask db upgrade
 
+# Test Setup
+
+Our integration tests use Firefox. In order to run tests, you'll need the geckodriver. Download [here](https://github.com/mozilla/geckodriver/releases).
+
 # OMDB API Key
 
 Vist http://www.omdbapi.com/apikey.aspx to generate an OMDB API key. Add a `.env` file to the root, with contents of
