@@ -1,9 +1,7 @@
 language: python
 python:
   - "3.6"
-cache:
-  - pip # caches pip requirements to speed up builds
-  - yarn # caches node modules
+cache: pip # caches pip requirements to speed up builds (20s down to 8s)
 env:
   - MOZ_HEADLESS=1 NODE_JS_VERSION=8.10.0
 addons:
