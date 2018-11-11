@@ -1,19 +1,22 @@
 import os
 import unittest
 
-from selenium import webdriver
+from selenium.webdriver import Firefox
+from selenium.webdriver.firefox.options import Options
+
+options = Options()
+options.add_argument('-headless')
+firefox = Firefox(firefox_options=options)
 
 LOCAL_HOST = 'http://localhost:3000/'
 
 
 class SignupTest(unittest.TestCase):
     def test_signup(self):
-        chrome_options = webdriver.ChromeOptions()
+        options = Options()
         if os.environ.get('CI', False):
-            chrome_options.add_argument('headless')
-            chrome_options.add_argument('window-size=1400x800')
-            chrome_options.binary_location="/usr/bin/google-chrome-stable"
-        driver = webdriver.Chrome('/usr/bin/X11/google-chrome-stable', options=chrome_options)
+            options.add_argument('-headless')
+        driver = Firefox(firefox_options=options)
         driver.get(LOCAL_HOST)
 
         self.assertEqual(driver.title, "Kvasir Movies")
