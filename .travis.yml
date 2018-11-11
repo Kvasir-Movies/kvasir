@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6"
 node_js:
-  - "8"
+  - "node"
 cache:
   - pip # caches pip requirements to speed up builds
   - yarn # caches node modules
