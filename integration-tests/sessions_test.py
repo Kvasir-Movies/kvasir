@@ -11,6 +11,7 @@ class SignupTest(unittest.TestCase):
         chrome_options = webdriver.ChromeOptions()
         if os.environ.get('CI', False):
             chrome_options.add_argument('headless')
+            chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('window-size=1400x800')
             chrome_options.binary_location="/usr/bin/google-chrome-stable"
         driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=chrome_options)
