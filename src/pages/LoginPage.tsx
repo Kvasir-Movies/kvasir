@@ -27,8 +27,8 @@ export default function LoginPage(): JSX.Element {
           );
         }
       })
-      .then((data: { user: User }) => {
-        setsessionUser(data.user);
+      .then((user: User) => {
+        setsessionUser(user);
       })
       .catch(errorMessage => alert(errorMessage));
   }

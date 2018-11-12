@@ -9,7 +9,7 @@ const HomePage = (): JSX.Element => {
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
-      .then((data: { user: User }) => {
+      .then((data: { user: User | null }) => {
         setUser(data.user);
       });
   }, []);
