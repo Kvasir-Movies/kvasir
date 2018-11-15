@@ -17,4 +17,4 @@ class SignupController():
         db.session.commit()
 
         create_session(email)
-        return jsonify(user.serialize())
+        return jsonify(user.to_dict())

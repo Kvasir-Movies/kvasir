@@ -26,7 +26,7 @@ def serve(path):
 @app.route('/session', methods=['GET'])
 def get_session():
     if is_user_logged_in():
-        return jsonify(user=get_current_session_user().serialize())
+        return jsonify(user=get_current_session_user().to_dict())
     else:
         return jsonify(user=None)
 

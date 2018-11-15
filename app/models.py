@@ -18,7 +18,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}: {}>'.format(self.id, self.email)
 
-    def serialize(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'email': self.email
@@ -39,7 +39,7 @@ class MoviePreference(db.Model):
         self.user = user
         self.external_movie_id = external_movie_id
 
-    def serialize(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'user_id': self.user_id,
