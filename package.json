@@ -8,11 +8,15 @@
     "@types/react": "16.7.0",
     "@types/react-dom": "16.0.9",
     "@types/react-router-dom": "^4.3.1",
+    "@types/react-select": "^2.0.6",
+    "@types/underscore": "^1.8.9",
     "react": "16.7.0-alpha.0",
     "react-dom": "16.7.0-alpha.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "typescript": "^3.1.6"
+    "react-select": "^2.1.1",
+    "typescript": "^3.1.6",
+    "underscore": "^1.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

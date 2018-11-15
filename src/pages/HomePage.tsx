@@ -28,7 +28,7 @@ const HomePage = (): JSX.Element => {
         <h1>Kvasir Movies</h1>
         {user !== null && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 :D</p>
-        {user !== null && <MovieAdder />}
+        {user !== null && <MovieAdder user={user} />}
         {user ? (
           <button onClick={handleLogout}>Log Out</button>
         ) : (

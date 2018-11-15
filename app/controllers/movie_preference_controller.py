@@ -19,7 +19,4 @@ class MoviePreferenceController():
         mp = MoviePreference(user, external_movie_id)
         db.session.commit()
 
-        return jsonify({
-            'external_movie_id': mp.external_movie_id,
-            'user_id': mp.user_id
-        })
+        return jsonify(mp.to_dict())
