@@ -1,23 +1,21 @@
-import React, { Component } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 
-class HomePage extends Component {
-  readonly state: { email: string } = { email: "" };
+import { User } from "../types";
 
-  componentDidMount() {
-    this.fetchSession();
-  }
+const HomePage = (): JSX.Element => {
+  const [user, setUser] = useState<User | null>(null);
 
-  fetchSession() {
+  useEffect(() => {
     fetch("/session")
       .then(response => response.json())
-      .then((data: { email: string }) => {
-        this.setState(data);
+      .then((data: { user: User | null }) => {
+        setUser(data.user);
       });
-  }
+  }, []);
 
-  handleLogout = () => {
+  const handleLogout = () => {
     fetch("/logout", { method: "POST" }).then(() => {
-      this.setState({ email: "" });
+      setUser(null);
     });
   };
 
@@ -26,11 +24,9 @@ class HomePage extends Component {
       <div className="app">
         <header className="header">
           <h1>Kvasir Movies</h1>
-          <p>
-            {this.state.email ? `Welcome back, ${this.state.email}! ` : ""}
-            Find 🎬 with 👫 😄
-          </p>
-          {this.state.email ? (
+          {user !== null && <p>Welcome back, {user.email}!</p>}
+          <p>Find 🎬 with 👫 😄</p>
+          {user ? (
             <a onClick={this.handleLogout}>Log Out</a>
           ) : (
             <div className="links">
@@ -47,5 +43,7 @@ class HomePage extends Component {
     );
   }
 }
+
+};
 
 export default HomePage;

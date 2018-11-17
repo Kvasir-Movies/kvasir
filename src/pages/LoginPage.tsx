@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Redirect } from "react-router";
 
 import useFormInput from "../hooks/useFormInput";
+import { User } from "../types";
 
 export default function LoginPage(): JSX.Element {
   const email = useFormInput("");
   const password = useFormInput("");
-  const [sessionEmail, setSessionEmail] = useState("");
+  const [sessionUser, setsessionUser] = useState<User | null>(null);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -26,13 +27,13 @@ export default function LoginPage(): JSX.Element {
           );
         }
       })
-      .then((data: { email: string }) => {
-        setSessionEmail(data.email);
+      .then((user: User) => {
+        setsessionUser(user);
       })
       .catch(errorMessage => alert(errorMessage));
   }
 
-  return sessionEmail ? (
+  return sessionUser ? (
     <Redirect to="/" />
   ) : (
     <form onSubmit={handleSubmit} className="app">

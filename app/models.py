@@ -18,6 +18,12 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}: {}>'.format(self.id, self.email)
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'email': self.email
+        }
+
 
 class MoviePreference(db.Model):
     __tablename__ = 'movie_preferences'
@@ -32,3 +38,10 @@ class MoviePreference(db.Model):
     def __init__(self, user, external_movie_id):
         self.user = user
         self.external_movie_id = external_movie_id
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'external_movie_id': self.external_movie_id
+        }

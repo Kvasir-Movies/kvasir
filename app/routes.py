@@ -1,4 +1,4 @@
-from flask import jsonify, send_from_directory, session
+from flask import jsonify, send_from_directory
 
 from app import app, BUILD_DIR
 from app.controllers import (
@@ -7,7 +7,11 @@ from app.controllers import (
     MovieSearchController,
     SignupController
 )
-from app.util.session_util import is_user_logged_in, login_required
+from app.util.session_util import (
+    get_current_session_user,
+    is_user_logged_in,
+    login_required
+)
 
 
 # For all routes, return index.html (so that React Router can handle routing).
@@ -22,9 +26,9 @@ def serve(path):
 @app.route('/session', methods=['GET'])
 def get_session():
     if is_user_logged_in():
-        return jsonify(email=session['email'])
+        return jsonify(user=get_current_session_user().to_dict())
     else:
-        return jsonify(email='')
+        return jsonify(user=None)
 
 
 @app.route('/login', methods=['POST'])

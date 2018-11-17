@@ -1,5 +1,4 @@
-from flask import jsonify, request, session
-
+from flask import jsonify, request
 from app.models import User
 from app.util.password_util import validate_password
 from app.util.session_util import create_session, delete_session
@@ -22,7 +21,7 @@ class LoginController():
 
         if is_password_valid:
             create_session(email)
-            return jsonify(email=session['email'])
+            return jsonify(user.to_dict())
         else:
             delete_session()
             return '', 401
