@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import MovieAdder from "../components/MovieAdder";
+import MovieList from "../components/MovieList";
 import { User } from "../types";
 
 const HomePage = (): JSX.Element => {
@@ -24,9 +25,9 @@ const HomePage = (): JSX.Element => {
     <div className="app">
       <header className="header">
         <h1>Kvasir Movies</h1>
-        {user !== null && <p>Welcome back, {user.email}!</p>}
-        {user !== null && <MovieAdder user={user} />}
+        {user && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 😄</p>
+        {user && <MovieAdder user={user} />}
         {user ? (
           <a onClick={handleLogout}>Log Out</a>
         ) : (
@@ -40,6 +41,7 @@ const HomePage = (): JSX.Element => {
           </div>
         )}
       </header>
+      {user && <MovieList user={user} />}
     </div>
   );
 };

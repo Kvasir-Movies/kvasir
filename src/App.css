@@ -75,3 +75,9 @@ form {
   color: #000000;
   width: 600px;
 }
+
+.movieList {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}

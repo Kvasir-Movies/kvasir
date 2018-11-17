@@ -3,10 +3,11 @@ from flask import abort, jsonify, request
 from app import db
 from app.models import MoviePreference, User
 from app.util.session_util import get_current_session_user
+from app.util.tmdb_helpers import get_movie
 
 
 class MoviePreferenceController():
-    def handle(self, user_id):
+    def create(self, user_id):
         user = get_current_session_user()
         if user is not User.query.get(user_id):
             abort(403)
@@ -20,3 +21,17 @@ class MoviePreferenceController():
         db.session.commit()
 
         return jsonify(mp.to_dict())
+
+    def get(self, user_id):
+        user = get_current_session_user()
+        if user is not User.query.get(user_id):
+            abort(403)
+
+        movie_ids = [mp.external_movie_id for mp in user.movies]
+
+        movies = []
+        for id in movie_ids:
+            movie = get_movie(id)
+            movies.append(movie)
+
+        return jsonify({'movies': movies})
