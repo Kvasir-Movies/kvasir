@@ -36,24 +36,30 @@ export default function LoginPage(): JSX.Element {
   return sessionUser ? (
     <Redirect to="/" />
   ) : (
-    <form onSubmit={handleSubmit}>
-      Email:
-      <input
-        type="text"
-        name="email"
-        value={email.value}
-        onChange={email.handleChange}
-      />
+    <form onSubmit={handleSubmit} className="app">
+      <div className="formField">
+        <label>Email</label>
+        <input
+          type="text"
+          name="email"
+          value={email.value}
+          onChange={email.handleChange}
+        />
+      </div>
       <br />
-      Password:
-      <input
-        type="password"
-        name="password"
-        value={password.value}
-        onChange={password.handleChange}
-      />
+      <div className="formField">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password.value}
+          onChange={password.handleChange}
+        />
+      </div>
       <br />
-      <input type="submit" value="Submit" />
+      <button type="submit" value="Submit">
+        Submit
+      </button>
       <br />
     </form>
   );
