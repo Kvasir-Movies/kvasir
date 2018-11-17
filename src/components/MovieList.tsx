@@ -13,7 +13,7 @@ export default function MovieList(props: {
     <div className="movieList">
       My movies:
       {props.movies.map((movie, index) => (
-        <div className="movie" key={index}>
+        <div className="movieOption" key={index}>
           {movie.title}
         </div>
       ))}

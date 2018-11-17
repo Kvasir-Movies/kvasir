@@ -87,7 +87,7 @@ form {
   flex-direction: column;
 }
 
-.movie {
+.movieOption {
   padding: 5px;
   font-size: calc(5px + 2vmin);
   background-color: #7c43bd;

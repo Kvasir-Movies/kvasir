@@ -54,7 +54,7 @@ def logout():
 
 
 # REST resource APIs
-@app.route('/users/<user_id>/movie-preferences', methods=['GET'])
+@app.route('/users/<user_id>/movie-preferences/', methods=['GET'])
 @login_required
 def get_movie_preferences(user_id):
     return MoviePreferenceController().get(user_id)
