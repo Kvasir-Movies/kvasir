@@ -66,6 +66,7 @@ const MovieAdder = (props: { user: User }): JSX.Element => {
   return (
     <div className="movieAdder" style={{ width: "600px" }}>
       <AsyncSelect
+        className="asyncSelect"
         loadOptions={promiseOptions}
         onChange={debounce(handleChange, 100)}
         onMenuOpen={clearValue}

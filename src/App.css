@@ -74,10 +74,24 @@ form {
 .movieAdder {
   color: #000000;
   width: 600px;
+  display: flex;
+}
+
+.asyncSelect {
+  width: 90%;
 }
 
 .movieList {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
+}
+
+.movie {
+  padding: 5px;
+  font-size: calc(5px + 2vmin);
+  background-color: #7c43bd;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
 }
