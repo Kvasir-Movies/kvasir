@@ -70,3 +70,8 @@ form {
   justify-content: space-between;
   width: 100%;
 }
+
+.movieAdder {
+  color: #000000;
+  width: 600px;
+}
