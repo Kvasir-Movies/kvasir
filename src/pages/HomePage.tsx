@@ -28,7 +28,9 @@ const HomePage = (): JSX.Element => {
         {user !== null && <MovieAdder user={user} />}
         <p>Find 🎬 with 👫 😄</p>
         {user ? (
-          <a onClick={handleLogout}>Log Out</a>
+          <div className="links">
+            <a onClick={handleLogout}>Log Out</a>
+          </div>
         ) : (
           <div className="links">
             <a className="login" href="/login">

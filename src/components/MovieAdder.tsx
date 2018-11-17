@@ -4,7 +4,7 @@ import { debounce } from "underscore";
 
 import { MoviePreference, User } from "../types";
 
-const promiseOptions = (inputValue: string) => {
+const loadMovieOptions = (inputValue: string) => {
   const searchParams = new URLSearchParams({ search: inputValue });
   return fetch("/search-movies?" + searchParams.toString())
     .then(response => response.json())
@@ -18,33 +18,31 @@ const promiseOptions = (inputValue: string) => {
     });
 };
 
-interface externalMovie {
+interface Movie {
   value: number;
   label: string;
 }
 
 const MovieAdder = (props: { user: User }): JSX.Element => {
-  const [externalMovie, setExternalMovie] = useState<externalMovie | null>(
-    null
-  );
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const handleChange = (value: any, data: { action: string }) => {
     if (data.action === "select-option") {
-      setExternalMovie(value as externalMovie);
+      setSelectedMovie(value as Movie);
     }
   };
 
   const clearValue = () => {
-    setExternalMovie(null);
+    setSelectedMovie(null);
   };
 
   const handleAddMoviePreference = () => {
-    if (!externalMovie) {
+    if (!selectedMovie) {
       return;
     }
 
     fetch(`/users/${props.user.id}/movie-preferences`, {
       method: "POST",
-      body: JSON.stringify({ externalMovieId: externalMovie.value }),
+      body: JSON.stringify({ externalMovieId: selectedMovie.value }),
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       }
@@ -66,10 +64,10 @@ const MovieAdder = (props: { user: User }): JSX.Element => {
   return (
     <div className="movieAdder" style={{ width: "600px" }}>
       <AsyncSelect
-        loadOptions={promiseOptions}
+        loadOptions={loadMovieOptions}
         onChange={debounce(handleChange, 100)}
         onMenuOpen={clearValue}
-        value={externalMovie}
+        value={selectedMovie}
       />
       <button onClick={handleAddMoviePreference}>Add</button>
     </div>
