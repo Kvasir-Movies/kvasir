@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
+import MovieAdder from "../components/MovieAdder";
 import { User } from "../types";
 
 const HomePage = (): JSX.Element => {
@@ -24,9 +25,12 @@ const HomePage = (): JSX.Element => {
       <header className="header">
         <h1>Kvasir Movies</h1>
         {user !== null && <p>Welcome back, {user.email}!</p>}
+        {user !== null && <MovieAdder user={user} />}
         <p>Find 🎬 with 👫 😄</p>
         {user ? (
-          <a onClick={handleLogout}>Log Out</a>
+          <div className="links">
+            <a onClick={handleLogout}>Log Out</a>
+          </div>
         ) : (
           <div className="links">
             <a className="login" href="/login">

@@ -4,6 +4,7 @@ from app import app, BUILD_DIR
 from app.controllers import (
     LoginController,
     LogoutController,
+    MoviePreferenceController,
     MovieSearchController,
     SignupController
 )
@@ -50,3 +51,10 @@ def signup():
 @app.route('/logout', methods=['POST'])
 def logout():
     return LogoutController().handle()
+
+
+# REST resource APIs
+@app.route('/users/<user_id>/movie-preferences', methods=['POST'])
+@login_required
+def create_movie_preference(user_id):
+    return MoviePreferenceController().handle(user_id)
