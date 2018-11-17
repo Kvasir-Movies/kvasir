@@ -4,7 +4,7 @@ export const fetchMovies = (
   user: User,
   setMovies: (movies: Array<ExternalMovie>) => void
 ): void => {
-  fetch(`/users/${user.id}/movie-preferences`, {
+  fetch(`/users/${user.id}/movie-preferences/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
