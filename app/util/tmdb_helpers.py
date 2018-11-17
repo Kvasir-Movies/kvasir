@@ -23,7 +23,6 @@ def search_movies(search_term):
         'query': search_term
     }
     response = requests.get(TMDB_SEARCH_MOVIE_URL, params=params)
-    print(response.json())
     if response.status_code != 200:
         raise APIException(response.status_code,
                            response.json()['status_message'])

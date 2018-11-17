@@ -32,7 +32,9 @@ const HomePage = (): JSX.Element => {
         <p>Find 🎬 with 👫 😄</p>
         {user && <MovieAdder user={user} fetchUserMovies={fetchUserMovies} />}
         {user ? (
-          <a onClick={handleLogout}>Log Out</a>
+          <div className="links">
+            <a onClick={handleLogout}>Log Out</a>
+          </div>
         ) : (
           <div className="links">
             <a className="login" href="/login">
