@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
 
-import logo from "../logo.svg";
 import { User } from "../types";
 
 const HomePage = (): JSX.Element => {
@@ -21,23 +20,22 @@ const HomePage = (): JSX.Element => {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="app">
+      <header className="header">
         <h1>Kvasir Movies</h1>
         {user !== null && <p>Welcome back, {user.email}!</p>}
-        <p>Find 🎬 with 👫 :D</p>
+        <p>Find 🎬 with 👫 😄</p>
         {user ? (
-          <button onClick={handleLogout}>Log Out</button>
+          <a onClick={handleLogout}>Log Out</a>
         ) : (
-          <>
+          <div className="links">
             <a className="login" href="/login">
               Log In
             </a>
             <a className="signup" href="/signup">
               Sign Up
             </a>
-          </>
+          </div>
         )}
       </header>
     </div>
