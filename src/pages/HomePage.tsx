@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
-import { User } from "../types";
+import { ExternalMovie, User } from "../types";
+import { fetchMovies } from "../network/requests";
 
 const HomePage = (): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
+  const [movies, setMovies] = useState<Array<ExternalMovie>>([]);
+  const fetchUserMovies = () => (user ? fetchMovies(user, setMovies) : null);
 
   useEffect(() => {
     fetch("/session")
@@ -27,7 +30,7 @@ const HomePage = (): JSX.Element => {
         <h1>Kvasir Movies</h1>
         {user && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 😄</p>
-        {user && <MovieAdder user={user} />}
+        {user && <MovieAdder user={user} fetchUserMovies={fetchUserMovies} />}
         {user ? (
           <a onClick={handleLogout}>Log Out</a>
         ) : (
@@ -41,7 +44,13 @@ const HomePage = (): JSX.Element => {
           </div>
         )}
       </header>
-      {user && <MovieList user={user} />}
+      {user && (
+        <MovieList
+          user={user}
+          movies={movies}
+          fetchUserMovies={fetchUserMovies}
+        />
+      )}
     </div>
   );
 };

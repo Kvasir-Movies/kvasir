@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import AsyncSelect from "react-select/lib/Async";
 import { debounce } from "underscore";
 
@@ -23,7 +23,10 @@ interface externalMovie {
   label: string;
 }
 
-const MovieAdder = (props: { user: User }): JSX.Element => {
+const MovieAdder = (props: {
+  user: User;
+  fetchUserMovies: () => void;
+}): JSX.Element => {
   const [externalMovie, setExternalMovie] = useState<externalMovie | null>(
     null
   );
@@ -60,6 +63,7 @@ const MovieAdder = (props: { user: User }): JSX.Element => {
       })
       .then((data: MoviePreference) => {
         alert(`Added movie ${data.id}`);
+        props.fetchUserMovies();
       });
   };
 

@@ -56,3 +56,5 @@ export interface ExternalMovie {
   vote_average: number;
   vote_count: number;
 }
+
+export type SetMovies = (movies: Array<ExternalMovie>) => void;
