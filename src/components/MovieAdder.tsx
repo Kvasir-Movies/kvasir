@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import AsyncSelect from "react-select/lib/Async";
 import { debounce } from "underscore";
 
@@ -23,7 +23,10 @@ interface Movie {
   label: string;
 }
 
-const MovieAdder = (props: { user: User }): JSX.Element => {
+const MovieAdder = (props: {
+  user: User;
+  fetchUserMovies: () => void;
+}): JSX.Element => {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const handleChange = (value: any, data: { action: string }) => {
     if (data.action === "select-option") {
@@ -58,12 +61,14 @@ const MovieAdder = (props: { user: User }): JSX.Element => {
       })
       .then((data: MoviePreference) => {
         alert(`Added movie ${data.id}`);
+        props.fetchUserMovies();
       });
   };
 
   return (
     <div className="movieAdder" style={{ width: "600px" }}>
       <AsyncSelect
+        className="asyncSelect"
         loadOptions={loadMovieOptions}
         onChange={debounce(handleChange, 100)}
         onMenuOpen={clearValue}

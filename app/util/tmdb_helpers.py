@@ -3,6 +3,7 @@ import requests
 
 TMDB_API_KEY = app.config.get('TMDB_API_KEY')
 TMDB_SEARCH_MOVIE_URL = 'https://api.themoviedb.org/3/search/movie'
+TMDB_FIND_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
 
 
 class APIException(Exception):
@@ -27,3 +28,16 @@ def search_movies(search_term):
                            response.json()['status_message'])
 
     return response.json()['results']
+
+
+def get_movie(movie_id):
+    params = {
+        'api_key': TMDB_API_KEY,
+    }
+    response = requests.get(TMDB_FIND_MOVIE_URL + movie_id, params=params)
+
+    if response.status_code != 200:
+        raise APIException(response.status_code,
+                           response.json()['status_message'])
+
+    return response.json()

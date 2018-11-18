@@ -54,7 +54,13 @@ def logout():
 
 
 # REST resource APIs
+@app.route('/users/<user_id>/movie-preferences/', methods=['GET'])
+@login_required
+def get_movie_preferences(user_id):
+    return MoviePreferenceController().get(user_id)
+
+
 @app.route('/users/<user_id>/movie-preferences', methods=['POST'])
 @login_required
 def create_movie_preference(user_id):
-    return MoviePreferenceController().handle(user_id)
+    return MoviePreferenceController().create(user_id)
