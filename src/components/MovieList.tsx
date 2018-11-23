@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import deleteIcon from "../images/x_icon_light.svg";
 
 import { ExternalMovie, User } from "../types";
 
@@ -15,6 +16,7 @@ export default function MovieList(props: {
       {props.movies.map((movie, index) => (
         <div className="movieOption" key={index}>
           {movie.title}
+          <img src={deleteIcon} />
         </div>
       ))}
     </div>
