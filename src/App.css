@@ -75,10 +75,11 @@ form {
   color: #000000;
   width: 600px;
   display: flex;
+  justify-content: space-between;
 }
 
 .asyncSelect {
-  width: 90%;
+  width: 85%;
 }
 
 .movieList {
