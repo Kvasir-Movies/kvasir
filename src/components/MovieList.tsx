@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import deleteIcon from "../images/x_icon_light.svg";
 
-import { MoviePreference, User } from "../types";
+import { MoviePreference, SetMovies, User } from "../types";
 import { deleteMovie } from "../network/requests";
 
 export default function MovieList(props: {
   user: User;
   movies: Array<MoviePreference>;
   fetchUserMovies: () => void;
-  setMovies: (movies: Array<MoviePreference>) => void;
+  setMovies: SetMovies;
 }): JSX.Element {
   useEffect(props.fetchUserMovies, []);
 

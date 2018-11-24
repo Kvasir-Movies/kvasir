@@ -1,9 +1,6 @@
-import { MoviePreference, User } from "../types";
+import { MoviePreference, SetMovies, User } from "../types";
 
-export const fetchMovies = (
-  user: User,
-  setMovies: (movies: Array<MoviePreference>) => void
-): void => {
+export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
     method: "GET",
     headers: {
@@ -41,7 +38,7 @@ export const loadMovieOptions = (inputValue: string) => {
 export const deleteMovie = (
   user: User,
   moviePreference: MoviePreference,
-  setMovies: (movies: Array<MoviePreference>) => void
+  setMovies: SetMovies
 ) => {
   return fetch(`/users/${user.id}/movie-preferences/${moviePreference.id}`, {
     method: "DELETE"
