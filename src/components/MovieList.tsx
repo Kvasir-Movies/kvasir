@@ -19,6 +19,7 @@ export default function MovieList(props: {
         <div className="movieOption" key={index}>
           {movie.title}
           <img
+            className="deleteIcon"
             src={deleteIcon}
             onClick={() => deleteMovie(props.user, movie, props.setMovies)}
           />

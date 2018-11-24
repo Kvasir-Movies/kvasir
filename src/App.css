@@ -99,3 +99,7 @@ form {
   justify-content: space-between;
   align-items: center;
 }
+
+.deleteIcon:hover {
+  cursor: pointer;
+}
