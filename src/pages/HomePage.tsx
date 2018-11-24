@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
-import { ExternalMovie, User } from "../types";
+import { MoviePreference, User } from "../types";
 import { fetchMovies } from "../network/requests";
 
 const HomePage = (): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
-  const [movies, setMovies] = useState<Array<ExternalMovie>>([]);
+  const [movies, setMovies] = useState<Array<MoviePreference>>([]);
   const fetchUserMovies = () => (user ? fetchMovies(user, setMovies) : null);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const HomePage = (): JSX.Element => {
           user={user}
           movies={movies}
           fetchUserMovies={fetchUserMovies}
+          setMovies={setMovies}
         />
       )}
       {user ? (

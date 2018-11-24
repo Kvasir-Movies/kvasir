@@ -64,3 +64,9 @@ def get_movie_preferences(user_id):
 @login_required
 def create_movie_preference(user_id):
     return MoviePreferenceController().create(user_id)
+
+
+@app.route('/users/<user_id>/movie-preferences/<movie_preference_id>', methods=['DELETE'])
+@login_required
+def delete_movie_preference(user_id, movie_preference_id):
+    return MoviePreferenceController().delete(user_id, movie_preference_id)

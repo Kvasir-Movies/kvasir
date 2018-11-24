@@ -1,8 +1,8 @@
-import { ExternalMovie, User } from "../types";
+import { MoviePreference, User } from "../types";
 
 export const fetchMovies = (
   user: User,
-  setMovies: (movies: Array<ExternalMovie>) => void
+  setMovies: (movies: Array<MoviePreference>) => void
 ): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
     method: "GET",
@@ -19,7 +19,7 @@ export const fetchMovies = (
       }
       return response.json();
     })
-    .then((data: { movies: Array<ExternalMovie> }) => {
+    .then((data: { movies: Array<MoviePreference> }) => {
       setMovies(data.movies);
     });
 };
@@ -36,4 +36,16 @@ export const loadMovieOptions = (inputValue: string) => {
         value: option.id
       }));
     });
+};
+
+export const deleteMovie = (
+  user: User,
+  moviePreference: MoviePreference,
+  setMovies: (movies: Array<MoviePreference>) => void
+) => {
+  return fetch(`/users/${user.id}/movie-preferences/${moviePreference.id}`, {
+    method: "DELETE"
+  })
+    .then(response => response.json())
+    .then(() => fetchMovies(user, setMovies));
 };

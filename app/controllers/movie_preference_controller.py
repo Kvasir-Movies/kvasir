@@ -27,11 +27,25 @@ class MoviePreferenceController():
         if user is not User.query.get(user_id):
             abort(403)
 
-        movie_ids = [mp.external_movie_id for mp in user.movies]
+        user_movie_preferences = user.movies
 
         movies = []
-        for id in movie_ids:
-            movie = get_movie(id)
-            movies.append(movie)
+        for mp in user_movie_preferences:
+            external_movie = get_movie(mp.external_movie_id)
+            movie_preference_dict = mp.to_dict()
+            movie_preference_dict.update({"title": external_movie["title"]})
+            movies.append(movie_preference_dict)
 
         return jsonify({'movies': movies})
+
+    def delete(self, user_id, movie_preference_id):
+        user = get_current_session_user()
+        if user is not User.query.get(user_id):
+            abort(403)
+
+        movie_preference = MoviePreference.query.get(movie_preference_id)
+
+        db.session.delete(movie_preference)
+        db.session.commit()
+
+        return jsonify({"success": True})
