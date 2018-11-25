@@ -2,21 +2,8 @@ import React, { useState } from "react";
 import AsyncSelect from "react-select/lib/Async";
 import { debounce } from "underscore";
 
+import { loadMovieOptions } from "../network/requests";
 import { MoviePreference, User } from "../types";
-
-const loadMovieOptions = (inputValue: string) => {
-  const searchParams = new URLSearchParams({ search: inputValue });
-  return fetch("/search-movies?" + searchParams.toString())
-    .then(response => response.json())
-    .then(function(json: {
-      searchResults: Array<{ id: string; title: string }>;
-    }) {
-      return json.searchResults.map(option => ({
-        label: option.title,
-        value: option.id
-      }));
-    });
-};
 
 interface Movie {
   value: number;
@@ -66,7 +53,7 @@ const MovieAdder = (props: {
   };
 
   return (
-    <div className="movieAdder" style={{ width: "600px" }}>
+    <div className="movieAdder">
       <AsyncSelect
         className="asyncSelect"
         loadOptions={loadMovieOptions}

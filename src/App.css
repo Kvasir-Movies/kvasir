@@ -1,5 +1,12 @@
+:root {
+  --main-dark: #12005e;
+  --main-mid: #4a148c;
+  --main-light: #7c43bd;
+  --contrast: #4fc3f7;
+}
+
 .content {
-  background-color: #12005e;
+  background-color: var(--main-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +18,7 @@
 }
 
 .app {
-  background-color: #4a148c;
+  background-color: var(--main-mid);
   padding: 35px;
   border-radius: 5px;
 }
@@ -25,15 +32,15 @@
 
 h1 {
   font-family: "Great Vibes", cursive;
-  background-color: #7c43bd;
+  background-color: var(--main-light);
   padding: 20px;
   border-radius: 5px;
 }
 
 a,
 button {
-  background-color: #4fc3f7;
-  border-color: #4fc3f7;
+  background-color: var(--contrast);
+  border-color: var(--contrast);
   padding: 10px;
   border-radius: 5px;
   text-decoration: none;
@@ -68,6 +75,7 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
@@ -75,14 +83,15 @@ form {
   color: #000000;
   width: 600px;
   display: flex;
+  justify-content: space-between;
 }
 
 .asyncSelect {
-  width: 90%;
+  width: 85%;
 }
 
 .movieList {
-  padding-top: 20px;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
 }
@@ -90,7 +99,7 @@ form {
 .movieOption {
   padding: 10px;
   font-size: calc(5px + 2vmin);
-  background-color: #7c43bd;
+  background-color: var(--main-light);
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 3px;

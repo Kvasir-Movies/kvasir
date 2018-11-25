@@ -33,20 +33,6 @@ const HomePage = (): JSX.Element => {
         {user != null && (
           <MovieAdder user={user} fetchUserMovies={fetchUserMovies} />
         )}
-        {user ? (
-          <div className="links">
-            <a onClick={handleLogout}>Log Out</a>
-          </div>
-        ) : (
-          <div className="links">
-            <a className="login" href="/login">
-              Log In
-            </a>
-            <a className="signup" href="/signup">
-              Sign Up
-            </a>
-          </div>
-        )}
       </header>
       {user != null && (
         <MovieList
@@ -54,6 +40,20 @@ const HomePage = (): JSX.Element => {
           movies={movies}
           fetchUserMovies={fetchUserMovies}
         />
+      )}
+      {user ? (
+        <div className="links">
+          <a onClick={handleLogout}>Log Out</a>
+        </div>
+      ) : (
+        <div className="links">
+          <a className="login" href="/login">
+            Log In
+          </a>
+          <a className="signup" href="/signup">
+            Sign Up
+          </a>
+        </div>
       )}
     </div>
   );
