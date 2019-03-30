@@ -31,7 +31,9 @@ class MoviePreference(db.Model):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     external_movie_id = Column(String(20), nullable=False)
 
-    UniqueConstraint('user_id', 'external_movie_id')
+    __table_args__ = (
+        UniqueConstraint('user_id', 'external_movie_id', name='user_and_external_movie'),
+    )
 
     user = relationship("User", back_populates="movies")
 
