@@ -30,8 +30,9 @@ def login_required(f):
     return decorated_function
 
 
-def abort_if_not_current_user(f):
+def authorization_required(f):
     @wraps(f)
+    @login_required
     def decorated_function(user_id, *args, **kwargs):
         user = get_current_session_user()
         if user is not User.query.get(user_id):
