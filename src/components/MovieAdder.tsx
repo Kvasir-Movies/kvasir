@@ -3,7 +3,7 @@ import AsyncSelect from "react-select/lib/Async";
 import { debounce } from "underscore";
 
 import { loadMovieOptions } from "../network/requests";
-import { MoviePreference, User } from "../types";
+import { User } from "../types";
 
 interface Movie {
   value: number;
@@ -25,31 +25,25 @@ const MovieAdder = (props: {
     setSelectedMovie(null);
   };
 
-  const handleAddMoviePreference = () => {
+  const handleAddMoviePreference = async () => {
     if (!selectedMovie) {
       return;
     }
 
-    fetch(`/users/${props.user.id}/movie-preferences`, {
+    const response = await fetch(`/users/${props.user.id}/movie-preferences`, {
       method: "POST",
       body: JSON.stringify({ externalMovieId: selectedMovie.value }),
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       }
-    })
-      .then(response => {
-        if (response.status !== 200) {
-          throw new Error(
-            `Adding movie failed: ${response.status} ${response.statusText ||
-              ""}`
-          );
-        }
-        return response.json();
-      })
-      .then((data: MoviePreference) => {
-        alert(`Added movie ${data.id}`);
-        props.fetchUserMovies();
-      });
+    });
+    if (response.status !== 200) {
+      alert(
+        `Adding movie failed: ${response.status} ${response.statusText || ""}`
+      );
+    }
+    clearValue();
+    props.fetchUserMovies();
   };
 
   return (
