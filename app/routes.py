@@ -9,6 +9,7 @@ from app.controllers import (
     SignupController
 )
 from app.util.session_util import (
+    authorization_required,
     get_current_session_user,
     is_user_logged_in,
     login_required
@@ -55,12 +56,18 @@ def logout():
 
 # REST resource APIs
 @app.route('/users/<user_id>/movie-preferences/', methods=['GET'])
-@login_required
-def get_movie_preferences(user_id):
-    return MoviePreferenceController().get(user_id)
+@authorization_required
+def get_movie_preferences(user):
+    return MoviePreferenceController().get(user)
 
 
 @app.route('/users/<user_id>/movie-preferences', methods=['POST'])
-@login_required
-def create_movie_preference(user_id):
-    return MoviePreferenceController().create(user_id)
+@authorization_required
+def create_movie_preference(user):
+    return MoviePreferenceController().create(user)
+
+
+@app.route('/users/<user_id>/movie-preferences/<movie_preference_id>', methods=['DELETE'])
+@authorization_required
+def delete_movie_preference(user, movie_preference_id):
+    return MoviePreferenceController().delete(user, movie_preference_id)
