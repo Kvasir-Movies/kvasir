@@ -3,6 +3,7 @@ import deleteIcon from "../images/x_icon_light.svg";
 
 import { MoviePreference, SetMovies, User } from "../types";
 import { deleteMovie } from "../network/requests";
+import MoviePreferenceType from "./MoviePreferenceType";
 
 export default function MovieList(props: {
   user: User;
@@ -17,6 +18,10 @@ export default function MovieList(props: {
       My movies:
       {props.movies.map((movie, index) => (
         <div className="movieOption" key={index}>
+          <MoviePreferenceType
+            id={movie.id}
+            preference={movie.preference_type}
+          />
           {movie.title}
           <img
             className="deleteIcon"
