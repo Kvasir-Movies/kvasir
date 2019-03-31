@@ -40,4 +40,4 @@ def get_movie(movie_id):
         raise APIException(response.status_code,
                            response.json()['status_message'])
 
-    return response.json()
+    return {'externalMovieId': movie_id, 'title': response.json().get('title', '')}

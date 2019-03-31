@@ -13,6 +13,6 @@ class RecommendationController():
         movie_id_sets = [{mp.external_movie_id for mp in user.movies} for user in users]
         common_movie_ids = set.intersection(*movie_id_sets) if movie_id_sets else set()
         recommended_movie_ids = list(common_movie_ids)[:5] # Limit recommendations to 5
-        movie_dicts = [{'external_movie_id': mid, 'title': get_movie(mid)['title']} for mid in recommended_movie_ids]
+        movie_dicts = [get_movie(movie_id) for movie_id in recommended_movie_ids]
         
         return jsonify({'movies': movie_dicts})

@@ -11,7 +11,7 @@ export interface MoviePreference {
 }
 
 export interface Movie {
-  external_movie_id: string;
+  externalMovieId: string;
   title: string;
 }
 
