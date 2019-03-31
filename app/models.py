@@ -54,5 +54,6 @@ class MoviePreference(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'external_movie_id': self.external_movie_id
+            'external_movie_id': self.external_movie_id,
+            'preference_type': self.preference_type.value,
         }

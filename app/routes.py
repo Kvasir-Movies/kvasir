@@ -68,6 +68,12 @@ def create_movie_preference(user):
     return MoviePreferenceController().create(user)
 
 
+@app.route('/users/<user_id>/movie-preferences', methods=['PUT'])
+@authorization_required
+def update_movie_preference(user):
+    return MoviePreferenceController().update(user)
+
+
 @app.route('/users/<user_id>/movie-preferences/<movie_preference_id>', methods=['DELETE'])
 @authorization_required
 def delete_movie_preference(user, movie_preference_id):
