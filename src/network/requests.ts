@@ -1,4 +1,4 @@
-import { MoviePreference, SetMovies, User } from "../types";
+import { MoviePreference, PreferenceType, SetMovies, User } from "../types";
 
 export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
@@ -45,4 +45,24 @@ export const deleteMovie = (
   })
     .then(response => response.json())
     .then(() => fetchMovies(user, setMovies));
+};
+
+export const updateMoviePreference = async (
+  id: number,
+  user: User,
+  preferenceType: PreferenceType,
+  setMovies: SetMovies
+) => {
+  const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({ preference_type: preferenceType })
+  });
+  if (response.status !== 200) {
+    alert("Failed to update movie preference.");
+  } else {
+    fetchMovies(user, setMovies);
+  }
 };
