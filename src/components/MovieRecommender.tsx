@@ -8,7 +8,7 @@ const MovieRecommender = (props: {}): JSX.Element => {
   const emailsInput = useFormInput("");
 
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
-  const handleFetchMovieRecommendations = async () => {
+  const handleFetchMovieRecommendation = async () => {
     const recommendedMovies = await getRecommendation(emailsInput.value);
     setRecommendedMovies(recommendedMovies);
   };
@@ -16,7 +16,7 @@ const MovieRecommender = (props: {}): JSX.Element => {
   return (
     <div className="movieRecommender">
       <input className="formField" type="text" {...emailsInput} />
-      <button onClick={handleFetchMovieRecommendations}>Find Movies</button>
+      <button onClick={handleFetchMovieRecommendation}>Find Movies</button>
       <div className="movieList">
         {recommendedMovies.map((movie: Movie, index: number) => (
           <div className="movieOption" key={index}>
