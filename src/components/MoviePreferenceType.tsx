@@ -22,7 +22,7 @@ export default function MoviePreferenceType({
           updateMoviePreference(id, user, PreferenceType.negative, setMovies)
         }
       >
-        👍
+        ✅
       </div>
     );
   } else {
@@ -33,7 +33,7 @@ export default function MoviePreferenceType({
           updateMoviePreference(id, user, PreferenceType.positive, setMovies)
         }
       >
-        👎
+        🔴
       </div>
     );
   }
