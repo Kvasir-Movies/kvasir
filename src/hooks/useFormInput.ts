@@ -4,16 +4,16 @@ export default function useFormInput(
   initialValue: string
 ): {
   value: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 } {
   const [value, setValue] = useState(initialValue);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
   }
 
   return {
     value,
-    handleChange
+    onChange
   };
 }

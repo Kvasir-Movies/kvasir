@@ -39,22 +39,12 @@ export default function LoginPage(): JSX.Element {
     <form onSubmit={handleSubmit} className="app">
       <div className="formField">
         <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          value={email.value}
-          onChange={email.handleChange}
-        />
+        <input type="text" name="email" {...email} />
       </div>
       <br />
       <div className="formField">
         <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password.value}
-          onChange={password.handleChange}
-        />
+        <input type="password" name="password" {...password} />
       </div>
       <br />
       <button type="submit" value="Submit">

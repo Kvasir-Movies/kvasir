@@ -40,7 +40,7 @@ class MoviePreferenceController():
         for mp in user_movie_preferences:
             external_movie = get_movie(mp.external_movie_id)
             movie_preference_dict = mp.to_dict()
-            movie_preference_dict.update({"title": external_movie["title"]})
+            movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
 
         movies.sort(key=lambda m: m["title"])

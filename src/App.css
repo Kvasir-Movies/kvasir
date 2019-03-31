@@ -86,12 +86,19 @@ form {
   justify-content: space-between;
 }
 
+.movieRecommender {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .asyncSelect {
   width: 85%;
 }
 
 .movieList {
   padding: 20px 0;
+  width: 600px;
   display: flex;
   flex-direction: column;
 }

@@ -1,4 +1,10 @@
-import { MoviePreference, PreferenceType, SetMovies, User } from "../types";
+import {
+  Movie,
+  MoviePreference,
+  PreferenceType,
+  SetMovies,
+  User
+} from "../types";
 
 export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
@@ -65,4 +71,16 @@ export const updateMoviePreference = async (
   } else {
     fetchMovies(user, setMovies);
   }
+};
+
+export const getRecommendation = async (emails: string) => {
+  const searchParams = new URLSearchParams({ emails });
+  const response = await fetch("/get-recommendation?" + searchParams);
+  if (response.status !== 200) {
+    alert("Failed to get recommendations");
+    return [];
+  }
+
+  const json = await response.json();
+  return json.movies;
 };

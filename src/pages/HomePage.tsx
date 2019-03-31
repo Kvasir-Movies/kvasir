@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
+import MovieRecommender from "../components/MovieRecommender";
 import { MoviePreference, User } from "../types";
 import { fetchMovies } from "../network/requests";
 
@@ -30,6 +31,7 @@ const HomePage = (): JSX.Element => {
         <h1>Kvasir Movies</h1>
         {user != null && <p>Welcome back, {user.email}!</p>}
         <p>Find 🎬 with 👫 😄</p>
+        {user != null && <MovieRecommender />}
         {user != null && (
           <MovieAdder user={user} fetchUserMovies={fetchUserMovies} />
         )}
