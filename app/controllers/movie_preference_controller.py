@@ -43,10 +43,7 @@ class MoviePreferenceController():
             movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
 
-        def sort_by_title(movie):
-            return movie["title"]
-
-        movies.sort(key=sort_by_title)
+        movies.sort(key=lambda m: m["title"])
 
         return jsonify({'movies': movies})
 
