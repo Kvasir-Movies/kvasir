@@ -6,6 +6,7 @@ from app.controllers import (
     LogoutController,
     MoviePreferenceController,
     MovieSearchController,
+    RecommendationController,
     SignupController
 )
 from app.util.session_util import (
@@ -71,3 +72,9 @@ def create_movie_preference(user):
 @authorization_required
 def delete_movie_preference(user, movie_preference_id):
     return MoviePreferenceController().delete(user, movie_preference_id)
+
+
+@app.route('/get-recommendation')
+@login_required
+def get_recommendation():
+    return RecommendationController().handle()

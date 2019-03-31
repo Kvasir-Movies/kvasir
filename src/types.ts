@@ -10,4 +10,9 @@ export interface MoviePreference {
   title: string;
 }
 
+export interface Movie {
+  external_movie_id: string;
+  title: string;
+}
+
 export type SetMovies = (movies: Array<MoviePreference>) => void;

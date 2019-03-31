@@ -1,4 +1,4 @@
-import { MoviePreference, SetMovies, User } from "../types";
+import { Movie, MoviePreference, SetMovies, User } from "../types";
 
 export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
@@ -45,4 +45,13 @@ export const deleteMovie = (
   })
     .then(response => response.json())
     .then(() => fetchMovies(user, setMovies));
+};
+
+export const getRecommendations = (emails: string) => {
+  const searchParams = new URLSearchParams({ emails });
+  return fetch("/get-recommendation?" + searchParams)
+    .then(response => response.json())
+    .then(function(json: { movies: Array<Movie> }) {
+      return json.movies;
+    });
 };
