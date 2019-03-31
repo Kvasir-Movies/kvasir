@@ -1,7 +1,7 @@
 from flask import jsonify, request
 
 from app import db
-from app.models import User
+from app.models import PreferenceTypes, User
 from app.util.tmdb_helpers import get_movie
 
 
@@ -10,9 +10,22 @@ class RecommendationController():
         emails = [email.strip() for email in request.args.get('emails').split(',')]
         users = User.query.filter(User.email.in_(emails))
 
-        movie_id_sets = [{mp.external_movie_id for mp in user.movies} for user in users]
-        common_movie_ids = set.intersection(*movie_id_sets) if movie_id_sets else set()
-        recommended_movie_ids = list(common_movie_ids)[:5] # Limit recommendations to 5
+        positive_movie_id_sets = []
+        negative_movie_id_sets = []
+        for user in users:
+            positive_set = set()
+            negative_set = set()
+            for mp in user.movies:
+                if mp.preference_type == PreferenceTypes.positive:
+                    positive_set.add(mp.external_movie_id)
+                elif mp.preference_type == PreferenceTypes.negative:
+                    negative_set.add(mp.external_movie_id)
+            positive_movie_id_sets.append(positive_set)
+            negative_movie_id_sets.append(negative_set)
+
+        positive_movie_ids = set.intersection(*positive_movie_id_sets) if positive_movie_id_sets else set()
+        negative_movie_ids = set.union(*negative_movie_id_sets) if negative_movie_id_sets else set()
+        recommended_movie_ids = list(positive_movie_ids.difference(negative_movie_ids))[:5] # Limit recommendations to 5
         movie_dicts = [get_movie(movie_id) for movie_id in recommended_movie_ids]
         
         return jsonify({'movies': movie_dicts})
