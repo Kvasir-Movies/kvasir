@@ -17,6 +17,23 @@ class MoviePreferenceController():
 
         return jsonify(mp.to_dict())
 
+    def update(self, user):
+        data = request.get_json()
+        movie_preference_id = data.get('moviePreferenceId', None)
+        preference_type = data.get('preferenceType')
+        if not movie_preference_id:
+            abort(400)
+
+        mp = MoviePreference.query\
+            .filter(MoviePreference.id == movie_preference_id)\
+            .filter(MoviePreference.user_id == user.id)\
+            .one_or_none()
+
+        mp.preference_type = preference_type
+        db.session.commit()
+
+        return jsonify(mp.to_dict())
+
     def get(self, user):
         user_movie_preferences = user.movies
 
