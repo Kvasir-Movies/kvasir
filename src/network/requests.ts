@@ -61,7 +61,7 @@ export const updateMoviePreference = async (
     body: JSON.stringify({ preference_type: preferenceType })
   });
   if (response.status !== 200) {
-    alert(`Failed to update movie preference.'`);
+    alert("Failed to update movie preference.");
   } else {
     fetchMovies(user, setMovies);
   }
