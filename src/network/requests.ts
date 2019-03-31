@@ -79,11 +79,14 @@ export const updateMoviePreference = async (
   }
 };
 
-export const getRecommendations = (emails: string) => {
+export const getRecommendation = async (emails: string) => {
   const searchParams = new URLSearchParams({ emails });
-  return fetch("/get-recommendation?" + searchParams)
-    .then(response => response.json())
-    .then(function(json: { movies: Array<Movie> }) {
-      return json.movies;
-    });
+  const response = await fetch("/get-recommendation?" + searchParams);
+  if (response.status !== 200) {
+    alert("Failed to get recommendations");
+    return [];
+  }
+
+  const json = await response.json();
+  return json.movies;
 };

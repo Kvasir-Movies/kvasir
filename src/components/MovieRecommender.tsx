@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 import useFormInput from "../hooks/useFormInput";
 import { Movie } from "../types";
-import { getRecommendations } from "../network/requests";
+import { getRecommendation } from "../network/requests";
 
 const MovieRecommender = (props: {}): JSX.Element => {
   const emailsInput = useFormInput("");
 
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
   const handleFetchMovieRecommendations = async () => {
-    const recommendedMovies = await getRecommendations(emails.value);
+    const recommendedMovies = await getRecommendation(emailsInput.value);
     setRecommendedMovies(recommendedMovies);
   };
 
