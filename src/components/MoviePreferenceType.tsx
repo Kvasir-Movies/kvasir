@@ -17,6 +17,7 @@ export default function MoviePreferenceType({
   if (preference == PreferenceType.positive) {
     return (
       <div
+        className="preferenceIcon"
         onClick={() =>
           updateMoviePreference(id, user, PreferenceType.negative, setMovies)
         }
@@ -27,6 +28,7 @@ export default function MoviePreferenceType({
   } else {
     return (
       <div
+        className="preferenceIcon"
         onClick={() =>
           updateMoviePreference(id, user, PreferenceType.positive, setMovies)
         }
