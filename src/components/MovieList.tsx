@@ -18,13 +18,15 @@ export default function MovieList(props: {
       My movies:
       {props.movies.map((movie, index) => (
         <div className="movieOption" key={index}>
-          <MoviePreferenceType
-            id={movie.id}
-            preference={movie.preference_type}
-            setMovies={props.setMovies}
-            user={props.user}
-          />
-          {movie.title}
+          <div className="movieOptionWrapper">
+            <MoviePreferenceType
+              id={movie.id}
+              preference={movie.preference_type}
+              setMovies={props.setMovies}
+              user={props.user}
+            />
+            <div className="movieTitle">{movie.title}</div>
+          </div>
           <img
             className="deleteIcon"
             src={deleteIcon}

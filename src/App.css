@@ -111,3 +111,18 @@ form {
 .deleteIcon:hover {
   cursor: pointer;
 }
+
+.preferenceIcon {
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.movieOptionWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.movieTitle {
+  padding-left: 10px;
+}
