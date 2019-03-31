@@ -4,12 +4,12 @@ import { updateMoviePreference } from "../network/requests";
 import { PreferenceType, SetMovies, User } from "../types";
 
 export default function MoviePreferenceType({
-  id,
+  movie_preference_id,
   preference,
   setMovies,
   user
 }: {
-  id: number;
+  movie_preference_id: number;
   preference: PreferenceType;
   setMovies: SetMovies;
   user: User;
@@ -19,7 +19,12 @@ export default function MoviePreferenceType({
       <div
         className="preferenceIcon"
         onClick={() =>
-          updateMoviePreference(id, user, PreferenceType.negative, setMovies)
+          updateMoviePreference(
+            movie_preference_id,
+            user,
+            PreferenceType.negative,
+            setMovies
+          )
         }
       >
         ✅
@@ -30,7 +35,12 @@ export default function MoviePreferenceType({
       <div
         className="preferenceIcon"
         onClick={() =>
-          updateMoviePreference(id, user, PreferenceType.positive, setMovies)
+          updateMoviePreference(
+            movie_preference_id,
+            user,
+            PreferenceType.positive,
+            setMovies
+          )
         }
       >
         🔴
