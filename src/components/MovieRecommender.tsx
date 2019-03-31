@@ -9,7 +9,7 @@ const MovieRecommender = (props: {}): JSX.Element => {
 
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
   const handleFetchMovieRecommendations = async () => {
-    const recommendedMovies = await getRecommendations(emailsInput.value);
+    const recommendedMovies = await getRecommendations(emails.value);
     setRecommendedMovies(recommendedMovies);
   };
 

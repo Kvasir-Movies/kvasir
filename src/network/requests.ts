@@ -78,3 +78,12 @@ export const updateMoviePreference = async (
     fetchMovies(user, setMovies);
   }
 };
+
+export const getRecommendations = (emails: string) => {
+  const searchParams = new URLSearchParams({ emails });
+  return fetch("/get-recommendation?" + searchParams)
+    .then(response => response.json())
+    .then(function(json: { movies: Array<Movie> }) {
+      return json.movies;
+    });
+};
