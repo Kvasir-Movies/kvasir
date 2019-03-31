@@ -36,20 +36,10 @@ export default function SignupPage(): JSX.Element {
   ) : (
     <form onSubmit={handleOnSubmit}>
       Email:
-      <input
-        type="text"
-        name="email"
-        value={email.value}
-        onChange={email.handleChange}
-      />
+      <input type="text" name="email" {...email} />
       <br />
       Password:
-      <input
-        type="text"
-        name="password"
-        value={password.value}
-        onChange={password.handleChange}
-      />
+      <input type="text" name="password" {...password} />
       <br />
       <input type="submit" value="Submit" />
       <br />
