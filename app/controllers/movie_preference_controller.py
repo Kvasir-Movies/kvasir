@@ -17,10 +17,9 @@ class MoviePreferenceController():
 
         return jsonify(mp.to_dict())
 
-    def update(self, user):
+    def update(self, user, movie_preference_id):
         data = request.get_json()
-        movie_preference_id = data.get('moviePreferenceId', None)
-        preference_type = data.get('preferenceType')
+        preference_type = data.get('preference_type')
         if not movie_preference_id:
             abort(400)
 
@@ -43,6 +42,11 @@ class MoviePreferenceController():
             movie_preference_dict = mp.to_dict()
             movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
+
+        def sort_by_title(movie):
+            return movie["title"]
+
+        movies.sort(key=sort_by_title)
 
         return jsonify({'movies': movies})
 
