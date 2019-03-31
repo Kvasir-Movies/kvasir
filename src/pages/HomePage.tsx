@@ -8,6 +8,7 @@ import { fetchMovies } from "../network/requests";
 
 const HomePage = (): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
+  // TODO: Provide coherent UX when TMDB is down (when movies == []).
   const [movies, setMovies] = useState<Array<MoviePreference>>([]);
   const fetchUserMovies = () => (user ? fetchMovies(user, setMovies) : null);
 

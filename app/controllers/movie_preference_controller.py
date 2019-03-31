@@ -43,6 +43,8 @@ class MoviePreferenceController():
         movies = []
         for zipped_result in zip(user_movie_preferences, results):
             (mp, external_movie) = zipped_result
+            if external_movie is None:
+                continue
             movie_preference_dict = mp.to_dict()
             movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
