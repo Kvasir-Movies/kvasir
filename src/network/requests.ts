@@ -66,7 +66,7 @@ export const updateMoviePreference = async (
   setMovies: SetMovies
 ) => {
   const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
     },
