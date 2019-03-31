@@ -21,6 +21,8 @@ export default function MovieList(props: {
           <MoviePreferenceType
             id={movie.id}
             preference={movie.preference_type}
+            setMovies={props.setMovies}
+            user={props.user}
           />
           {movie.title}
           <img
