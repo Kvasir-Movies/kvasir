@@ -50,7 +50,7 @@ export const deleteMovie = (
 export const updateMoviePreference = async (
   id: number,
   user: User,
-  preference_type: PreferenceType,
+  preferenceType: PreferenceType,
   setMovies: SetMovies
 ) => {
   const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
@@ -58,7 +58,7 @@ export const updateMoviePreference = async (
     headers: {
       "Content-Type": "application/json; charset=utf-8"
     },
-    body: JSON.stringify({ preference_type: preference_type })
+    body: JSON.stringify({ preference_type: preferenceType })
   });
   if (response.status !== 200) {
     alert(`Failed to update movie preference.'`);

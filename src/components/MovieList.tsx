@@ -21,7 +21,7 @@ export default function MovieList(props: {
           <div className="movieOptionWrapper">
             <MoviePreferenceType
               movie_preference_id={movie.id}
-              preference={movie.preference_type}
+              preference={movie.preferenceType}
               setMovies={props.setMovies}
               user={props.user}
             />

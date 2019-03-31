@@ -13,7 +13,7 @@ export interface MoviePreference {
   user_id: number;
   external_movie_id: string;
   title: string;
-  preference_type: PreferenceType;
+  preferenceType: PreferenceType;
 }
 
 export type SetMovies = (movies: Array<MoviePreference>) => void;
