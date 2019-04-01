@@ -6,12 +6,35 @@ from sqlalchemy import Column, Enum, ForeignKey, Integer, String, UniqueConstrai
 from sqlalchemy.orm import relationship
 
 
+class Friendship(db.Model):
+    """Models friendships between two users. Each Friendship object is a one-way relationship
+    (to make querying and management easier). Friendship objects should be added in pairs,
+    one for each user.
+    """
+    __tablename__ = 'friendships'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    friend_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+
+    __table_args__ = (
+        UniqueConstraint('user_id', 'friend_id', name='user_and_friend'),
+    )
+
+    user = relationship("User", foreign_keys=[user_id], back_populates="friendships")
+    friend = relationship("User", foreign_keys=[friend_id])
+
+    def __init__(self, user, friend):
+        self.user = user
+        self.friend = friend
+
+
 class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     email = Column(String(80), unique=True, nullable=False)
     password_hash = Column(String(64), nullable=False)
     movies = relationship("MoviePreference", back_populates="user")
+    friendships = relationship("Friendship", foreign_keys=[Friendship.user_id], back_populates="user")
 
     def __init__(self, email, password):
         self.email = email
@@ -23,9 +46,9 @@ class User(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'email': self.email
+            'email': self.email,
+            'friends': [friendship.friend.email for friendship in self.friendships]
         }
-
 
 class PreferenceTypes(enum.Enum):
     positive = 'positive'

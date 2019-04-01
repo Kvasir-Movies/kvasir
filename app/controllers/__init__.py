@@ -1,3 +1,4 @@
+from .friendship_controller import FriendshipController
 from .login_controller import LoginController
 from .logout_controller import LogoutController
 from .movie_preference_controller import MoviePreferenceController
@@ -6,6 +7,7 @@ from .recommendation_controller import RecommendationController
 from .signup_controller import SignupController
 
 __all__ = [
+    'FriendshipController',
     'LoginController',
     'LoginController',
     'LogoutController',
