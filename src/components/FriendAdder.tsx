@@ -4,11 +4,14 @@ import useFormInput from "../hooks/useFormInput";
 import { addFriend } from "../network/requests";
 import { User } from "../types";
 
-const FriendAdder = (props: { user: User }): JSX.Element => {
+const FriendAdder = (props: { user: User; setUser: Function }): JSX.Element => {
   const emailInput = useFormInput("");
 
   const handleAddFriend = async () => {
-    addFriend(props.user.id, emailInput.value);
+    const user = await addFriend(props.user.id, emailInput.value);
+    if (user) {
+      props.setUser(user);
+    }
   };
 
   return (

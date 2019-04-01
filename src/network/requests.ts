@@ -90,7 +90,11 @@ export const addFriend = async (userId: number, friendEmail: string) => {
   });
   if (response.status !== 200) {
     alert("Failed to add friend.");
+    return null;
   } else {
     alert("Added friend");
   }
+
+  const json = await response.json();
+  return json;
 };
