@@ -12,16 +12,11 @@ class RecommendationController():
 
         positive_movie_id_sets = []
         negative_movie_id_sets = []
+
         for user in users:
-            positive_set = set()
-            negative_set = set()
-            for mp in user.movies:
-                if mp.preference_type == PreferenceTypes.positive:
-                    positive_set.add(mp.external_movie_id)
-                elif mp.preference_type == PreferenceTypes.negative:
-                    negative_set.add(mp.external_movie_id)
-            positive_movie_id_sets.append(positive_set)
-            negative_movie_id_sets.append(negative_set)
+            user_movies = user.movies
+            positive_movie_id_sets.append({m.external_movie_id for m in user_movies if m.preference_type == PreferenceTypes.positive})
+            negative_movie_id_sets.append({m.external_movie_id for m in user_movies if m.preference_type == PreferenceTypes.negative})
 
         positive_movie_ids = set.intersection(*positive_movie_id_sets) if positive_movie_id_sets else set()
         negative_movie_ids = set.union(*negative_movie_id_sets) if negative_movie_id_sets else set()
