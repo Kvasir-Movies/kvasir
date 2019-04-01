@@ -45,7 +45,7 @@ const HomePage = (): JSX.Element => {
           setMovies={setMovies}
         />
       )}
-      {user != null && <FriendAdder user={user} />}
+      {user != null && <FriendAdder setUser={setUser} user={user} />}
       {user ? (
         <div className="links">
           <a onClick={handleLogout}>Log Out</a>
