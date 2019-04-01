@@ -3,7 +3,7 @@ from flask import abort, jsonify, request
 from app import db
 from app.models import MoviePreference
 from app.util.tmdb_helpers import get_movie
-from app.util.concurrency import call_parallel
+from app.util.concurrency import call_one_func_parallel
 
 class MoviePreferenceController():
     def create(self, user):
@@ -36,15 +36,10 @@ class MoviePreferenceController():
     def get(self, user):
         user_movie_preferences = user.movies
 
-        # Wrap get_movie calls inside lambdas, then call these lambdas in parallel.
-        get_movie_lambdas = map(lambda mp: (lambda: get_movie(mp.external_movie_id)), user_movie_preferences)
-        results = call_parallel(get_movie_lambdas)
+        results = call_one_func_parallel(user_movie_preferences, lambda mp: get_movie(mp.external_movie_id))
 
         movies = []
-        for zipped_result in zip(user_movie_preferences, results):
-            (mp, external_movie) = zipped_result
-            if external_movie is None:
-                continue
+        for mp, external_movie in results:
             movie_preference_dict = mp.to_dict()
             movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
