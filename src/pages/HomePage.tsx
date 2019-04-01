@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import FriendAdder from "../components/FriendAdder";
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
 import MovieRecommender from "../components/MovieRecommender";
@@ -44,6 +45,7 @@ const HomePage = (): JSX.Element => {
           setMovies={setMovies}
         />
       )}
+      {user != null && <FriendAdder user={user} />}
       {user ? (
         <div className="links">
           <a onClick={handleLogout}>Log Out</a>

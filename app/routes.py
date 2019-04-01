@@ -2,6 +2,7 @@ from flask import jsonify, send_from_directory
 
 from app import app, BUILD_DIR
 from app.controllers import (
+    FriendshipController,
     LoginController,
     LogoutController,
     MoviePreferenceController,
@@ -84,3 +85,9 @@ def delete_movie_preference(user, movie_preference_id):
 @login_required
 def get_recommendation():
     return RecommendationController().handle()
+
+
+@app.route('/users/<user_id>/friendships', methods=['POST'])
+@authorization_required
+def add_friendship(user):
+    return FriendshipController().create(user)

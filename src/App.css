@@ -133,3 +133,8 @@ form {
 .movieTitle {
   padding-left: 10px;
 }
+
+.friendAdder {
+  display: flex;
+  flex-direction: row;
+}
