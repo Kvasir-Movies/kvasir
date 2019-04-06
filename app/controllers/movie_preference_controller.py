@@ -3,7 +3,7 @@ from flask import abort, jsonify, request
 from app import db
 from app.models import MoviePreference
 from app.util.tmdb_helpers import get_movie
-
+from app.util.concurrency import call_one_func_parallel
 
 class MoviePreferenceController():
     def create(self, user):
@@ -36,9 +36,10 @@ class MoviePreferenceController():
     def get(self, user):
         user_movie_preferences = user.movies
 
+        results = call_one_func_parallel(user_movie_preferences, lambda mp: get_movie(mp.external_movie_id))
+
         movies = []
-        for mp in user_movie_preferences:
-            external_movie = get_movie(mp.external_movie_id)
+        for mp, external_movie in results:
             movie_preference_dict = mp.to_dict()
             movie_preference_dict.update(external_movie)
             movies.append(movie_preference_dict)
