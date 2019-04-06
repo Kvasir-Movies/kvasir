@@ -7,6 +7,28 @@ import {
   User
 } from "../types";
 
+export const fetchExploreMovies = (setMovies: SetMovies): void => {
+  fetch(`/explore`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  })
+    .then(response => {
+      if (response.status !== 200) {
+        throw new Error(
+          `Fetching Explore page failed: ${
+            response.status
+          } ${response.statusText || ""}`
+        );
+      }
+      return response.json();
+    })
+    .then((data: { movies: Array<Movie> }) => {
+      setMovies(data.movies);
+    });
+};
+
 export const fetchMovies = (
   user: User,
   setMovies: SetMoviePreferences

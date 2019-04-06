@@ -21,6 +21,8 @@ export interface MoviePreference {
 export interface Movie {
   externalMovieId: string;
   title: string;
+  overview: string;
+  poster_path: string;
 }
 
 export type SetMovies = (movies: Array<Movie>) => void;

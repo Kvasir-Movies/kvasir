@@ -4,6 +4,7 @@ import requests
 TMDB_API_KEY = app.config.get('TMDB_API_KEY')
 TMDB_SEARCH_MOVIE_URL = 'https://api.themoviedb.org/3/search/movie'
 TMDB_FIND_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
+TMDB_EXPLORE_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc'
 
 DESIRED_KEYS = [
     'title',
@@ -50,3 +51,16 @@ def get_movie(movie_id):
     movie_data['externalMovieId'] = movie_id
     movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}'.format(response.json()['poster_path'])
     return movie_data
+
+
+def explore():
+    params = {
+        'api_key': TMDB_API_KEY,
+    }
+    response = requests.get(TMDB_EXPLORE_URL, params=params)
+
+    if response.status_code != 200:
+        raise APIException(response.status_code,
+                           response.json()['status_message'])
+
+    return response.json().get('results')
