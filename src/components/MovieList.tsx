@@ -25,8 +25,12 @@ export default function MovieList(props: {
               setMovies={props.setMovies}
               user={props.user}
             />
-            <div className="movieTitle">{movie.title}</div>
           </div>
+          <div className="movieTitle">
+            {movie.title}
+            <img className="moviePoster" src={movie.poster_path} />
+          </div>
+          <div className="movieOverview">{movie.overview}</div>
           <img
             className="deleteIcon"
             src={deleteIcon}
