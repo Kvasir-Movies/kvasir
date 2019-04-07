@@ -12,6 +12,7 @@ import { Path } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
 import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
+import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";

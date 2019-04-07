@@ -41,7 +41,7 @@ def get_movie(movie_id):
     params = {
         'api_key': TMDB_API_KEY,
     }
-    response = requests.get(TMDB_FIND_MOVIE_URL + movie_id, params=params)
+    response = requests.get(TMDB_FIND_MOVIE_URL + str(movie_id), params=params)
 
     if response.status_code != 200:
         raise APIException(response.status_code,
