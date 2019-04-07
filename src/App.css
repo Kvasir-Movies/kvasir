@@ -1,3 +1,14 @@
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
 :root {
   --main-dark: #12005e;
   --main-mid: #4a148c;
@@ -44,7 +55,6 @@ button {
   padding: 10px;
   border-radius: 5px;
   text-decoration: none;
-  /*margin: 10px;*/
   color: black;
   font-size: calc(10px + 2vmin);
 }
@@ -133,3 +143,4 @@ form {
 .movieTitle {
   padding-left: 10px;
 }
+*/
