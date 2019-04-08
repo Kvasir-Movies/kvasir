@@ -8,7 +8,9 @@ import {
   User
 } from "../types";
 
-import { Button, Card, Icon, Image } from "semantic-ui-react";
+import { Card } from "semantic-ui-react";
+
+import ExploreMovieCard from "./ExploreMovieCard";
 
 import {
   addMoviePreference,
@@ -28,16 +30,19 @@ const ExploreMovieList = (props: {
   useEffect(props.fetchExploreMovies, []);
   useEffect(doFetchUserMovies, []);
 
-  const callAddMoviePreference = (
-    preferenceType: PreferenceType,
-    externalMovieId: string
+  const addMoviePreferenceWrapper = (
+    externalMovieId: string,
+    preferenceType: PreferenceType
   ) => {
-    if (
-      userMovies.filter(
-        userMovie => userMovie.external_movie_id == externalMovieId
-      ).length
-    ) {
-      updateMoviePreferenceAsync(+externalMovieId, props.user, preferenceType);
+    const matchingMoviePreference = userMovies.filter(
+      userMovie => userMovie.external_movie_id == externalMovieId
+    );
+    if (matchingMoviePreference.length) {
+      updateMoviePreferenceAsync(
+        matchingMoviePreference[0].id,
+        props.user,
+        preferenceType
+      );
     } else {
       addMoviePreference(props.user, +externalMovieId, preferenceType);
     }
@@ -46,39 +51,11 @@ const ExploreMovieList = (props: {
   return (
     <Card.Group centered>
       {props.movies.map((movie, index) => (
-        <Card key={index}>
-          <Image src={movie.poster_path} />
-          <Card.Content>
-            <Card.Header>{movie.title}</Card.Header>
-            <Card.Description>{movie.overview}</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <Button.Group fluid>
-              <Button
-                color="green"
-                onClick={() =>
-                  callAddMoviePreference(
-                    PreferenceType.positive,
-                    movie.externalMovieId
-                  )
-                }
-              >
-                <Icon name="checkmark" />
-              </Button>
-              <Button
-                color="black"
-                onClick={() =>
-                  callAddMoviePreference(
-                    PreferenceType.negative,
-                    movie.externalMovieId
-                  )
-                }
-              >
-                <Icon name="close" />
-              </Button>
-            </Button.Group>
-          </Card.Content>
-        </Card>
+        <ExploreMovieCard
+          key={index}
+          movie={movie}
+          addMoviePreference={addMoviePreferenceWrapper}
+        />
       ))}
     </Card.Group>
   );
