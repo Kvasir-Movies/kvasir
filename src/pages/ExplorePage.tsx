@@ -21,7 +21,7 @@ const ExplorePage = (): JSX.Element => {
   }, []);
 
   return (
-    <Container>
+    <Container fluid>
       <Header as="h1" textAlign="center">
         Explore
       </Header>
