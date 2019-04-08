@@ -1,10 +1,20 @@
 import React, { SyntheticEvent, useState, useEffect } from "react";
 
-import { Movie, PreferenceType, SetMovies, User } from "../types";
+import {
+  Movie,
+  MoviePreference,
+  PreferenceType,
+  SetMovies,
+  User
+} from "../types";
 
 import { Button, Card, Icon, Image } from "semantic-ui-react";
 
-import { addMoviePreference } from "../network/requests";
+import {
+  addMoviePreference,
+  fetchMovies,
+  updateMoviePreferenceAsync
+} from "../network/requests";
 
 const ExploreMovieList = (props: {
   user: User;
@@ -12,13 +22,25 @@ const ExploreMovieList = (props: {
   fetchExploreMovies: () => void;
   setMovies: SetMovies;
 }): JSX.Element => {
+  const [userMovies, setUserMovies] = useState<Array<MoviePreference>>([]);
+  const doFetchUserMovies = () => fetchMovies(props.user, setUserMovies);
+
   useEffect(props.fetchExploreMovies, []);
+  useEffect(doFetchUserMovies, []);
 
   const callAddMoviePreference = (
     preferenceType: PreferenceType,
     externalMovieId: string
   ) => {
-    addMoviePreference(props.user, +externalMovieId, preferenceType);
+    if (
+      userMovies.filter(
+        userMovie => userMovie.external_movie_id == externalMovieId
+      ).length
+    ) {
+      updateMoviePreferenceAsync(+externalMovieId, props.user, preferenceType);
+    } else {
+      addMoviePreference(props.user, +externalMovieId, preferenceType);
+    }
   };
 
   return (

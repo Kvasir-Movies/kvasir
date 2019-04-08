@@ -15,7 +15,7 @@ export const addMoviePreference = (
   fetch(`/users/${user.id}/movie-preferences`, {
     method: "POST",
     body: JSON.stringify({
-      externalMovieId: externalMovieId,
+      externalMovieId: "" + externalMovieId,
       preferenceType: preferenceType
     }),
     headers: {
