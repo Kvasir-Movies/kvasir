@@ -1,76 +1,64 @@
-import React, { SFC, useState } from "react";
-import {
-  Container,
-  Header,
-  Menu,
-  Responsive,
-  Segment,
-  Sidebar,
-  Icon,
-  Button
-} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
 
-const NavMenu = ({ vertical }: { vertical: boolean }): JSX.Element => (
-  <Menu inverted size="huge" style={{ height: "100%" }} vertical={vertical}>
-    <Menu.Item active className="sidebarItems">
-      Watch Movie
-    </Menu.Item>
-    <Menu.Item className="sidebarItems">My Movies</Menu.Item>
-  </Menu>
-);
+import LayoutContainer from "../components/LayoutContainer";
+import MovieAdder from "../components/MovieAdder";
+import MovieList from "../components/MovieList";
+import MovieRecommender from "../components/MovieRecommender";
+import { Page } from "../constants";
+import { fetchMovies } from "../network/requests";
+import { MoviePreference, User } from "../types";
 
 const HomePage = (): JSX.Element => {
-  const ResponsiveContainer: SFC = ({ children }) => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [movies, setMovies] = useState<Array<MoviePreference>>([]);
+  const fetchUserMovies = () => (user ? fetchMovies(user, setMovies) : null);
 
-    function handleSidebarHide() {
-      setSidebarOpen(false);
-    }
+  useEffect(() => {
+    fetch("/session")
+      .then(response => response.json())
+      .then((data: { user: User | null }) => {
+        setUser(data.user);
+      });
+  }, []);
 
-    function handleToggle() {
-      setSidebarOpen(!sidebarOpen);
-    }
-    return (
-      <Sidebar.Pushable>
-        <Sidebar
-          animation="overlay"
-          onHide={handleSidebarHide}
-          visible={sidebarOpen}
-        >
-          <NavMenu vertical />
-        </Sidebar>
-        <Sidebar.Pusher className="content" dimmed={sidebarOpen}>
-          <Segment inverted vertical>
-            <Menu inverted pointing secondary size="large">
-              <Responsive
-                as={Menu.Item}
-                fitted
-                maxWidth={Responsive.onlyMobile.maxWidth}
-                onClick={handleToggle}
-              >
-                <Icon name="sidebar" />
-              </Responsive>
-              <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
-                <NavMenu vertical={false} />
-              </Responsive>
-              <Menu.Item position="right">
-                <Button inverted>Log In</Button>
-                <Button inverted style={{ marginLeft: "0.5em" }}>
-                  Sign Up
-                </Button>
-              </Menu.Item>
-            </Menu>
-          </Segment>
-          {children}
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-    );
+  const handleLogout = () => {
+    fetch("/logout", { method: "POST" }).then(() => {
+      setUser(null);
+    });
   };
 
   return (
-    <ResponsiveContainer>
-      <h1>Stuff goes here</h1>
-    </ResponsiveContainer>
+    <LayoutContainer activePage={Page.home}>
+      <h1>Kvasir Movies</h1>
+      {user != null && <p>Welcome back, {user.email}!</p>}
+      <p>Find 🎬 with 👫 😄</p>
+      {user != null && <MovieRecommender />}
+      {user != null && (
+        <MovieAdder user={user} fetchUserMovies={fetchUserMovies} />
+      )}
+      {user != null && (
+        <MovieList
+          user={user}
+          movies={movies}
+          fetchUserMovies={fetchUserMovies}
+          setMovies={setMovies}
+        />
+      )}
+      {user ? (
+        <div className="links">
+          <a onClick={handleLogout}>Log Out</a>
+        </div>
+      ) : (
+        <div className="links">
+          <a className="login" href="/login">
+            Log In
+          </a>
+          <a className="signup" href="/signup">
+            Sign Up
+          </a>
+        </div>
+      )}
+    </LayoutContainer>
   );
 };
 

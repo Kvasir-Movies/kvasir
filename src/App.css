@@ -1,3 +1,8 @@
+:root {
+  --black: #231f20;
+  --red: #cf2625;
+}
+
 #root {
   height: 100%;
   width: 100%;
@@ -6,6 +11,11 @@
 .content {
   display: flex;
   flex-direction: column;
+}
+
+.navbar {
+  background-color: var(--red);
+  color: var(--black);
 }
 
 /*

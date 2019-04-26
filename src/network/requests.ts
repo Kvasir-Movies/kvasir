@@ -1,10 +1,5 @@
-import {
-  Movie,
-  MoviePreference,
-  PreferenceType,
-  SetMovies,
-  User
-} from "../types";
+import { PreferenceType } from "../constants";
+import { MoviePreference, SetMovies, User } from "../types";
 
 export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
