@@ -4,18 +4,30 @@
 }
 
 #root {
+  display: flex;
   height: 100%;
   width: 100%;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
 }
 
 .navbar {
   background-color: var(--red);
   color: var(--black);
+}
+
+.flex-fill {
+  display: flex;
+  flex-grow: 1;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*

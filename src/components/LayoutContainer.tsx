@@ -4,42 +4,46 @@ import {
   Image,
   Menu,
   Responsive,
-  Segment,
   Sidebar,
-  Container
+  Button
 } from "semantic-ui-react";
 
-import { Page } from "../constants";
+import { Paths } from "../constants";
 import logo from "../images/reel-politik-logo-1.png";
-import { string } from "prop-types";
-
-interface propTypes {
-  activePage: Page;
-  className?: string;
-  style?: React.CSSProperties;
-}
+import { User } from "../types";
 
 const Logo = () => (
   <Image src={logo} style={{ height: "3em", margin: "0.5em" }} />
 );
 
-const LayoutContainer: React.SFC<propTypes> = ({
-  activePage,
-  children,
-  className,
-  style
-}): JSX.Element => {
+const LayoutContainer: React.SFC<{
+  activePath?: Paths | null;
+  sessionUser?: User | null;
+  setSessionUser: (sessionUser: User | null) => void;
+}> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   function handleSidebarHide() {
     setSidebarOpen(false);
   }
-
   function handleToggle() {
     setSidebarOpen(!sidebarOpen);
   }
+
+  const handleLogout = () => {
+    fetch("/logout", { method: "POST" }).then(response => {
+      if (response.ok) {
+        setSessionUser(null);
+      }
+    });
+  };
+  const LogoutButton = () => (
+    <Button basic inverted onClick={handleLogout}>
+      Log Out
+    </Button>
+  );
+
   return (
-    <Sidebar.Pushable {...className} {...style}>
+    <Sidebar.Pushable className="flex-fill">
       <Sidebar
         animation="overlay"
         as={Menu}
@@ -48,64 +52,90 @@ const LayoutContainer: React.SFC<propTypes> = ({
         vertical
         visible={sidebarOpen}
       >
-        <Menu.Item active={activePage == Page.home} className="sidebarItems">
-          Home
+        <Menu.Item
+          active={activePath == Paths.explorePage}
+          className="sidebarItems"
+        >
+          Explore
         </Menu.Item>
         <Menu.Item
-          active={activePage == Page.myMovies}
+          active={activePath == Paths.myMoviesPage}
           className="sidebarItems"
         >
           My Movies
         </Menu.Item>
       </Sidebar>
-      <Sidebar.Pusher className="content" dimmed={sidebarOpen}>
+      <Sidebar.Pusher
+        className="flex-fill"
+        dimmed={sidebarOpen}
+        style={{ flexDirection: "column" }}
+      >
         <div className="navbar">
           <Responsive
             as={"div"}
             maxWidth={Responsive.onlyMobile.maxWidth}
             style={{
+              alignItems: "center",
               display: "flex",
-              "justify-content": "space-between",
-              "align-items": "center"
+              justifyContent: "space-between"
             }}
           >
-            <div>
-              <Icon
-                name="sidebar"
-                onClick={handleToggle}
-                style={{ margin: "0.5em" }}
-              />
+            <div
+              style={{ display: "flex", flexBasis: "33%", padding: "0.5em" }}
+            >
+              {Boolean(sessionUser) && (
+                <Icon
+                  name="sidebar"
+                  onClick={handleToggle}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
             </div>
-            <div>
+            <div
+              className="flex-center"
+              style={{ display: "flex", flexBasis: "34%" }}
+            >
               <Logo />
             </div>
-            {/* Add an identical hidden dummy element on the far side so that flexbox centers the logo. */}
-            <div style={{ margin: "0.5em", visibility: "hidden" }}>
-              <Icon name="sidebar" />
+            <div
+              style={{
+                display: "flex",
+                flexBasis: "33%",
+                flexDirection: "row-reverse",
+                padding: "0.5em"
+              }}
+            >
+              {Boolean(sessionUser) && <LogoutButton />}
             </div>
           </Responsive>
           <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
-            <Menu pointing secondary size="large">
+            {Boolean(sessionUser) ? (
+              <Menu pointing secondary size="large">
+                <Logo />
+                <Menu.Item
+                  active={activePath == Paths.explorePage}
+                  className="sidebarItems"
+                >
+                  Explore
+                </Menu.Item>
+                <Menu.Item
+                  active={activePath == Paths.myMoviesPage}
+                  className="sidebarItems"
+                >
+                  My Movies
+                </Menu.Item>
+                <Menu.Item position="right">
+                  <LogoutButton />
+                </Menu.Item>
+              </Menu>
+            ) : (
               <Logo />
-              <Menu.Item
-                active={activePage == Page.home}
-                className="sidebarItems"
-              >
-                Home
-              </Menu.Item>
-              <Menu.Item
-                active={activePage == Page.myMovies}
-                className="sidebarItems"
-              >
-                My Movies
-              </Menu.Item>
-            </Menu>
+            )}
           </Responsive>
         </div>
-        {/* <Segment className="navbar" style={{height: "4em", width: "100%"}}>
-          
-        </Segment> */}
-        {children}
+        <div style={{ display: "flex", flexGrow: 1, margin: "1em" }}>
+          {children}
+        </div>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );

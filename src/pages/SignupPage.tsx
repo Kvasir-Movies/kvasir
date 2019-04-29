@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router";
+import { Button, Form, Header } from "semantic-ui-react";
 
 import useFormInput from "../hooks/useFormInput";
+import AuthenticationForm from "../components/AuthenticationForm";
+import LayoutContainer from "../components/LayoutContainer";
+import { UnauthenticatedPageProps, User } from "../types";
 
-export default function SignupPage(): JSX.Element {
-  const email = useFormInput("");
-  const password = useFormInput("");
-  const [signedUp, setSignedUp] = useState(false);
+const SignupPage = ({
+  setSessionUser
+}: UnauthenticatedPageProps): JSX.Element => {
+  const { value: emailValue, onChange: onEmailChange } = useFormInput("");
+  const { value: passwordValue, onChange: onPasswordChange } = useFormInput("");
 
   function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     fetch("/signup", {
       method: "POST",
-      body: JSON.stringify({ email: email.value, password: password.value }),
+      body: JSON.stringify({ email: emailValue, password: passwordValue }),
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       }
@@ -23,26 +27,28 @@ export default function SignupPage(): JSX.Element {
           return response.json();
         } else {
           throw new Error(
-            `Login failed: ${response.status} ${response.statusText || ""}`
+            `Signup failed: ${response.status} ${response.statusText || ""}`
           );
         }
       })
-      .then(() => setSignedUp(true))
+      .then((user: User) => {
+        setSessionUser(user);
+      })
       .catch(errorMessage => alert(errorMessage));
   }
 
-  return signedUp ? (
-    <Redirect to="/" />
-  ) : (
-    <form onSubmit={handleOnSubmit}>
-      Email:
-      <input type="text" name="email" {...email} />
-      <br />
-      Password:
-      <input type="text" name="password" {...password} />
-      <br />
-      <input type="submit" value="Submit" />
-      <br />
-    </form>
+  return (
+    <LayoutContainer setSessionUser={setSessionUser}>
+      <AuthenticationForm
+        emailValue={emailValue}
+        formName="Create an account"
+        handleOnSubmit={handleOnSubmit}
+        onEmailChange={onEmailChange}
+        onPasswordChange={onPasswordChange}
+        passwordValue={passwordValue}
+      />
+    </LayoutContainer>
   );
-}
+};
+
+export default SignupPage;
