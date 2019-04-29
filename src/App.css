@@ -14,6 +14,14 @@
   color: var(--black);
 }
 
+.pageContent {
+  background-color: var(--black);
+}
+
+.asyncSelect {
+  flex-grow: 1;
+}
+
 .flex-fill {
   display: flex;
   flex-grow: 1;

@@ -168,7 +168,10 @@ const LayoutContainer: React.SFC<{
             )}
           </Responsive>
         </div>
-        <div style={{ display: "flex", flexGrow: 1, margin: "1em" }}>
+        <div
+          className="pageContent"
+          style={{ display: "flex", flexGrow: 1, padding: "1em" }}
+        >
           {children}
         </div>
       </Sidebar.Pusher>
