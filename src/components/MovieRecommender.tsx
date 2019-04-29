@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Form, Segment } from "semantic-ui-react";
 
 import useFormInput from "../hooks/useFormInput";
 import { Movie } from "../types";
@@ -14,16 +15,30 @@ const MovieRecommender = (props: {}): JSX.Element => {
   };
 
   return (
-    <div className="movieRecommender">
-      <input className="formField" type="text" {...emailsInput} />
-      <button onClick={handleFetchMovieRecommendation}>Find Movies</button>
-      <div className="movieList">
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <Form
+        onSubmit={handleFetchMovieRecommendation}
+        style={{ display: "flex" }}
+      >
+        <input
+          className="flex-fill"
+          placeholder="Emails (comma-separated)"
+          type="text"
+          {...emailsInput}
+        />
+        <Button
+          onClick={handleFetchMovieRecommendation}
+          primary
+          style={{ marginLeft: "0.5em" }}
+        >
+          Find Movies
+        </Button>
+      </Form>
+      <Segment.Group>
         {recommendedMovies.map((movie: Movie, index: number) => (
-          <div className="movieOption" key={index}>
-            {movie.title}
-          </div>
+          <Segment key={movie.externalMovieId}>{movie.title}</Segment>
         ))}
-      </div>
+      </Segment.Group>
     </div>
   );
 };

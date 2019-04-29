@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Icon, Segment } from "semantic-ui-react";
 
-import deleteIcon from "../images/x_icon_light.svg";
 import { MoviePreference, SetMovies, User } from "../types";
 import { deleteMovie } from "../network/requests";
 import MoviePreferenceType from "./MoviePreferenceType";
