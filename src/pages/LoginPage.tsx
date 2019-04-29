@@ -1,11 +1,11 @@
 import React from "react";
-
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
 import useFormInput from "../hooks/useFormInput";
 import { UnauthenticatedPageProps, User } from "../types";
 
 const LoginPage = ({
+  history,
   setSessionUser
 }: UnauthenticatedPageProps): JSX.Element => {
   const { value: emailValue, onChange: onEmailChange } = useFormInput("");
@@ -36,7 +36,7 @@ const LoginPage = ({
   };
 
   return (
-    <LayoutContainer setSessionUser={setSessionUser}>
+    <LayoutContainer history={history} setSessionUser={setSessionUser}>
       <AuthenticationForm
         emailValue={emailValue}
         formName="Log In"

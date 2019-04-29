@@ -1,4 +1,5 @@
-import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+
 import { PreferenceType } from "./constants";
 
 export interface MoviePreference {
@@ -19,12 +20,12 @@ export interface User {
   email: string;
 }
 
-export interface AuthenticatedPageProps {
+export interface AuthenticatedPageProps extends RouteComponentProps {
   sessionUser: User;
   setSessionUser: SetSessionUser;
 }
 
-export interface UnauthenticatedPageProps {
+export interface UnauthenticatedPageProps extends RouteComponentProps {
   setSessionUser: SetSessionUser;
 }
 

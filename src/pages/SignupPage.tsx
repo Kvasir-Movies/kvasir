@@ -6,6 +6,7 @@ import LayoutContainer from "../components/LayoutContainer";
 import { UnauthenticatedPageProps, User } from "../types";
 
 const SignupPage = ({
+  history,
   setSessionUser
 }: UnauthenticatedPageProps): JSX.Element => {
   const { value: emailValue, onChange: onEmailChange } = useFormInput("");
@@ -37,7 +38,7 @@ const SignupPage = ({
   }
 
   return (
-    <LayoutContainer setSessionUser={setSessionUser}>
+    <LayoutContainer history={history} setSessionUser={setSessionUser}>
       <AuthenticationForm
         emailValue={emailValue}
         formName="Create an account"

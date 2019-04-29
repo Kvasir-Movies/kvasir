@@ -6,11 +6,12 @@ import { Paths } from "../constants";
 import { UnauthenticatedPageProps } from "../types";
 
 const LandingPage = ({
+  history,
   setSessionUser
 }: UnauthenticatedPageProps): JSX.Element => {
   return (
     <LayoutContainer
-      activePath={null}
+      history={history}
       sessionUser={null}
       setSessionUser={setSessionUser}
     >

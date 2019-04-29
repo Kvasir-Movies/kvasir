@@ -10,10 +10,12 @@ import "./App.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Paths } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
+import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
+import WatchPage from "./pages/WatchPage";
 import { User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
@@ -30,9 +32,13 @@ const AuthenticatedRoute = ({
 }: AuthenticationRouteProps) => (
   <Route
     {...rest}
-    render={() =>
+    render={props =>
       Boolean(sessionUser) ? (
-        <Component sessionUser={sessionUser} setSessionUser={setSessionUser} />
+        <Component
+          sessionUser={sessionUser}
+          setSessionUser={setSessionUser}
+          {...props}
+        />
       ) : (
         <Redirect to={Paths.loginPage} />
       )
@@ -48,9 +54,9 @@ const UnauthenticatedRoute = ({
 }: AuthenticationRouteProps) => (
   <Route
     {...rest}
-    render={() =>
+    render={props =>
       !sessionUser ? (
-        <Component setSessionUser={setSessionUser} />
+        <Component setSessionUser={setSessionUser} {...props} />
       ) : (
         <Redirect to={Paths.explorePage} />
       )
@@ -110,8 +116,20 @@ const App = (): JSX.Element => {
               setSessionUser={setSessionUser}
             />
             <AuthenticatedRoute
+              path={Paths.watchPage}
+              component={WatchPage}
+              sessionUser={sessionUser}
+              setSessionUser={setSessionUser}
+            />
+            <AuthenticatedRoute
               path={Paths.myMoviesPage}
               component={MyMoviesPage}
+              sessionUser={sessionUser}
+              setSessionUser={setSessionUser}
+            />
+            <AuthenticatedRoute
+              path={Paths.friendsPage}
+              component={FriendsPage}
               sessionUser={sessionUser}
               setSessionUser={setSessionUser}
             />

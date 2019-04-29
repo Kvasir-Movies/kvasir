@@ -1,3 +1,4 @@
+import { History } from "history";
 import React, { useState } from "react";
 import {
   Icon,
@@ -16,11 +17,40 @@ const Logo = () => (
   <Image src={logo} style={{ height: "3em", margin: "0.5em" }} />
 );
 
+const PageMenuItem = ({
+  activePath,
+  history,
+  pageName,
+  pagePath
+}: {
+  activePath?: Paths;
+  history: History;
+  pageName: string;
+  pagePath: Paths;
+}) => (
+  <Menu.Item
+    active={activePath == pagePath}
+    key={pagePath}
+    onClick={() => {
+      history.push(pagePath);
+    }}
+  >
+    {pageName}
+  </Menu.Item>
+);
+
 const LayoutContainer: React.SFC<{
-  activePath?: Paths | null;
+  activePath?: Paths;
+  history: History;
   sessionUser?: User | null;
   setSessionUser: (sessionUser: User | null) => void;
-}> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
+}> = ({
+  activePath,
+  children,
+  history,
+  sessionUser,
+  setSessionUser
+}): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   function handleSidebarHide() {
     setSidebarOpen(false);
@@ -42,6 +72,33 @@ const LayoutContainer: React.SFC<{
     </Button>
   );
 
+  const pageMenuItems = [
+    <PageMenuItem
+      activePath={activePath}
+      history={history}
+      pageName="Explore"
+      pagePath={Paths.explorePage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      history={history}
+      pageName="Watch"
+      pagePath={Paths.watchPage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      history={history}
+      pageName="My Movies"
+      pagePath={Paths.myMoviesPage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      history={history}
+      pageName="Friends"
+      pagePath={Paths.friendsPage}
+    />
+  ];
+
   return (
     <Sidebar.Pushable className="flex-fill">
       <Sidebar
@@ -52,18 +109,7 @@ const LayoutContainer: React.SFC<{
         vertical
         visible={sidebarOpen}
       >
-        <Menu.Item
-          active={activePath == Paths.explorePage}
-          className="sidebarItems"
-        >
-          Explore
-        </Menu.Item>
-        <Menu.Item
-          active={activePath == Paths.myMoviesPage}
-          className="sidebarItems"
-        >
-          My Movies
-        </Menu.Item>
+        {pageMenuItems}
       </Sidebar>
       <Sidebar.Pusher
         className="flex-fill"
@@ -112,18 +158,7 @@ const LayoutContainer: React.SFC<{
             {Boolean(sessionUser) ? (
               <Menu pointing secondary size="large">
                 <Logo />
-                <Menu.Item
-                  active={activePath == Paths.explorePage}
-                  className="sidebarItems"
-                >
-                  Explore
-                </Menu.Item>
-                <Menu.Item
-                  active={activePath == Paths.myMoviesPage}
-                  className="sidebarItems"
-                >
-                  My Movies
-                </Menu.Item>
+                {pageMenuItems}
                 <Menu.Item position="right">
                   <LogoutButton />
                 </Menu.Item>
