@@ -15,8 +15,8 @@ const LandingPage = ({
       setSessionUser={setSessionUser}
     >
       <h1>Try out Reel Politik</h1>
-      <Link to={Paths.loginPage}>Login</Link>
-      <Link to={Paths.signupPage}>Signup</Link>
+      <Link to={Paths.loginPage}>Log In</Link>
+      <Link to={Paths.signupPage}>Sign Up</Link>
     </LayoutContainer>
   );
 };

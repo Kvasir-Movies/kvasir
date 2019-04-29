@@ -39,7 +39,7 @@ const LoginPage = ({
     <LayoutContainer setSessionUser={setSessionUser}>
       <AuthenticationForm
         emailValue={emailValue}
-        formName="Login"
+        formName="Log In"
         handleOnSubmit={handleOnSubmit}
         onEmailChange={onEmailChange}
         onPasswordChange={onPasswordChange}

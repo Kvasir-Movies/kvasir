@@ -31,6 +31,7 @@ const AuthenticationForm = ({
           <Form.Field>
             <label>Email</label>
             <input
+              name="email"
               placeholder="Email"
               type="text"
               value={emailValue}
@@ -40,6 +41,7 @@ const AuthenticationForm = ({
           <Form.Field>
             <label>Password</label>
             <input
+              name="password"
               placeholder="Password"
               type="password"
               value={passwordValue}
