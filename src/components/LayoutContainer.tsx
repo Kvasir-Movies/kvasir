@@ -76,24 +76,28 @@ const LayoutContainer: React.SFC<{
     <PageMenuItem
       activePath={activePath}
       history={history}
+      key={Paths.explorePage}
       pageName="Explore"
       pagePath={Paths.explorePage}
     />,
     <PageMenuItem
       activePath={activePath}
       history={history}
+      key={Paths.watchPage}
       pageName="Watch"
       pagePath={Paths.watchPage}
     />,
     <PageMenuItem
       activePath={activePath}
       history={history}
+      key={Paths.myMoviesPage}
       pageName="My Movies"
       pagePath={Paths.myMoviesPage}
     />,
     <PageMenuItem
       activePath={activePath}
       history={history}
+      key={Paths.friendsPage}
       pageName="Friends"
       pagePath={Paths.friendsPage}
     />

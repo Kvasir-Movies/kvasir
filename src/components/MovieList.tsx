@@ -14,7 +14,7 @@ export default function MovieList(props: {
   return (
     <Segment.Group>
       {props.movies.map(movie => (
-        <Segment key={movie.id}>
+        <Segment key={movie.externalMovieId}>
           <div style={{ display: "flex" }}>
             <div style={{ flexGrow: 1, margin: "0.5em" }}>{movie.title}</div>
             <MoviePreferenceType

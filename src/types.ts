@@ -5,7 +5,7 @@ import { PreferenceType } from "./constants";
 export interface MoviePreference {
   id: number;
   user_id: number;
-  external_movie_id: string;
+  externalMovieId: string;
   title: string;
   preferenceType: PreferenceType;
 }
