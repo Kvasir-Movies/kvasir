@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button, Form, Header } from "semantic-ui-react";
 
 import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";

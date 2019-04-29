@@ -5,6 +5,7 @@ import {
   RouteProps,
   Redirect
 } from "react-router-dom";
+
 import "./App.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Paths } from "./constants";
