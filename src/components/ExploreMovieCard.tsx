@@ -1,18 +1,23 @@
 import React from "react";
 
-import { Movie, PreferenceType, User } from "../types";
+import { Movie, MoviePreference, PreferenceType, User } from "../types";
 
-import { Button, Card, Icon, Image } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
+
+import ExploreMovieCardBottom from "./ExploreMovieCardBottom";
 
 const ExploreMovieCard = (props: {
   movie: Movie;
-  addMoviePreference: (
+  changeMoviePreference: (
     externalMovieId: string,
     preferenceType: PreferenceType
   ) => void;
+  moviePreference: MoviePreference | null;
 }): JSX.Element => {
   const movie = props.movie;
-  const addMoviePreference = props.addMoviePreference;
+  const moviePreference = props.moviePreference;
+  const changeMoviePreference = props.changeMoviePreference;
+
   return (
     <Card>
       <Image src={movie.poster_path} />
@@ -20,26 +25,14 @@ const ExploreMovieCard = (props: {
         <Card.Header>{movie.title}</Card.Header>
         <Card.Description>{movie.overview}</Card.Description>
       </Card.Content>
-      <Card.Content extra>
-        <Button.Group fluid>
-          <Button
-            color="green"
-            onClick={() =>
-              addMoviePreference(movie.externalMovieId, PreferenceType.positive)
-            }
-          >
-            <Icon name="checkmark" />
-          </Button>
-          <Button
-            color="black"
-            onClick={() =>
-              addMoviePreference(movie.externalMovieId, PreferenceType.negative)
-            }
-          >
-            <Icon name="close" />
-          </Button>
-        </Button.Group>
-      </Card.Content>
+      {props.moviePreference != null && (
+        <Card.Content extra>
+          <ExploreMovieCardBottom
+            movie={movie}
+            changeMoviePreference={changeMoviePreference}
+          />
+        </Card.Content>
+      )}
     </Card>
   );
 };
