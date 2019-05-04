@@ -4,8 +4,6 @@ from flask import jsonify
 DESIRED_KEYS = [
     'title',
     'overview',
-    'genres',
-    'status'
 ]
 
 def handle_movie_data(movie):
@@ -17,4 +15,4 @@ def handle_movie_data(movie):
 class ExploreController():
     def handle(self):
         response = explore()
-        return jsonify({'movies': list(map(handle_movie_data, response))})
+        return jsonify({'movies': [handle_movie_data(movie_data) for movie_data in response]})
