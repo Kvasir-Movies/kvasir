@@ -26,11 +26,18 @@ const ExploreMovieList = (props: {
 }): JSX.Element => {
   const [userMovies, setUserMovies] = useState<Array<MoviePreference>>([]);
   const doFetchUserMovies = () => fetchMovies(props.user, setUserMovies);
-
   useEffect(props.fetchExploreMovies, []);
   useEffect(doFetchUserMovies, []);
 
-  const addMoviePreferenceWrapper = (
+  const userMoviePreferenceMap = userMovies.reduce(
+    (acc: any, moviePreference: MoviePreference) => {
+      acc[moviePreference.external_movie_id] = moviePreference.preferenceType;
+      return acc;
+    },
+    {}
+  );
+
+  const handleChangeMoviePreference = (
     externalMovieId: string,
     preferenceType: PreferenceType
   ) => {
@@ -54,7 +61,12 @@ const ExploreMovieList = (props: {
         <ExploreMovieCard
           key={index}
           movie={movie}
-          addMoviePreference={addMoviePreferenceWrapper}
+          changeMoviePreference={handleChangeMoviePreference}
+          moviePreference={
+            userMoviePreferenceMap[movie.externalMovieId]
+              ? userMoviePreferenceMap[movie.externalMovieId]
+              : null
+          }
         />
       ))}
     </Card.Group>
