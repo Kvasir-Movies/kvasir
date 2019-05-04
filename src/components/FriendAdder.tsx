@@ -1,25 +1,48 @@
 import React from "react";
+import { Button, Form, Label } from "semantic-ui-react";
 
 import useFormInput from "../hooks/useFormInput";
 import { addFriend } from "../network/requests";
-import { User } from "../types";
+import { SetSessionUser, User } from "../types";
 
-const FriendAdder = (props: { user: User; setUser: Function }): JSX.Element => {
+const FriendAdder = ({
+  sessionUser,
+  setSessionUser
+}: {
+  sessionUser: User;
+  setSessionUser: SetSessionUser;
+}): JSX.Element => {
   const emailInput = useFormInput("");
 
-  const handleAddFriend = async () => {
-    const user = await addFriend(props.user.id, emailInput.value);
-    if (user) {
-      props.setUser(user);
+  // Sets a new user object to the sessionUser to refresh values associated with that user's object
+  // First double-checks that the user itself hasn't changed
+  const updateSessionUser = (user: User) => {
+    if (user.id === sessionUser.id) {
+      setSessionUser(user);
     }
   };
 
+  const handleOnSubmit = async () => {
+    const user = await addFriend(sessionUser.id, emailInput.value);
+    if (user) {
+      updateSessionUser(user);
+    }
+    emailInput.setValue("");
+  };
+
   return (
-    <div className="friendAdder">
-      <span>Friend's Email:</span>
-      <input className="formField" type="email" {...emailInput} />
-      <button onClick={handleAddFriend}>Add Friend</button>
-    </div>
+    <Form className="flex-fill" inverted onSubmit={handleOnSubmit}>
+      <input
+        className="flex-fill"
+        name="email"
+        placeholder="Enter a friend's email"
+        type="email"
+        {...emailInput}
+      />
+      <Button primary style={{ marginLeft: "0.5em" }} type="submit">
+        Add
+      </Button>
+    </Form>
   );
 };
 

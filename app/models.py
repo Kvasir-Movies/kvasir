@@ -47,7 +47,7 @@ class User(db.Model):
         return {
             'id': self.id,
             'email': self.email,
-            'friends': [friendship.friend.email for friendship in self.friendships]
+            'friends': [{'email': friendship.friend.email} for friendship in self.friendships]
         }
 
 class PreferenceTypes(enum.Enum):

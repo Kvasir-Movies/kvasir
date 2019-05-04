@@ -2,6 +2,10 @@ import { RouteComponentProps } from "react-router-dom";
 
 import { PreferenceType } from "./constants";
 
+export interface Friend {
+  email: string;
+}
+
 export interface MoviePreference {
   id: number;
   user_id: number;
@@ -18,6 +22,7 @@ export interface Movie {
 export interface User {
   id: number;
   email: string;
+  friends: Array<Friend>;
 }
 
 export interface AuthenticatedPageProps extends RouteComponentProps {
