@@ -13,6 +13,8 @@ export interface MoviePreference {
   user_id: number;
   external_movie_id: string;
   title: string;
+  overview: string;
+  poster_path: string;
   preferenceType: PreferenceType;
 }
 
