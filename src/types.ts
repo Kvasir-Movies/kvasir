@@ -21,4 +21,5 @@ export interface Movie {
   title: string;
 }
 
-export type SetMovies = (movies: Array<MoviePreference>) => void;
+export type SetMovies = (movies: Array<Movie>) => void;
+export type SetMoviePreferences = (movies: Array<MoviePreference>) => void;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { updateMoviePreference } from "../network/requests";
-import { PreferenceType, SetMovies, User } from "../types";
+import { PreferenceType, SetMoviePreferences, User } from "../types";
 
 export default function MoviePreferenceType({
   movie_preference_id,
@@ -11,7 +11,7 @@ export default function MoviePreferenceType({
 }: {
   movie_preference_id: number;
   preference: PreferenceType;
-  setMovies: SetMovies;
+  setMovies: SetMoviePreferences;
   user: User;
 }): JSX.Element {
   if (preference == PreferenceType.positive) {
