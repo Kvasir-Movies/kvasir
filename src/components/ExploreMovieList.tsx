@@ -41,17 +41,17 @@ const ExploreMovieList = (props: {
     externalMovieId: string,
     preferenceType: PreferenceType
   ) => {
-    const matchingMoviePreference = userMovies.filter(
+    const matchingMoviePreference = userMovies.find(
       userMovie => userMovie.external_movie_id == externalMovieId
     );
-    if (matchingMoviePreference.length) {
+    if (matchingMoviePreference) {
       updateMoviePreferenceAsync(
-        matchingMoviePreference[0].id,
+        matchingMoviePreference.id,
         props.user,
         preferenceType
       );
     } else {
-      addMoviePreference(props.user, +externalMovieId, preferenceType);
+      addMoviePreference(props.user, Number(externalMovieId), preferenceType);
     }
   };
 
@@ -62,11 +62,6 @@ const ExploreMovieList = (props: {
           key={index}
           movie={movie}
           changeMoviePreference={handleChangeMoviePreference}
-          moviePreference={
-            userMoviePreferenceMap[movie.externalMovieId]
-              ? userMoviePreferenceMap[movie.externalMovieId]
-              : null
-          }
         />
       ))}
     </Card.Group>
