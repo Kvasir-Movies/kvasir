@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Form, Header } from "semantic-ui-react";
+import { Button, Container, Form, Header } from "semantic-ui-react";
 
 const AuthenticationForm = ({
   emailValue,
+  footer,
   formName,
   handleOnSubmit,
   onEmailChange,
@@ -11,6 +12,7 @@ const AuthenticationForm = ({
 }: {
   emailValue: string;
   handleOnSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  footer: JSX.Element;
   formName: string;
   onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -48,7 +50,18 @@ const AuthenticationForm = ({
               onChange={onPasswordChange}
             />
           </Form.Field>
-          <Button type="submit">Submit</Button>
+          <Button fluid type="submit">
+            Submit
+          </Button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "1em"
+            }}
+          >
+            {footer}
+          </div>
         </Form>
       </div>
     </div>

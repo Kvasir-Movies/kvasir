@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
+import { Paths } from "../constants";
 import { UnauthenticatedPageProps, User } from "../types";
 
 const SignupPage = ({
@@ -40,6 +42,12 @@ const SignupPage = ({
     <LayoutContainer setSessionUser={setSessionUser}>
       <AuthenticationForm
         emailValue={emailValue}
+        footer={
+          <span>
+            Already have an account?{" "}
+            <Link to={Paths.loginPage}>Log in here.</Link>
+          </span>
+        }
         formName="Create an account"
         handleOnSubmit={handleOnSubmit}
         onEmailChange={onEmailChange}
