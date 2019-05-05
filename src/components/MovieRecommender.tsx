@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 
-import useFormInput from "../hooks/useFormInput";
-import { Movie } from "../types";
+import { Movie, User } from "../types";
 import { getRecommendation } from "../network/requests";
+import UserPicker from "./UserPicker";
 
-const MovieRecommender = (props: {}): JSX.Element => {
-  const emailsInput = useFormInput("");
-
+const MovieRecommender = ({
+  sessionUser
+}: {
+  sessionUser: User;
+}): JSX.Element => {
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
+  const [selectedEmails, setSelectedEmails] = useState([] as Array<string>);
+
   const handleFetchMovieRecommendation = async () => {
-    const recommendedMovies = await getRecommendation(emailsInput.value);
+    const recommendedMovies = await getRecommendation(selectedEmails.join(","));
     setRecommendedMovies(recommendedMovies);
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <Form
-        onSubmit={handleFetchMovieRecommendation}
-        style={{ display: "flex" }}
-      >
-        <input
-          className="flex-fill"
-          placeholder="Emails (comma-separated)"
-          type="text"
-          {...emailsInput}
+      <div className="flex-fill">
+        <UserPicker
+          sessionUser={sessionUser}
+          selectedEmails={selectedEmails}
+          setSelectedEmails={setSelectedEmails}
         />
         <Button
           onClick={handleFetchMovieRecommendation}
@@ -33,7 +33,8 @@ const MovieRecommender = (props: {}): JSX.Element => {
         >
           Find Movies
         </Button>
-      </Form>
+      </div>
+
       <Segment.Group>
         {recommendedMovies.map((movie: Movie, index: number) => (
           <Segment key={movie.externalMovieId}>{movie.title}</Segment>

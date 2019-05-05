@@ -98,3 +98,13 @@ export const addFriend = async (userId: number, friendEmail: string) => {
   const json = await response.json();
   return json;
 };
+
+export const searchUsers = async (query: string) => {
+  const searchParams = new URLSearchParams({ query });
+  const response = await fetch("users/search?" + searchParams);
+  if (response.status !== 200) {
+    return [];
+  }
+  const json = await response.json();
+  return json.users;
+};

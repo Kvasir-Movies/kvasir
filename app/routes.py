@@ -8,7 +8,8 @@ from app.controllers import (
     MoviePreferenceController,
     MovieSearchController,
     RecommendationController,
-    SignupController
+    SignupController,
+    UserSearchController
 )
 from app.util.session_util import (
     authorization_required,
@@ -91,3 +92,8 @@ def get_recommendation():
 @authorization_required
 def add_friendship(user):
     return FriendshipController().create(user)
+
+@app.route('/users/search', methods=['GET'])
+@login_required
+def search_users():
+    return UserSearchController().handle()

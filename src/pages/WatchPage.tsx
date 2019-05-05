@@ -25,7 +25,7 @@ const WatchPage = ({
         <Header as="h3" inverted>
           Find 🎬 with 👫 😄
         </Header>
-        <MovieRecommender />
+        <MovieRecommender sessionUser={sessionUser} />
       </Container>
     </LayoutContainer>
   );
