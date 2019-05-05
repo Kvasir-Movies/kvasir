@@ -26,8 +26,10 @@ const AuthenticationForm = ({
       }}
     >
       <div style={{ flexGrow: 1, maxWidth: "40em" }}>
-        <Header as="h1">{formName}</Header>
-        <Form onSubmit={handleOnSubmit}>
+        <Header as="h1" inverted>
+          {formName}
+        </Header>
+        <Form inverted onSubmit={handleOnSubmit}>
           <Form.Field>
             <label>Email</label>
             <input
