@@ -11,7 +11,7 @@ const MovieRecommender = ({
   sessionUser: User;
 }): JSX.Element => {
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
-  const [selectedEmails, setSelectedEmails] = useState([] as Array<string>);
+  const [selectedEmails, setSelectedEmails] = useState<Array<string>>([]);
 
   const handleFetchMovieRecommendation = async () => {
     const recommendedMovies = await getRecommendation(selectedEmails.join(","));
