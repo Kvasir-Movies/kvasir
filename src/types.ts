@@ -10,6 +10,8 @@ export interface MoviePreference {
   user_id: number;
   external_movie_id: string;
   title: string;
+  overview: string;
+  poster_path: string;
   preferenceType: PreferenceType;
 }
 
@@ -18,4 +20,5 @@ export interface Movie {
   title: string;
 }
 
-export type SetMovies = (movies: Array<MoviePreference>) => void;
+export type SetMovies = (movies: Array<Movie>) => void;
+export type SetMoviePreferences = (movies: Array<MoviePreference>) => void;
