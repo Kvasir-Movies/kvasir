@@ -1,7 +1,7 @@
+import { PreferenceType } from "../constants";
 import {
   Movie,
   MoviePreference,
-  PreferenceType,
   SetMovies,
   SetMoviePreferences,
   User
