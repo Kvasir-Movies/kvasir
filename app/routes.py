@@ -7,7 +7,8 @@ from app.controllers import (
     MoviePreferenceController,
     MovieSearchController,
     RecommendationController,
-    SignupController
+    SignupController,
+    SlackController,
 )
 from app.util.session_util import (
     authorization_required,
@@ -84,3 +85,8 @@ def delete_movie_preference(user, movie_preference_id):
 @login_required
 def get_recommendation():
     return RecommendationController().handle()
+
+
+@app.route('/slack', methods=['POST'])
+def get_slack():
+    return SlackController().handle()

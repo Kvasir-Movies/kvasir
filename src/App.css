@@ -9,11 +9,34 @@
   width: 100%;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .navbar {
   background-color: var(--red);
   color: var(--black);
 }
 
+.navbar.mobile {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar.mobile .menu-button {
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.logo {
+  height: 3em;
+  margin: 0.5em;
+}
+
+/* Utilities */
 .flex-fill {
   display: flex;
   flex-grow: 1;
@@ -22,6 +45,10 @@
 .flex-center {
   align-items: center;
   justify-content: center;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 @keyframes spin {
@@ -54,6 +81,7 @@
   background-color: var(--main-mid);
   padding: 35px;
   border-radius: 5px;
+  width: 700px;
 }
 
 .header {
@@ -130,7 +158,6 @@ form {
 
 .movieList {
   padding: 20px 0;
-  width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -145,6 +172,14 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.movieOverview {
+  width: 200px;
+}
+
+.moviePoster {
+  width: 200px;
 }
 
 .deleteIcon:hover {
@@ -164,5 +199,7 @@ form {
 
 .movieTitle {
   padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 */

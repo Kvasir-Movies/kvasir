@@ -1,4 +1,3 @@
-import React from "react";
 import { PreferenceType } from "./constants";
 
 export interface MoviePreference {
@@ -6,6 +5,8 @@ export interface MoviePreference {
   user_id: number;
   external_movie_id: string;
   title: string;
+  overview: string;
+  poster_path: string;
   preferenceType: PreferenceType;
 }
 
@@ -28,5 +29,6 @@ export interface UnauthenticatedPageProps {
   setSessionUser: SetSessionUser;
 }
 
-export type SetMovies = (movies: Array<MoviePreference>) => void;
+export type SetMovies = (movies: Array<Movie>) => void;
+export type SetMoviePreferences = (movies: Array<MoviePreference>) => void;
 export type SetSessionUser = (sessionUser: User | null) => void;
