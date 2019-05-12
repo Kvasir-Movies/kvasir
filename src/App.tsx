@@ -73,9 +73,9 @@ const App = (): JSX.Element => {
 
   return (
     <Router>
-      <div className="flex-fill">
+      <div className="fill-height">
         {hasSessionLoaded ? (
-          <div className="flex-fill">
+          <div className="fill-height">
             <UnauthenticatedRoute
               path="/"
               exact
@@ -117,7 +117,7 @@ const App = (): JSX.Element => {
             />
           </div>
         ) : (
-          <div className="flex-fill flex-center">
+          <div className="full-page-spinner">
             <ReelSpinner />
           </div>
         )}

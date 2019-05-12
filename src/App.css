@@ -1,18 +1,31 @@
+/* Root-level stuff */
 :root {
   --black: #231f20;
   --red: #cf2625;
 }
 
 #root {
-  display: flex;
   height: 100%;
   width: 100%;
 }
 
 .content {
   display: flex;
-  flex-direction: column;
   flex-grow: 1;
+  margin: 1em;
+}
+
+/* Components */
+.full-page-spinner {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.logo {
+  height: 3em;
+  margin: 0.5em;
 }
 
 .navbar {
@@ -31,20 +44,30 @@
   padding: 0.5em;
 }
 
-.logo {
-  height: 3em;
-  margin: 0.5em;
+.navbar.mobile .navbar-section {
+  flex-basis: 33%;
+}
+
+.navbar .authentication-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  padding: 0.5em;
 }
 
 /* Utilities */
-.flex-fill {
-  display: flex;
-  flex-grow: 1;
+.fill-height {
+  height: 100%;
 }
 
 .flex-center {
   align-items: center;
   justify-content: center;
+}
+
+.flex-fill {
+  display: flex;
+  flex-grow: 1;
 }
 
 .hidden {

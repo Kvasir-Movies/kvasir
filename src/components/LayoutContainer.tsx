@@ -65,8 +65,12 @@ const LayoutContainer: React.SFC<{
   ];
 
   return (
-    <div>
-      <Responsive as="div" maxWidth={Responsive.onlyMobile.maxWidth}>
+    <div className="fill-height">
+      <Responsive
+        as="div"
+        className="fill-height"
+        maxWidth={Responsive.onlyMobile.maxWidth}
+      >
         <Sidebar.Pushable>
           <Sidebar
             animation="overlay"
@@ -78,44 +82,23 @@ const LayoutContainer: React.SFC<{
           >
             {menuItems}
           </Sidebar>
-          <Sidebar.Pusher className="content" dimmed={sidebarOpen}>
+          <Sidebar.Pusher className="fill-height" dimmed={sidebarOpen}>
             <NavBar mobile>
-              {/* <div className="menu-button">
-                <Icon name="sidebar" onClick={handleToggle} />
-              </div>
-              <Logo />
-              <div className="menu-button hidden">
-                <Icon name="sidebar" />
-              </div> */}
-              <div
-                style={{ display: "flex", flexBasis: "33%", padding: "0.5em" }}
-              >
+              <div className="navbar-section">
                 {Boolean(sessionUser) && (
-                  <Icon
-                    name="sidebar"
-                    onClick={handleToggle}
-                    style={{ cursor: "pointer" }}
-                  />
+                  <div className="menu-button">
+                    <Icon name="sidebar" onClick={handleToggle} />
+                  </div>
                 )}
               </div>
-              <div
-                className="flex-center"
-                style={{ display: "flex", flexBasis: "34%" }}
-              >
+              <div className="navbar-section">
                 <Logo />
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexBasis: "33%",
-                  flexDirection: "row-reverse",
-                  padding: "0.5em"
-                }}
-              >
+              <div className="navbar-section authentication-buttons">
                 {Boolean(sessionUser) && <LogoutButton />}
               </div>
             </NavBar>
-            {children}
+            <div className="content">{children}</div>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Responsive>
@@ -125,14 +108,17 @@ const LayoutContainer: React.SFC<{
             <Menu pointing secondary size="large">
               <Logo />
               {menuItems}
+              <div className="authentication-buttons">
+                <LogoutButton />
+              </div>
             </Menu>
           ) : (
-            <Logo />
+            <Menu pointing secondary size="large">
+              <Logo />
+            </Menu>
           )}
         </NavBar>
-        <div style={{ display: "flex", flexGrow: 1, margin: "1em" }}>
-          {children}
-        </div>
+        <div className="content">{children}</div>
       </Responsive>
     </div>
   );
