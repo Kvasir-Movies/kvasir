@@ -1,7 +1,8 @@
 import React from "react";
 
+import { PreferenceType } from "../constants";
 import { updateMoviePreference } from "../network/requests";
-import { PreferenceType, SetMoviePreferences, User } from "../types";
+import { SetMoviePreferences, User } from "../types";
 
 export default function MoviePreferenceType({
   movie_preference_id,

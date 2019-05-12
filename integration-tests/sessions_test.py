@@ -15,7 +15,7 @@ class SignupTest(unittest.TestCase):
         driver = Firefox(options=options)
         driver.get(LOCAL_HOST)
 
-        self.assertEqual(driver.title, "Kvasir Movies")
+        self.assertEqual(driver.title, "Reel Politik")
         driver.find_element_by_class_name("signup").click()
 
         email_input = driver.find_element_by_name('email')

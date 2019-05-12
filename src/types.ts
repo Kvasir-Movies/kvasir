@@ -1,11 +1,8 @@
+import { PreferenceType } from "./constants";
+
 export interface User {
   id: number;
   email: string;
-}
-
-export enum PreferenceType {
-  positive = "positive",
-  negative = "negative"
 }
 
 export interface MoviePreference {

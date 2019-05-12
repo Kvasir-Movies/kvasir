@@ -8,7 +8,7 @@ import SignupPage from "./pages/SignupPage";
 const App = (): JSX.Element => {
   return (
     <Router>
-      <div className="content">
+      <div>
         <Route path="/" exact component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
