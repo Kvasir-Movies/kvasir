@@ -13,9 +13,29 @@
   flex-direction: column;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .navbar {
   background-color: var(--red);
   color: var(--black);
+}
+
+.navbar.mobile {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar.mobile .menu-button {
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.logo {
+  height: 3em;
+  margin: 0.5em;
 }
 
 /*
