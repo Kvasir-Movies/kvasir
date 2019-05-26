@@ -33,6 +33,13 @@
   color: var(--black);
 }
 
+.navbar .authentication-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+  padding: 0.5em;
+}
+
 .navbar.mobile {
   align-items: center;
   display: flex;
@@ -48,30 +55,9 @@
   flex-basis: 33%;
 }
 
-.navbar .authentication-buttons {
-  display: flex;
-  flex-direction: row-reverse;
-  flex-grow: 1;
-  padding: 0.5em;
-}
-
 /* Utilities */
 .fill-height {
   height: 100%;
-}
-
-.flex-center {
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-fill {
-  display: flex;
-  flex-grow: 1;
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 @keyframes spin {
