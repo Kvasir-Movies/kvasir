@@ -1,4 +1,4 @@
-export enum Paths {
+export enum Path {
   explorePage = "/explore",
   homePage = "/home",
   landingPage = "/landing-page",

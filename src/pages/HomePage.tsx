@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { AuthenticatedPageProps } from "../types";
 
 const HomePage = ({
@@ -12,7 +12,7 @@ const HomePage = ({
 
   return (
     <LayoutContainer
-      activePath={Paths.homePage}
+      activePath={Path.homePage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     />

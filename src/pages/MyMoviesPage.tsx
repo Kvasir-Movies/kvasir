@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { AuthenticatedPageProps, User } from "../types";
 
 const MyMoviesPage = ({
@@ -10,7 +10,7 @@ const MyMoviesPage = ({
 }: AuthenticatedPageProps): JSX.Element => {
   return (
     <LayoutContainer
-      activePath={Paths.myMoviesPage}
+      activePath={Path.myMoviesPage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >

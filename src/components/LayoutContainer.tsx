@@ -8,13 +8,9 @@ import {
   Button
 } from "semantic-ui-react";
 
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import logo from "../images/reel-politik-logo-1.png";
 import { User } from "../types";
-
-interface propTypes {
-  activePath: Paths;
-}
 
 const Logo = () => <Image className="logo" src={logo} />;
 
@@ -26,7 +22,7 @@ const NavBar: React.SFC<{ mobile?: boolean }> = ({
 );
 
 const LayoutContainer: React.SFC<{
-  activePath?: Paths | null;
+  activePath?: Path | null;
   sessionUser?: User | null;
   setSessionUser: (sessionUser: User | null) => void;
 }> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
@@ -53,13 +49,10 @@ const LayoutContainer: React.SFC<{
   );
 
   const menuItems = [
-    <Menu.Item active={activePath == Paths.explorePage} key={Paths.explorePage}>
+    <Menu.Item active={activePath == Path.explorePage} key={Path.explorePage}>
       Explore
     </Menu.Item>,
-    <Menu.Item
-      active={activePath == Paths.myMoviesPage}
-      key={Paths.myMoviesPage}
-    >
+    <Menu.Item active={activePath == Path.myMoviesPage} key={Path.myMoviesPage}>
       My Movies
     </Menu.Item>
   ];

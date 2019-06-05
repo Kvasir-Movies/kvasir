@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import useFormInput from "../hooks/useFormInput";
 import { UnauthenticatedPageProps, User } from "../types";
 
@@ -44,7 +44,7 @@ const LoginPage = ({
         footer={
           <span>
             Don't have an account?{" "}
-            <Link to={Paths.signupPage}>Sign up here.</Link>
+            <Link to={Path.signupPage}>Sign up here.</Link>
           </span>
         }
         formName="Log In"

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { UnauthenticatedPageProps, User } from "../types";
 
 const SignupPage = ({
@@ -45,7 +45,7 @@ const SignupPage = ({
         footer={
           <span>
             Already have an account?{" "}
-            <Link to={Paths.loginPage}>Log in here.</Link>
+            <Link to={Path.loginPage}>Log in here.</Link>
           </span>
         }
         formName="Create an account"

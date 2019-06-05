@@ -35,7 +35,7 @@
 
 .navbar .authentication-buttons {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   flex-grow: 1;
   padding: 0.5em;
 }
