@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Icon, Image, Menu, Responsive, Sidebar } from "semantic-ui-react";
+import {
+  Icon,
+  Image,
+  Menu,
+  Responsive,
+  Sidebar,
+  Button
+} from "semantic-ui-react";
 
-import { Page } from "../constants";
+import { Path } from "../constants";
 import logo from "../images/reel-politik-logo-1.png";
-
-interface propTypes {
-  activePage: Page;
-}
+import { User } from "../types";
 
 const Logo = () => <Image className="logo" src={logo} />;
 
@@ -17,28 +21,49 @@ const NavBar: React.SFC<{ mobile?: boolean }> = ({
   <div className={`navbar ${mobile ? "mobile" : "desktop"}`}>{children}</div>
 );
 
-const LayoutContainer: React.SFC<propTypes> = ({
-  activePage,
-  children
-}): JSX.Element => {
+const LayoutContainer: React.SFC<{
+  activePath?: Path | null;
+  sessionUser?: User | null;
+  setSessionUser: (sessionUser: User | null) => void;
+}> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   function handleSidebarHide() {
     setSidebarOpen(false);
   }
-
   function handleToggle() {
     setSidebarOpen(!sidebarOpen);
   }
 
+  const handleLogout = () => {
+    fetch("/logout", { method: "POST" }).then(response => {
+      if (response.ok) {
+        setSessionUser(null);
+      }
+    });
+  };
+
+  const LogoutButton = () => (
+    <Button basic inverted onClick={handleLogout}>
+      Log Out
+    </Button>
+  );
+
   const menuItems = [
-    <Menu.Item active={activePage == Page.home}>Home</Menu.Item>,
-    <Menu.Item active={activePage == Page.myMovies}>My Movies</Menu.Item>
+    <Menu.Item active={activePath == Path.explorePage} key={Path.explorePage}>
+      Explore
+    </Menu.Item>,
+    <Menu.Item active={activePath == Path.myMoviesPage} key={Path.myMoviesPage}>
+      My Movies
+    </Menu.Item>
   ];
 
   return (
-    <div>
-      <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
+    <div className="fill-height">
+      <Responsive
+        as="div"
+        className="fill-height"
+        maxWidth={Responsive.onlyMobile.maxWidth}
+      >
         <Sidebar.Pushable>
           <Sidebar
             animation="overlay"
@@ -50,29 +75,43 @@ const LayoutContainer: React.SFC<propTypes> = ({
           >
             {menuItems}
           </Sidebar>
-          <Sidebar.Pusher className="content" dimmed={sidebarOpen}>
+          <Sidebar.Pusher className="fill-height" dimmed={sidebarOpen}>
             <NavBar mobile>
-              <div className="menu-button">
-                <Icon name="sidebar" onClick={handleToggle} />
+              <div className="navbar-section">
+                {Boolean(sessionUser) && (
+                  <div className="menu-button">
+                    <Icon name="sidebar" onClick={handleToggle} />
+                  </div>
+                )}
               </div>
-              <Logo />
-              {/* Add an identical hidden dummy element on the far side so that flexbox centers the logo. */}
-              <div className="menu-button hidden">
-                <Icon name="sidebar" />
+              <div className="navbar-section">
+                <Logo />
+              </div>
+              <div className="navbar-section authentication-buttons">
+                {Boolean(sessionUser) && <LogoutButton />}
               </div>
             </NavBar>
-            {children}
+            <div className="content">{children}</div>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Responsive>
       <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
         <NavBar>
-          <Menu pointing secondary size="large">
-            <Logo />
-            {menuItems}
-          </Menu>
+          {Boolean(sessionUser) ? (
+            <Menu pointing secondary size="large">
+              <Logo />
+              {menuItems}
+              <div className="authentication-buttons">
+                <LogoutButton />
+              </div>
+            </Menu>
+          ) : (
+            <Menu pointing secondary size="large">
+              <Logo />
+            </Menu>
+          )}
         </NavBar>
-        {children}
+        <div className="content">{children}</div>
       </Responsive>
     </div>
   );

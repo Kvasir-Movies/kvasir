@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { AuthenticatedPageProps } from "../types";
+import { AuthenticatedPageProps, User } from "../types";
 
-const HomePage = ({
+const ExplorePage = ({
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
-  let hasUserLoaded = false;
-
+  console.log(sessionUser);
   return (
     <LayoutContainer
-      activePath={Path.homePage}
+      activePath={Path.explorePage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
-    />
+    >
+      <h1>Explore</h1>
+    </LayoutContainer>
   );
 };
 
-export default HomePage;
+export default ExplorePage;

@@ -1,3 +1,4 @@
+/* Root-level stuff */
 :root {
   --black: #231f20;
   --red: #cf2625;
@@ -10,16 +11,33 @@
 
 .content {
   display: flex;
-  flex-direction: column;
+  flex-grow: 1;
+  margin: 1em;
 }
 
-.hidden {
-  visibility: hidden;
+/* Components */
+.full-page-spinner {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.logo {
+  height: 3em;
+  margin: 0.5em;
 }
 
 .navbar {
   background-color: var(--red);
   color: var(--black);
+}
+
+.navbar .authentication-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  padding: 0.5em;
 }
 
 .navbar.mobile {
@@ -33,9 +51,19 @@
   padding: 0.5em;
 }
 
-.logo {
-  height: 3em;
-  margin: 0.5em;
+.navbar.mobile .navbar-section {
+  flex-basis: 33%;
+}
+
+/* Utilities */
+.fill-height {
+  height: 100%;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*

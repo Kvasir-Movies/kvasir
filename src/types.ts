@@ -1,10 +1,5 @@
 import { PreferenceType } from "./constants";
 
-export interface User {
-  id: number;
-  email: string;
-}
-
 export interface MoviePreference {
   id: number;
   user_id: number;
@@ -20,5 +15,20 @@ export interface Movie {
   title: string;
 }
 
+export interface User {
+  id: number;
+  email: string;
+}
+
+export interface AuthenticatedPageProps {
+  sessionUser: User;
+  setSessionUser: SetSessionUser;
+}
+
+export interface UnauthenticatedPageProps {
+  setSessionUser: SetSessionUser;
+}
+
 export type SetMovies = (movies: Array<Movie>) => void;
 export type SetMoviePreferences = (movies: Array<MoviePreference>) => void;
+export type SetSessionUser = (sessionUser: User | null) => void;

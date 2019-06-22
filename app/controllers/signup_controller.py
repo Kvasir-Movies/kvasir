@@ -12,6 +12,9 @@ class SignupController():
         email = data['email']
         password = data['password']
 
+        if User.query.filter_by(email=email).one_or_none():
+            return 'A user with this email already exists', 400
+
         user = User(email, password)
         db.session.add(user)
         db.session.commit()
