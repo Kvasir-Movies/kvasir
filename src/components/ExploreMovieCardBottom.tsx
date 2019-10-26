@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Movie, MoviePreference, PreferenceType } from "../types";
+import { Movie, User } from "../types";
+import { PreferenceType } from "../constants";
 
 import { Button, Icon } from "semantic-ui-react";
 

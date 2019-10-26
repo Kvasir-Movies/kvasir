@@ -20,11 +20,12 @@ const ExplorePage = ({
       activePath={Path.explorePage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
-      >
+    >
+      <Container>
         <Header as="h1" textAlign="center">
           Explore
         </Header>
-        {user != null && (
+        {sessionUser != null && (
           <ExploreMovieList
             user={sessionUser}
             movies={movies}
@@ -32,6 +33,7 @@ const ExplorePage = ({
             setMovies={setMovies}
           />
         )}
+      </Container>
     </LayoutContainer>
   );
 };

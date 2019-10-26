@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
+import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Path } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
 import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
