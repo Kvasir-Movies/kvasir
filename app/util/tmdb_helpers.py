@@ -11,6 +11,7 @@ DESIRED_KEYS = [
     'overview',
     'genres',
     'status',
+    'release_date'
 ]
 
 class APIException(Exception):
@@ -24,6 +25,15 @@ class APIException(Exception):
         self.message = message
 
 
+def _process_tmdb_data(tmdb_data):
+    movie_data = { desired_key: tmdb_data.get(desired_key, None) for desired_key in DESIRED_KEYS }
+    movie_data['externalMovieId'] = tmdb_data['id']
+    print(tmdb_data)
+    poster_path = tmdb_data.get('poster_path', None)
+    movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}'.format(poster_path) if poster_path else None
+    return movie_data
+
+
 def search_movies(search_term):
     params = {
         'api_key': TMDB_API_KEY,
@@ -33,8 +43,7 @@ def search_movies(search_term):
     if response.status_code != 200:
         raise APIException(response.status_code,
                            response.json()['status_message'])
-
-    return response.json()['results']
+    return [_process_tmdb_data(result) for result in response.json()['results']]
 
 
 def get_movie(movie_id):
@@ -47,10 +56,7 @@ def get_movie(movie_id):
         raise APIException(response.status_code,
                            response.json()['status_message'])
 
-    movie_data = { desired_key: response.json()[desired_key] for desired_key in DESIRED_KEYS }
-    movie_data['externalMovieId'] = movie_id
-    movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}'.format(response.json()['poster_path'])
-    return movie_data
+    return _process_tmdb_data(response.json())
 
 
 def explore():

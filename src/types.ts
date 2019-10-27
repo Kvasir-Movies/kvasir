@@ -15,10 +15,12 @@ export interface MoviePreference {
 }
 
 export interface Movie {
+  id: string;
   externalMovieId: string;
   title: string;
   overview: string;
   poster_path: string;
+  release_date: string;
 }
 
 export interface User {
