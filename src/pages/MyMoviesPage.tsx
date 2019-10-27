@@ -4,12 +4,11 @@ import { Container, Header } from "semantic-ui-react";
 import LayoutContainer from "../components/LayoutContainer";
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { fetchMovies } from "../network/requests";
 import { AuthenticatedPageProps, MoviePreference } from "../types";
 
 const MyMoviesPage = ({
-  history,
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
@@ -21,8 +20,7 @@ const MyMoviesPage = ({
 
   return (
     <LayoutContainer
-      activePath={Paths.myMoviesPage}
-      history={history}
+      activePath={Path.myMoviesPage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >
@@ -39,7 +37,12 @@ const MyMoviesPage = ({
             My movies
           </Header>
           <MovieAdder user={sessionUser} fetchUserMovies={fetchUserMovies} />
-          <MovieList user={sessionUser} movies={movies} setMovies={setMovies} />
+          <MovieList
+            user={sessionUser}
+            fetchUserMovies={fetchUserMovies}
+            movies={movies}
+            setMovies={setMovies}
+          />
         </Container>
       </div>
     </LayoutContainer>

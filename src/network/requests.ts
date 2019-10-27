@@ -1,7 +1,16 @@
 import { PreferenceType } from "../constants";
-import { MoviePreference, SetMovies, User } from "../types";
+import {
+  Movie,
+  MoviePreference,
+  SetMovies,
+  SetMoviePreferences,
+  User
+} from "../types";
 
-export const fetchMovies = (user: User, setMovies: SetMovies): void => {
+export const fetchMovies = (
+  user: User,
+  setMovies: SetMoviePreferences
+): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
     method: "GET",
     headers: {
@@ -39,7 +48,7 @@ export const loadMovieOptions = (inputValue: string) => {
 export const deleteMovie = (
   user: User,
   moviePreference: MoviePreference,
-  setMovies: SetMovies
+  setMovies: SetMoviePreferences
 ) => {
   return fetch(`/users/${user.id}/movie-preferences/${moviePreference.id}`, {
     method: "DELETE"
@@ -52,7 +61,7 @@ export const updateMoviePreference = async (
   id: number,
   user: User,
   preferenceType: PreferenceType,
-  setMovies: SetMovies
+  setMovies: SetMoviePreferences
 ) => {
   const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
     method: "PATCH",

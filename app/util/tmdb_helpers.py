@@ -5,6 +5,12 @@ TMDB_API_KEY = app.config.get('TMDB_API_KEY')
 TMDB_SEARCH_MOVIE_URL = 'https://api.themoviedb.org/3/search/movie'
 TMDB_FIND_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
 
+DESIRED_KEYS = [
+    'title',
+    'overview',
+    'genres',
+    'status',
+]
 
 class APIException(Exception):
     """Exception raised for failed API calls
@@ -40,4 +46,7 @@ def get_movie(movie_id):
         raise APIException(response.status_code,
                            response.json()['status_message'])
 
-    return {'externalMovieId': movie_id, 'title': response.json().get('title', '')}
+    movie_data = { desired_key: response.json()[desired_key] for desired_key in DESIRED_KEYS }
+    movie_data['externalMovieId'] = movie_id
+    movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}'.format(response.json()['poster_path'])
+    return movie_data
