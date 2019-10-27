@@ -75,10 +75,10 @@ export const loadMovieOptions = (inputValue: string) => {
   return fetch("/search-movies?" + searchParams.toString())
     .then(response => response.json())
     .then(function(json: { searchResults: Array<Movie> }) {
-      return json.searchResults.map(option => ({
-        movie: option,
-        label: option.title,
-        value: option.id
+      return json.searchResults.map(movie => ({
+        movie: movie,
+        label: movie.title,
+        value: movie.externalMovieId
       }));
     });
 };
