@@ -2,13 +2,15 @@ from flask import jsonify, request
 
 from app import db
 from app.models import PreferenceTypes, User
+from app.util.session_util import get_current_session_user
 from app.util.tmdb_helpers import get_movie
 
 
 class RecommendationController():
     def handle(self):
         emails = [email.strip() for email in request.args.get('emails').split(',')]
-        users = User.query.filter(User.email.in_(emails))
+        users = set(User.query.filter(User.email.in_(emails)).all())
+        users.add(get_current_session_user())        
 
         positive_movie_id_sets = []
         negative_movie_id_sets = []

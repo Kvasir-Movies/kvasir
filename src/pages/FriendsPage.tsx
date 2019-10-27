@@ -1,5 +1,8 @@
 import React from "react";
+import { Container, Header } from "semantic-ui-react";
 
+import FriendAdder from "../components/FriendAdder";
+import FriendList from "../components/FriendList";
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
 import { AuthenticatedPageProps, User } from "../types";
@@ -14,8 +17,16 @@ const FriendsPage = ({
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >
-      <h1>You have friends</h1>
-      <p>Welcome back, {sessionUser.email}!</p>
+      <Container text>
+        <Header as="h1" inverted>
+          Friends
+        </Header>
+        <FriendAdder
+          sessionUser={sessionUser}
+          setSessionUser={setSessionUser}
+        />
+        <FriendList sessionUser={sessionUser} />
+      </Container>
     </LayoutContainer>
   );
 };

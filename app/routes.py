@@ -3,6 +3,7 @@ from flask import jsonify, send_from_directory
 from app import app, BUILD_DIR
 from app.controllers import (
     ExploreController,
+    FriendshipController,
     LoginController,
     LogoutController,
     MoviePreferenceController,
@@ -10,6 +11,7 @@ from app.controllers import (
     RecommendationController,
     SignupController,
     SlackController,
+    UserSearchController
 )
 from app.util.session_util import (
     authorization_required,
@@ -87,6 +89,16 @@ def delete_movie_preference(user, movie_preference_id):
 def get_recommendation():
     return RecommendationController().handle()
 
+
+@app.route('/users/<user_id>/friendships', methods=['POST'])
+@authorization_required
+def add_friendship(user):
+    return FriendshipController().create(user)
+
+@app.route('/users/search', methods=['GET'])
+@login_required
+def search_users():
+    return UserSearchController().handle()
 
 @app.route('/slack', methods=['POST'])
 def get_slack():

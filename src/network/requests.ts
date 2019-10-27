@@ -141,3 +141,32 @@ export const getRecommendation = async (emails: string) => {
   const json = await response.json();
   return json.movies;
 };
+
+export const addFriend = async (userId: number, friendEmail: string) => {
+  const response = await fetch(`users/${userId}/friendships`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({ friendEmail })
+  });
+  if (response.status !== 200) {
+    alert("Failed to add friend.");
+    return null;
+  } else {
+    alert("Added friend");
+  }
+
+  const json = await response.json();
+  return json;
+};
+
+export const searchUsers = async (query: string) => {
+  const searchParams = new URLSearchParams({ query });
+  const response = await fetch("users/search?" + searchParams);
+  if (response.status !== 200) {
+    return [];
+  }
+  const json = await response.json();
+  return json.users;
+};
