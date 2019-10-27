@@ -5,13 +5,15 @@ import { PreferenceType } from "../constants";
 
 import { Button, Icon } from "semantic-ui-react";
 
-const ExploreMovieCardBottom = (props: {
+export type ChangeMoviePreference = (
+  externalMovieId: string,
+  preferenceType: PreferenceType
+) => void;
+
+export default function MovieCardBottom(props: {
   movie: Movie;
-  changeMoviePreference: (
-    externalMovieId: string,
-    preferenceType: PreferenceType
-  ) => void;
-}): JSX.Element => {
+  changeMoviePreference: ChangeMoviePreference;
+}): JSX.Element {
   const movie = props.movie;
   const changeMoviePreference = props.changeMoviePreference;
 
@@ -35,6 +37,4 @@ const ExploreMovieCardBottom = (props: {
       </Button>
     </Button.Group>
   );
-};
-
-export default ExploreMovieCardBottom;
+}
