@@ -9,6 +9,7 @@ from app.controllers import (
     MovieSearchController,
     RecommendationController,
     SignupController,
+    SlackController,
     UserSearchController
 )
 from app.util.session_util import (
@@ -97,3 +98,7 @@ def add_friendship(user):
 @login_required
 def search_users():
     return UserSearchController().handle()
+
+@app.route('/slack', methods=['POST'])
+def get_slack():
+    return SlackController().handle()

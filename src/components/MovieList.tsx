@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { Icon, Segment } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 
-import { MoviePreference, SetMovies, User } from "../types";
+import deleteIcon from "../images/x_icon_light.svg";
+import { MoviePreference, SetMoviePreferences, User } from "../types";
 import { deleteMovie } from "../network/requests";
 import MoviePreferenceType from "./MoviePreferenceType";
 
 export default function MovieList(props: {
   user: User;
   movies: Array<MoviePreference>;
-  setMovies: SetMovies;
+  fetchUserMovies: () => void;
+  setMovies: SetMoviePreferences;
 }): JSX.Element {
   return (
     <Segment.Group>
@@ -22,12 +24,17 @@ export default function MovieList(props: {
               setMovies={props.setMovies}
               user={props.user}
             />
-            <Icon
-              link
-              name="delete"
-              onClick={() => deleteMovie(props.user, movie, props.setMovies)}
-            />
           </div>
+          <div className="movieTitle">
+            {movie.title}
+            <img className="moviePoster" src={movie.poster_path} />
+          </div>
+          <div className="movieOverview">{movie.overview}</div>
+          <img
+            className="deleteIcon"
+            src={deleteIcon}
+            onClick={() => deleteMovie(props.user, movie, props.setMovies)}
+          />
         </Segment>
       ))}
     </Segment.Group>

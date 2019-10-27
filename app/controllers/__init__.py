@@ -5,6 +5,7 @@ from .movie_preference_controller import MoviePreferenceController
 from .movie_search_controller import MovieSearchController
 from .recommendation_controller import RecommendationController
 from .signup_controller import SignupController
+from .slack_controller import SlackController
 from .user_search_controller import UserSearchController
 
 __all__ = [
@@ -16,5 +17,6 @@ __all__ = [
     'MovieSearchController',
     'RecommendationController',
     'SignupController',
+    'SlackController',
     'UserSearchController'
 ]

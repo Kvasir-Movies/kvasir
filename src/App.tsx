@@ -8,7 +8,7 @@ import {
 
 import "./App.css";
 import ReelSpinner from "./components/ReelSpinner";
-import { Paths } from "./constants";
+import { Path } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
 import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
@@ -19,47 +19,32 @@ import WatchPage from "./pages/WatchPage";
 import { User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
-  component: React.ComponentType<any>;
   sessionUser: User | null;
-  setSessionUser: (user: User | null) => void;
+  children: JSX.Element | Array<JSX.Element>;
 }
 
 const AuthenticatedRoute = ({
-  component: Component,
+  children,
   sessionUser,
-  setSessionUser,
-  ...rest
+  ...routeProps
 }: AuthenticationRouteProps) => (
   <Route
-    {...rest}
-    render={props =>
-      Boolean(sessionUser) ? (
-        <Component
-          sessionUser={sessionUser}
-          setSessionUser={setSessionUser}
-          {...props}
-        />
-      ) : (
-        <Redirect to={Paths.loginPage} />
-      )
+    {...routeProps}
+    render={() =>
+      Boolean(sessionUser) ? children : <Redirect to={Path.loginPage} />
     }
   />
 );
 
 const UnauthenticatedRoute = ({
-  component: Component,
+  children,
   sessionUser,
-  setSessionUser,
-  ...rest
+  ...routeProps
 }: AuthenticationRouteProps) => (
   <Route
-    {...rest}
-    render={props =>
-      !sessionUser ? (
-        <Component setSessionUser={setSessionUser} {...props} />
-      ) : (
-        <Redirect to={Paths.explorePage} />
-      )
+    {...routeProps}
+    render={() =>
+      !sessionUser ? children : <Redirect to={Path.explorePage} />
     }
   />
 );
@@ -74,68 +59,72 @@ const App = (): JSX.Element => {
       .then((data: { user: User | null }) => {
         setSessionUser(data.user);
         setSessionLoaded(true);
-      });
+      })
+      .catch(error => alert("Something went wrong, please refresh the page."));
   }, []);
 
   return (
     <Router>
-      <div className="flex-fill">
+      <div className="fill-height">
         {hasSessionLoaded ? (
-          <div className="flex-fill">
+          <div className="fill-height">
+            <UnauthenticatedRoute path="/" exact sessionUser={sessionUser}>
+              <LandingPage setSessionUser={setSessionUser} />
+            </UnauthenticatedRoute>
             <UnauthenticatedRoute
-              path="/"
-              exact
-              component={LandingPage}
+              path={Path.landingPage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <LandingPage setSessionUser={setSessionUser} />
+            </UnauthenticatedRoute>
             <UnauthenticatedRoute
-              path={Paths.landingPage}
-              component={LandingPage}
+              path={Path.loginPage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <LoginPage setSessionUser={setSessionUser} />
+            </UnauthenticatedRoute>
             <UnauthenticatedRoute
-              path={Paths.loginPage}
-              exact
-              component={LoginPage}
+              path={Path.signupPage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
-            <UnauthenticatedRoute
-              path={Paths.signupPage}
-              exact
-              component={SignupPage}
-              sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <SignupPage setSessionUser={setSessionUser} />
+            </UnauthenticatedRoute>
             <AuthenticatedRoute
-              path={Paths.explorePage}
-              component={ExplorePage}
+              path={Path.explorePage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <ExplorePage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute path={Path.watchPage} sessionUser={sessionUser}>
+              <WatchPage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
             <AuthenticatedRoute
-              path={Paths.watchPage}
-              component={WatchPage}
+              path={Path.myMoviesPage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <MyMoviesPage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
             <AuthenticatedRoute
-              path={Paths.myMoviesPage}
-              component={MyMoviesPage}
+              path={Path.friendsPage}
               sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
-            <AuthenticatedRoute
-              path={Paths.friendsPage}
-              component={FriendsPage}
-              sessionUser={sessionUser}
-              setSessionUser={setSessionUser}
-            />
+            >
+              <FriendsPage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
           </div>
         ) : (
-          <div className="flex-fill flex-center">
+          <div className="full-page-spinner">
             <ReelSpinner />
           </div>
         )}

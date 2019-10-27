@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
+import { Path } from "../constants";
 import { UnauthenticatedPageProps, User } from "../types";
 
 const SignupPage = ({
-  history,
   setSessionUser
 }: UnauthenticatedPageProps): JSX.Element => {
   const { value: emailValue, onChange: onEmailChange } = useFormInput("");
@@ -38,9 +39,15 @@ const SignupPage = ({
   }
 
   return (
-    <LayoutContainer history={history} setSessionUser={setSessionUser}>
+    <LayoutContainer setSessionUser={setSessionUser}>
       <AuthenticationForm
         emailValue={emailValue}
+        footer={
+          <span>
+            Already have an account?{" "}
+            <Link to={Path.loginPage}>Log in here.</Link>
+          </span>
+        }
         formName="Create an account"
         handleOnSubmit={handleOnSubmit}
         onEmailChange={onEmailChange}

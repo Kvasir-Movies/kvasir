@@ -1,18 +1,17 @@
 import React from "react";
 
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { AuthenticatedPageProps, User } from "../types";
 
 const ExplorePage = ({
-  history,
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
+  console.log(sessionUser);
   return (
     <LayoutContainer
-      activePath={Paths.explorePage}
-      history={history}
+      activePath={Path.explorePage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >

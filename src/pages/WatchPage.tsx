@@ -3,18 +3,16 @@ import { Container, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import MovieRecommender from "../components/MovieRecommender";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { AuthenticatedPageProps, User } from "../types";
 
 const WatchPage = ({
-  history,
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
   return (
     <LayoutContainer
-      activePath={Paths.watchPage}
-      history={history}
+      activePath={Path.watchPage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >

@@ -1,5 +1,5 @@
-import { History } from "history";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Icon,
   Image,
@@ -9,48 +9,47 @@ import {
   Button
 } from "semantic-ui-react";
 
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import logo from "../images/reel-politik-logo-1.png";
 import { User } from "../types";
 
-const Logo = () => (
-  <Image src={logo} style={{ height: "3em", margin: "0.5em" }} />
+const Logo = () => <Image className="logo" src={logo} />;
+
+const NavBar: React.SFC<{ mobile?: boolean }> = ({
+  children,
+  mobile
+}): JSX.Element => (
+  <div className={`navbar ${mobile ? "mobile" : "desktop"}`}>{children}</div>
 );
 
 const PageMenuItem = ({
   activePath,
-  history,
   pageName,
   pagePath
 }: {
-  activePath?: Paths;
-  history: History;
+  activePath?: Path;
   pageName: string;
-  pagePath: Paths;
-}) => (
-  <Menu.Item
-    active={activePath == pagePath}
-    key={pagePath}
-    onClick={() => {
-      history.push(pagePath);
-    }}
-  >
-    {pageName}
-  </Menu.Item>
-);
+  pagePath: Path;
+}): JSX.Element => {
+  const history = useHistory();
+  return (
+    <Menu.Item
+      active={activePath == pagePath}
+      key={pagePath}
+      onClick={() => {
+        history.push(pagePath);
+      }}
+    >
+      {pageName}
+    </Menu.Item>
+  );
+};
 
 const LayoutContainer: React.SFC<{
-  activePath?: Paths;
-  history: History;
+  activePath?: Path;
   sessionUser?: User | null;
   setSessionUser: (sessionUser: User | null) => void;
-}> = ({
-  activePath,
-  children,
-  history,
-  sessionUser,
-  setSessionUser
-}): JSX.Element => {
+}> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   function handleSidebarHide() {
     setSidebarOpen(false);
@@ -66,6 +65,7 @@ const LayoutContainer: React.SFC<{
       }
     });
   };
+
   const LogoutButton = () => (
     <Button basic inverted onClick={handleLogout}>
       Log Out
@@ -75,111 +75,87 @@ const LayoutContainer: React.SFC<{
   const pageMenuItems = [
     <PageMenuItem
       activePath={activePath}
-      history={history}
-      key={Paths.explorePage}
+      key={Path.explorePage}
       pageName="Explore"
-      pagePath={Paths.explorePage}
+      pagePath={Path.explorePage}
     />,
     <PageMenuItem
       activePath={activePath}
-      history={history}
-      key={Paths.watchPage}
+      key={Path.watchPage}
       pageName="Watch"
-      pagePath={Paths.watchPage}
+      pagePath={Path.watchPage}
     />,
     <PageMenuItem
       activePath={activePath}
-      history={history}
-      key={Paths.myMoviesPage}
+      key={Path.myMoviesPage}
       pageName="My Movies"
-      pagePath={Paths.myMoviesPage}
+      pagePath={Path.myMoviesPage}
     />,
     <PageMenuItem
       activePath={activePath}
-      history={history}
-      key={Paths.friendsPage}
+      key={Path.friendsPage}
       pageName="Friends"
-      pagePath={Paths.friendsPage}
+      pagePath={Path.friendsPage}
     />
   ];
 
   return (
-    <Sidebar.Pushable className="flex-fill">
-      <Sidebar
-        animation="overlay"
-        as={Menu}
-        inverted
-        onHide={handleSidebarHide}
-        vertical
-        visible={sidebarOpen}
+    <div className="fill-height">
+      <Responsive
+        as="div"
+        className="fill-height"
+        maxWidth={Responsive.onlyMobile.maxWidth}
       >
-        {pageMenuItems}
-      </Sidebar>
-      <Sidebar.Pusher
-        className="flex-fill"
-        dimmed={sidebarOpen}
-        style={{ flexDirection: "column" }}
-      >
-        <div className="navbar">
-          <Responsive
-            as={"div"}
-            maxWidth={Responsive.onlyMobile.maxWidth}
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between"
-            }}
+        <Sidebar.Pushable>
+          <Sidebar
+            animation="overlay"
+            as={Menu}
+            inverted
+            onHide={handleSidebarHide}
+            vertical
+            visible={sidebarOpen}
           >
-            <div
-              style={{ display: "flex", flexBasis: "33%", padding: "0.5em" }}
-            >
-              {Boolean(sessionUser) && (
-                <Icon
-                  name="sidebar"
-                  onClick={handleToggle}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
-            </div>
-            <div
-              className="flex-center"
-              style={{ display: "flex", flexBasis: "34%" }}
-            >
-              <Logo />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexBasis: "33%",
-                flexDirection: "row-reverse",
-                padding: "0.5em"
-              }}
-            >
-              {Boolean(sessionUser) && <LogoutButton />}
-            </div>
-          </Responsive>
-          <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
-            {Boolean(sessionUser) ? (
-              <Menu pointing secondary size="large">
+            {pageMenuItems}
+          </Sidebar>
+          <Sidebar.Pusher className="fill-height" dimmed={sidebarOpen}>
+            <NavBar mobile>
+              <div className="navbar-section">
+                {Boolean(sessionUser) && (
+                  <div className="menu-button">
+                    <Icon name="sidebar" onClick={handleToggle} />
+                  </div>
+                )}
+              </div>
+              <div className="navbar-section">
                 <Logo />
-                {pageMenuItems}
-                <Menu.Item position="right">
-                  <LogoutButton />
-                </Menu.Item>
-              </Menu>
-            ) : (
+              </div>
+              <div className="navbar-section authentication-buttons">
+                {Boolean(sessionUser) && <LogoutButton />}
+              </div>
+            </NavBar>
+            <div className="content">{children}</div>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </Responsive>
+      <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
+        <NavBar>
+          {Boolean(sessionUser) ? (
+            <Menu pointing secondary size="large">
               <Logo />
-            )}
-          </Responsive>
-        </div>
-        <div
-          className="pageContent"
-          style={{ display: "flex", flexGrow: 1, padding: "1em" }}
-        >
-          {children}
-        </div>
-      </Sidebar.Pusher>
-    </Sidebar.Pushable>
+              {pageMenuItems}
+              <div className="authentication-buttons">
+                <LogoutButton />
+              </div>
+            </Menu>
+          ) : (
+            <Menu pointing secondary size="large">
+              <Logo />
+            </Menu>
+          )}
+        </NavBar>
+        <div className="content">{children}</div>
+      </Responsive>
+    </div>
   );
 };
 

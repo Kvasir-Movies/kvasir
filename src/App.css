@@ -1,12 +1,31 @@
+/* Root-level stuff */
 :root {
   --black: #231f20;
   --red: #cf2625;
 }
 
 #root {
-  display: flex;
   height: 100%;
   width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+  margin: 1em;
+}
+
+/* Components */
+.full-page-spinner {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
+.logo {
+  height: 3em;
+  margin: 0.5em;
 }
 
 .navbar {
@@ -22,14 +41,31 @@
   flex-grow: 1;
 }
 
-.flex-fill {
+.navbar .authentication-buttons {
   display: flex;
+  justify-content: flex-end;
   flex-grow: 1;
+  padding: 0.5em;
 }
 
-.flex-center {
+.navbar.mobile {
   align-items: center;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar.mobile .menu-button {
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.navbar.mobile .navbar-section {
+  flex-basis: 33%;
+}
+
+/* Utilities */
+.fill-height {
+  height: 100%;
 }
 
 @keyframes spin {
@@ -62,6 +98,7 @@
   background-color: var(--main-mid);
   padding: 35px;
   border-radius: 5px;
+  width: 700px;
 }
 
 .header {
@@ -138,7 +175,6 @@ form {
 
 .movieList {
   padding: 20px 0;
-  width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -153,6 +189,14 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.movieOverview {
+  width: 200px;
+}
+
+.moviePoster {
+  width: 200px;
 }
 
 .deleteIcon:hover {
@@ -172,5 +216,7 @@ form {
 
 .movieTitle {
   padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 */

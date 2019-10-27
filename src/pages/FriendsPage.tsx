@@ -4,18 +4,16 @@ import { Container, Header } from "semantic-ui-react";
 import FriendAdder from "../components/FriendAdder";
 import FriendList from "../components/FriendList";
 import LayoutContainer from "../components/LayoutContainer";
-import { Paths } from "../constants";
+import { Path } from "../constants";
 import { AuthenticatedPageProps, User } from "../types";
 
 const FriendsPage = ({
-  history,
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
   return (
     <LayoutContainer
-      activePath={Paths.friendsPage}
-      history={history}
+      activePath={Path.friendsPage}
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >
