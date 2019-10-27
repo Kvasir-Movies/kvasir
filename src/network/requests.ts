@@ -74,12 +74,11 @@ export const loadMovieOptions = (inputValue: string) => {
   const searchParams = new URLSearchParams({ search: inputValue });
   return fetch("/search-movies?" + searchParams.toString())
     .then(response => response.json())
-    .then(function(json: {
-      searchResults: Array<{ id: string; title: string }>;
-    }) {
-      return json.searchResults.map(option => ({
-        label: option.title,
-        value: option.id
+    .then(function(json: { searchResults: Array<Movie> }) {
+      return json.searchResults.map(movie => ({
+        movie: movie,
+        label: movie.title,
+        value: movie.externalMovieId
       }));
     });
 };

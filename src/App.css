@@ -82,6 +82,15 @@
   overflow: hidden;
 }
 
+.movieDropdownOption {
+  display: flex;
+  align-items: center;
+}
+
+.movieDropdownOption-label {
+  padding: 1em;
+}
+
 /*
 :root {
   --main-dark: #12005e;

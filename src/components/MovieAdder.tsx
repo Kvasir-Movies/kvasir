@@ -1,24 +1,27 @@
 import React, { useState } from "react";
-import AsyncSelect from "react-select/lib/Async";
-import { Button } from "semantic-ui-react";
+import { components } from "react-select";
+import AsyncSelect from "react-select/async";
+import { Button, Image } from "semantic-ui-react";
 import { debounce } from "underscore";
 
 import { loadMovieOptions } from "../network/requests";
-import { User } from "../types";
+import { User, Movie } from "../types";
+import { OptionProps } from "react-select/src/components/Option";
 
-interface Movie {
+interface MovieOption {
   value: number;
   label: string;
+  movie: Movie;
 }
 
 const MovieAdder = (props: {
   user: User;
   fetchUserMovies: () => void;
 }): JSX.Element => {
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<MovieOption | null>(null);
   const handleChange = (value: any, data: { action: string }) => {
     if (data.action === "select-option") {
-      setSelectedMovie(value as Movie);
+      setSelectedMovie(value as MovieOption);
     }
   };
 
@@ -47,10 +50,34 @@ const MovieAdder = (props: {
     props.fetchUserMovies();
   };
 
+  const Option = (props: OptionProps<MovieOption>) => {
+    const movie = props.data.movie;
+    const releaseYear = movie.release_date
+      ? new Date(movie.release_date).getUTCFullYear()
+      : null;
+    return (
+      <components.Option {...props}>
+        <div className="movieDropdownOption">
+          {movie.poster_path && <Image src={movie.poster_path} size="mini" />}
+          <div className="movieDropdownOption-label">
+            <b>{movie.title}</b>
+            {releaseYear && (
+              <span>
+                {" "}
+                (<i>{releaseYear}</i>)
+              </span>
+            )}
+          </div>
+        </div>
+      </components.Option>
+    );
+  };
+
   return (
     <div style={{ display: "flex" }}>
       <AsyncSelect
         className="asyncSelect"
+        components={{ Option }}
         loadOptions={loadMovieOptions}
         onChange={debounce(handleChange, 100)}
         onMenuOpen={clearValue}
