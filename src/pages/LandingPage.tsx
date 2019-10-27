@@ -9,11 +9,7 @@ const LandingPage = ({
   setSessionUser
 }: UnauthenticatedPageProps): JSX.Element => {
   return (
-    <LayoutContainer
-      activePath={null}
-      sessionUser={null}
-      setSessionUser={setSessionUser}
-    >
+    <LayoutContainer sessionUser={null} setSessionUser={setSessionUser}>
       <h1>Try out Reel Politik</h1>
       <Link to={Path.loginPage}>Log In</Link>
       <Link to={Path.signupPage}>Sign Up</Link>

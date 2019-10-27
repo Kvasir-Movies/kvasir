@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Icon,
   Image,
@@ -21,8 +22,31 @@ const NavBar: React.SFC<{ mobile?: boolean }> = ({
   <div className={`navbar ${mobile ? "mobile" : "desktop"}`}>{children}</div>
 );
 
+const PageMenuItem = ({
+  activePath,
+  pageName,
+  pagePath
+}: {
+  activePath?: Path;
+  pageName: string;
+  pagePath: Path;
+}): JSX.Element => {
+  const history = useHistory();
+  return (
+    <Menu.Item
+      active={activePath == pagePath}
+      key={pagePath}
+      onClick={() => {
+        history.push(pagePath);
+      }}
+    >
+      {pageName}
+    </Menu.Item>
+  );
+};
+
 const LayoutContainer: React.SFC<{
-  activePath?: Path | null;
+  activePath?: Path;
   sessionUser?: User | null;
   setSessionUser: (sessionUser: User | null) => void;
 }> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
@@ -48,13 +72,31 @@ const LayoutContainer: React.SFC<{
     </Button>
   );
 
-  const menuItems = [
-    <Menu.Item active={activePath == Path.explorePage} key={Path.explorePage}>
-      Explore
-    </Menu.Item>,
-    <Menu.Item active={activePath == Path.myMoviesPage} key={Path.myMoviesPage}>
-      My Movies
-    </Menu.Item>
+  const pageMenuItems = [
+    <PageMenuItem
+      activePath={activePath}
+      key={Path.explorePage}
+      pageName="Explore"
+      pagePath={Path.explorePage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      key={Path.watchPage}
+      pageName="Watch"
+      pagePath={Path.watchPage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      key={Path.myMoviesPage}
+      pageName="My Movies"
+      pagePath={Path.myMoviesPage}
+    />,
+    <PageMenuItem
+      activePath={activePath}
+      key={Path.friendsPage}
+      pageName="Friends"
+      pagePath={Path.friendsPage}
+    />
   ];
 
   return (
@@ -73,7 +115,7 @@ const LayoutContainer: React.SFC<{
             vertical
             visible={sidebarOpen}
           >
-            {menuItems}
+            {pageMenuItems}
           </Sidebar>
           <Sidebar.Pusher className="fill-height" dimmed={sidebarOpen}>
             <NavBar mobile>
@@ -100,7 +142,7 @@ const LayoutContainer: React.SFC<{
           {Boolean(sessionUser) ? (
             <Menu pointing secondary size="large">
               <Logo />
-              {menuItems}
+              {pageMenuItems}
               <div className="authentication-buttons">
                 <LogoutButton />
               </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AsyncSelect from "react-select/lib/Async";
+import { Button } from "semantic-ui-react";
 import { debounce } from "underscore";
 
 import { loadMovieOptions } from "../network/requests";
@@ -47,7 +48,7 @@ const MovieAdder = (props: {
   };
 
   return (
-    <div className="movieAdder">
+    <div style={{ display: "flex" }}>
       <AsyncSelect
         className="asyncSelect"
         loadOptions={loadMovieOptions}
@@ -55,7 +56,13 @@ const MovieAdder = (props: {
         onMenuOpen={clearValue}
         value={selectedMovie}
       />
-      <button onClick={handleAddMoviePreference}>Add</button>
+      <Button
+        onClick={handleAddMoviePreference}
+        primary
+        style={{ marginLeft: "0.5em" }}
+      >
+        Add
+      </Button>
     </div>
   );
 };

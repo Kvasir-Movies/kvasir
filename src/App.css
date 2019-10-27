@@ -33,6 +33,14 @@
   color: var(--black);
 }
 
+.pageContent {
+  background-color: var(--black);
+}
+
+.asyncSelect {
+  flex-grow: 1;
+}
+
 .navbar .authentication-buttons {
   display: flex;
   justify-content: flex-end;

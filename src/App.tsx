@@ -10,14 +10,17 @@ import "./App.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Path } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
+import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
+import WatchPage from "./pages/WatchPage";
 import { User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
   sessionUser: User | null;
+  children: JSX.Element | Array<JSX.Element>;
 }
 
 const AuthenticatedRoute = ({
@@ -95,11 +98,26 @@ const App = (): JSX.Element => {
                 setSessionUser={setSessionUser}
               />
             </AuthenticatedRoute>
+            <AuthenticatedRoute path={Path.watchPage} sessionUser={sessionUser}>
+              <WatchPage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
             <AuthenticatedRoute
               path={Path.myMoviesPage}
               sessionUser={sessionUser}
             >
               <MyMoviesPage
+                sessionUser={sessionUser!}
+                setSessionUser={setSessionUser}
+              />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute
+              path={Path.friendsPage}
+              sessionUser={sessionUser}
+            >
+              <FriendsPage
                 sessionUser={sessionUser!}
                 setSessionUser={setSessionUser}
               />
