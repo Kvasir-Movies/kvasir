@@ -1,5 +1,5 @@
 from app.util.tmdb_helpers import explore
-from flask import jsonify
+from flask import jsonify, request
 
 DESIRED_KEYS = [
     'title',
@@ -16,5 +16,6 @@ def handle_movie_data(movie):
 
 class ExploreController():
     def handle(self):
-        response = explore()
+        sort_method = request.args.get('sort')
+        response = explore(sort_method)
         return jsonify({'movies': [handle_movie_data(movie_data) for movie_data in response]})

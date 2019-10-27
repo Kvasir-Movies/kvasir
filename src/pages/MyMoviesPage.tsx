@@ -35,13 +35,13 @@ const MyMoviesPage = ({
         <Container text>
           <Header as="h2">My movies</Header>
           <MovieAdder user={sessionUser} fetchUserMovies={refetchUserMovies} />
-          <div style={{ marginTop: 20 }}>
-            <MovieList
-              movies={userMovies}
-              changeMoviePreference={handleChangeMoviePreference}
-            />
-          </div>
         </Container>
+        <div style={{ marginTop: 20 }}>
+          <MovieList
+            movies={userMovies}
+            changeMoviePreference={handleChangeMoviePreference}
+          />
+        </div>
       </div>
     </LayoutContainer>
   );

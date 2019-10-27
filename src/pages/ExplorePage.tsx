@@ -6,14 +6,17 @@ import { AuthenticatedPageProps, Movie, User } from "../types";
 import ExploreMovieList from "../components/ExploreMovieList";
 import { fetchExploreMovies } from "../network/requests";
 
-import { Container, Header } from "semantic-ui-react";
+import { Container, Dropdown, Header } from "semantic-ui-react";
 
 const ExplorePage = ({
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
   const [movies, setMovies] = useState<Array<Movie>>([]);
-  const doFetchExploreMovies = () => fetchExploreMovies(setMovies);
+  const [sortMethod, setSortMethod] = useState("");
+  const doFetchExploreMovies = (sortMethod: string) =>
+    fetchExploreMovies(setMovies, sortMethod);
+  useEffect(() => doFetchExploreMovies(sortMethod), [sortMethod]);
 
   return (
     <LayoutContainer
@@ -21,19 +24,32 @@ const ExplorePage = ({
       sessionUser={sessionUser}
       setSessionUser={setSessionUser}
     >
-      <Container>
-        <Header as="h2" textAlign="center">
-          Explore
-        </Header>
-        {sessionUser != null && (
-          <ExploreMovieList
-            user={sessionUser}
-            movies={movies}
-            fetchExploreMovies={doFetchExploreMovies}
-            setMovies={setMovies}
+      <Dropdown>
+        <Dropdown.Menu>
+          <Dropdown.Item
+            text="Popular"
+            onClick={() => setSortMethod("popularity")}
           />
-        )}
-      </Container>
+          <Dropdown.Item
+            text="Trending (Daily)"
+            onClick={() => setSortMethod("day_trend")}
+          />
+          <Dropdown.Item
+            text="Trending (Weekly)"
+            onClick={() => setSortMethod("week_trend")}
+          />
+        </Dropdown.Menu>
+      </Dropdown>
+      <Header as="h1" textAlign="center">
+        Explore
+      </Header>
+      {sessionUser != null && (
+        <ExploreMovieList
+          user={sessionUser}
+          movies={movies}
+          setMovies={setMovies}
+        />
+      )}
     </LayoutContainer>
   );
 };

@@ -91,6 +91,14 @@
   padding: 1em;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
+.contain-text div {
+  overflow: hidden;
+}
+
 /*
 :root {
   --main-dark: #12005e;

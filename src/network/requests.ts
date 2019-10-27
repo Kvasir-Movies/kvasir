@@ -24,8 +24,11 @@ export const addMoviePreference = (
   });
 };
 
-export const fetchExploreMovies = (setMovies: SetMovies): void => {
-  fetch(`/explore`, {
+export const fetchExploreMovies = (
+  setMovies: SetMovies,
+  sortMethod: string
+): void => {
+  fetch(`/explore?sort=${sortMethod}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
