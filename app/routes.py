@@ -2,6 +2,7 @@ from flask import jsonify, send_from_directory
 
 from app import app, BUILD_DIR
 from app.controllers import (
+    ExploreController,
     LoginController,
     LogoutController,
     MoviePreferenceController,
@@ -90,3 +91,8 @@ def get_recommendation():
 @app.route('/slack', methods=['POST'])
 def get_slack():
     return SlackController().handle()
+
+
+@app.route('/explore')
+def get_explore():
+    return ExploreController().handle()

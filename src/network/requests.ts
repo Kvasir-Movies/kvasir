@@ -7,6 +7,45 @@ import {
   User
 } from "../types";
 
+export const addMoviePreference = (
+  user: User,
+  externalMovieId: number,
+  preferenceType: PreferenceType
+): void => {
+  fetch(`/users/${user.id}/movie-preferences`, {
+    method: "POST",
+    body: JSON.stringify({
+      externalMovieId: externalMovieId,
+      preferenceType: preferenceType
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  });
+};
+
+export const fetchExploreMovies = (setMovies: SetMovies): void => {
+  fetch(`/explore`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  })
+    .then(response => {
+      if (response.status !== 200) {
+        throw new Error(
+          `Fetching Explore page failed: ${
+            response.status
+          } ${response.statusText || ""}`
+        );
+      }
+      return response.json();
+    })
+    .then((data: { movies: Array<Movie> }) => {
+      setMovies(data.movies);
+    });
+};
+
 export const fetchMovies = (
   user: User,
   setMovies: SetMoviePreferences
@@ -55,6 +94,20 @@ export const deleteMovie = (
   })
     .then(response => response.json())
     .then(() => fetchMovies(user, setMovies));
+};
+
+export const updateMoviePreferenceAsync = async (
+  id: number,
+  user: User,
+  preferenceType: PreferenceType
+) => {
+  const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({ preference_type: preferenceType })
+  });
 };
 
 export const updateMoviePreference = async (

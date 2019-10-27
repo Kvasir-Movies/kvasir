@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
+import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Path } from "./constants";
 import ExplorePage from "./pages/ExplorePage";
