@@ -88,6 +88,7 @@ https://yarnpkg.com/lang/en/docs/install
 
 # Heroku
 
+- Install the heroku CLI
 - Add heroku as a remote (`git remote add heroku https://git.heroku.com/reelpolitik.git`)
-- To deploy, `git push heroku <branch-name>`
-- To run commands, `heroku run <command>` (e.g. `heroku run flask db upgrade`)
+- To deploy, `git push heroku <branch-name>` (e.g. `git push heroku master`)
+- Then `heroku run <command>` (e.g. `heroku run flask db upgrade`)
