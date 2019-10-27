@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-// import Select from 'react-select';
-// import AsyncSelect from "react-select/Async";
+import { components } from "react-select";
+import AsyncSelect from "react-select/async";
 import { Button, Image } from "semantic-ui-react";
 import { debounce } from "underscore";
 
 import { loadMovieOptions } from "../network/requests";
 import { User, Movie } from "../types";
-// import { OptionProps } from "react-select/src/components/Option";
+import { OptionProps } from "react-select/src/components/Option";
 
 interface MovieOption {
   value: number;
@@ -50,49 +50,48 @@ const MovieAdder = (props: {
     props.fetchUserMovies();
   };
 
-  // const Option = (props: OptionProps<MovieOption>) => {
-  //   const movie = props.data.movie;
-  //   const releaseYear = (
-  //     movie.release_date
-  //     ? (new Date(movie.release_date)).getUTCFullYear()
-  //     : null
-  //   )
-  //   return (
-  //     <components.Option {...props}>
-  //       <div className="movieDropdownOption">
-  //         {movie.poster_path && <Image src={movie.poster_path} size="mini"/>}
-  //         <div className="movieDropdownOption-label">
-  //           <b>{movie.title}</b>
-  //           {releaseYear && <span> (<i>{releaseYear}</i>)</span>}
-  //         </div>
-  //       </div>
-  //     </components.Option>
-  //   );
-  // }
+  const Option = (props: OptionProps<MovieOption>) => {
+    const movie = props.data.movie;
+    const releaseYear = movie.release_date
+      ? new Date(movie.release_date).getUTCFullYear()
+      : null;
+    return (
+      <components.Option {...props}>
+        <div className="movieDropdownOption">
+          {movie.poster_path && <Image src={movie.poster_path} size="mini" />}
+          <div className="movieDropdownOption-label">
+            <b>{movie.title}</b>
+            {releaseYear && (
+              <span>
+                {" "}
+                (<i>{releaseYear}</i>)
+              </span>
+            )}
+          </div>
+        </div>
+      </components.Option>
+    );
+  };
 
-  // return (
-  //   <div style={{ display: "flex" }}>
-  //     <AsyncSelect
-  //       className="asyncSelect"
-  //       // components={{Option}}
-  //       loadOptions={loadMovieOptions}
-  //       onChange={debounce(handleChange, 100)}
-  //       onMenuOpen={clearValue}
-  //       value={selectedMovie}
-  //     />
-  //     <Button
-  //       onClick={handleAddMoviePreference}
-  //       primary
-  //       style={{ marginLeft: "0.5em" }}
-  //     >
-  //       Add
-  //     </Button>
-  //   </div>
-  // );
-  // return <Select
-  //   options={[{value: 1, label: 'foo'}, {value:2, label: 'bar'}]}
-  // />
-  return <div />;
+  return (
+    <div style={{ display: "flex" }}>
+      <AsyncSelect
+        className="asyncSelect"
+        components={{ Option }}
+        loadOptions={loadMovieOptions}
+        onChange={debounce(handleChange, 100)}
+        onMenuOpen={clearValue}
+        value={selectedMovie}
+      />
+      <Button
+        onClick={handleAddMoviePreference}
+        primary
+        style={{ marginLeft: "0.5em" }}
+      >
+        Add
+      </Button>
+    </div>
+  );
 };
 
 export default MovieAdder;
