@@ -22,7 +22,7 @@ const ExplorePage = ({
       setSessionUser={setSessionUser}
     >
       <Container>
-        <Header as="h1" textAlign="center">
+        <Header as="h2" textAlign="center">
           Explore
         </Header>
         {sessionUser != null && (
