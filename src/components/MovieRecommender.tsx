@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Form, Segment } from "semantic-ui-react";
+import { Button, Form, Header, Segment } from "semantic-ui-react";
 
 import { Movie, User } from "../types";
 import { getRecommendation } from "../network/requests";
 import UserPicker from "./UserPicker";
+import MovieList from "./MovieList";
 
 const MovieRecommender = ({
   sessionUser

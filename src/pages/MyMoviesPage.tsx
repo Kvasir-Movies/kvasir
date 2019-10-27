@@ -3,7 +3,7 @@ import { Container, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import MovieAdder from "../components/MovieAdder";
-import MovieList from "../components/MovieList";
+import UserMovieList from "../components/UserMovieList";
 import { Path } from "../constants";
 import { fetchMovies } from "../network/requests";
 import { AuthenticatedPageProps, MoviePreference } from "../types";
@@ -37,7 +37,7 @@ const MyMoviesPage = ({
             My movies
           </Header>
           <MovieAdder user={sessionUser} fetchUserMovies={fetchUserMovies} />
-          <MovieList
+          <UserMovieList
             user={sessionUser}
             fetchUserMovies={fetchUserMovies}
             movies={movies}
