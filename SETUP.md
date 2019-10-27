@@ -85,3 +85,9 @@ https://yarnpkg.com/lang/en/docs/install
 - mark `kvasir-env/` as excluded
 - mark `node_modules` as excluded
 - activate tslint checker
+
+# Heroku
+
+- Add heroku as a remote (`git remote add heroku https://git.heroku.com/reelpolitik.git`)
+- To deploy, `git push heroku <branch-name>`
+- To run commands, `heroku run <command>` (e.g. `heroku run flask db upgrade`)
