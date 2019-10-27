@@ -106,15 +106,6 @@ const LayoutContainer: React.SFC<{
         className="fill-height"
         maxWidth={Responsive.onlyMobile.maxWidth}
       >
-        {/* <<<<<<< HEAD
-          <Responsive
-            as={"div"}
-            maxWidth={Responsive.onlyMobile.maxWidth}
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between"
-            }} */}
         <Sidebar.Pushable>
           <Sidebar
             animation="overlay"
@@ -137,25 +128,6 @@ const LayoutContainer: React.SFC<{
               </div>
               <div className="navbar-section">
                 <Logo />
-                {/* <<<<<<< HEAD
-                {pageMenuItems}
-                <Menu.Item position="right">
-                  <LogoutButton />
-                </Menu.Item>
-              </Menu>
-            ) : (
-              <Logo />
-            )}
-          </Responsive>
-        </div>
-        <div
-          className="pageContent"
-          style={{ display: "flex", flexGrow: 1, padding: "1em" }}
-        >
-          {children}
-        </div>
-      </Sidebar.Pusher>
-    </Sidebar.Pushable> */}
               </div>
               <div className="navbar-section authentication-buttons">
                 {Boolean(sessionUser) && <LogoutButton />}
