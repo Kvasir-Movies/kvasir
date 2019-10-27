@@ -18,9 +18,7 @@ const FriendsPage = ({
       setSessionUser={setSessionUser}
     >
       <Container text>
-        <Header as="h1" inverted>
-          Friends
-        </Header>
+        <Header as="h2">Friends</Header>
         <FriendAdder
           sessionUser={sessionUser}
           setSessionUser={setSessionUser}
