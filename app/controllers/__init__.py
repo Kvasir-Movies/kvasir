@@ -1,3 +1,4 @@
+from .explore_controller import ExploreController
 from .friendship_controller import FriendshipController
 from .login_controller import LoginController
 from .logout_controller import LogoutController
@@ -6,11 +7,7 @@ from .movie_search_controller import MovieSearchController
 from .recommendation_controller import RecommendationController
 from .signup_controller import SignupController
 from .slack_controller import SlackController
-<<<<<<< HEAD
 from .user_search_controller import UserSearchController
-=======
-from .explore_controller import ExploreController
->>>>>>> master
 
 __all__ = [
     'ExploreController',
