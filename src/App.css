@@ -10,8 +10,6 @@
 }
 
 .content {
-  display: flex;
-  flex-grow: 1;
   margin: 1em;
 }
 
@@ -72,6 +70,11 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.card-description {
+  max-height: 10em;
+  overflow: hidden;
 }
 
 /*
