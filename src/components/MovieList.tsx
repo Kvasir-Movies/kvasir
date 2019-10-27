@@ -1,42 +1,45 @@
-import React, { useEffect } from "react";
-import { Segment } from "semantic-ui-react";
+import React from "react";
+import { Card, SemanticWIDTHS } from "semantic-ui-react";
 
-import deleteIcon from "../images/x_icon_light.svg";
-import { MoviePreference, SetMoviePreferences, User } from "../types";
-import { deleteMovie } from "../network/requests";
-import MoviePreferenceType from "./MoviePreferenceType";
+import useWindowSize from "../hooks/useWindowSize";
+import { Movie } from "../types";
+import { ChangeMoviePreference } from "./MovieCardBottom";
+import MovieCard from "./MovieCard";
 
-export default function MovieList(props: {
-  user: User;
-  movies: Array<MoviePreference>;
-  fetchUserMovies: () => void;
-  setMovies: SetMoviePreferences;
-}): JSX.Element {
+interface MovieListProps {
+  changeMoviePreference: ChangeMoviePreference;
+  movies: Array<Movie>;
+}
+
+/**
+ * Presentational component to render a list of movies
+ */
+export default function MovieList(props: MovieListProps): JSX.Element {
+  const windowWidth = useWindowSize().width || 0;
+  // NOTE: Another factor is the mobile view which is handled by Card.Group's stackable property.
+  const MIN_COLUMNS = 3;
+  const NEXT_COLUMN_START = 800; // when to use more than 3 columns, in px;
+  const COLUMN_INTERVAL = 200; // add a new column after multiple of this interval, in px
+  const numColumns = Math.max(
+    MIN_COLUMNS,
+    Math.floor(
+      (windowWidth - NEXT_COLUMN_START) / COLUMN_INTERVAL + MIN_COLUMNS + 1
+    )
+  ) as SemanticWIDTHS;
+
   return (
-    <Segment.Group>
-      {props.movies.map(movie => (
-        <Segment key={movie.externalMovieId}>
-          <div style={{ display: "flex" }}>
-            <div style={{ flexGrow: 1, margin: "0.5em" }}>{movie.title}</div>
-            <MoviePreferenceType
-              movie_preference_id={movie.id}
-              preference={movie.preferenceType}
-              setMovies={props.setMovies}
-              user={props.user}
-            />
-          </div>
-          <div className="movieTitle">
-            {movie.title}
-            <img className="moviePoster" src={movie.poster_path} />
-          </div>
-          <div className="movieOverview">{movie.overview}</div>
-          <img
-            className="deleteIcon"
-            src={deleteIcon}
-            onClick={() => deleteMovie(props.user, movie, props.setMovies)}
-          />
-        </Segment>
+    <Card.Group
+      centered
+      stackable
+      itemsPerRow={("" + numColumns) as SemanticWIDTHS}
+    >
+      {props.movies.map((movie, index) => (
+        <MovieCard
+          key={index}
+          movie={movie}
+          changeMoviePreference={props.changeMoviePreference}
+        />
       ))}
-    </Segment.Group>
+    </Card.Group>
   );
 }

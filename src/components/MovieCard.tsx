@@ -1,20 +1,16 @@
 import React from "react";
+import { Card, Image } from "semantic-ui-react";
 
 import { Movie, User } from "../types";
 import { PreferenceType } from "../constants";
+import MovieCardBottom, { ChangeMoviePreference } from "./MovieCardBottom";
 
-import { Card, Image } from "semantic-ui-react";
-
-import ExploreMovieCardBottom from "./ExploreMovieCardBottom";
-const ExploreMovieCard = ({
+const MovieCard = ({
   movie,
   changeMoviePreference
 }: {
   movie: Movie;
-  changeMoviePreference: (
-    externalMovieId: string,
-    preferenceType: PreferenceType
-  ) => void;
+  changeMoviePreference: ChangeMoviePreference;
 }): JSX.Element => {
   return (
     <Card>
@@ -28,7 +24,7 @@ const ExploreMovieCard = ({
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <ExploreMovieCardBottom
+        <MovieCardBottom
           movie={movie}
           changeMoviePreference={changeMoviePreference}
         />
@@ -37,4 +33,4 @@ const ExploreMovieCard = ({
   );
 };
 
-export default ExploreMovieCard;
+export default MovieCard;
