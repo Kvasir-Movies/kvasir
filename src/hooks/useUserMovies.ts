@@ -11,10 +11,14 @@ import { PreferenceType } from "../constants";
 
 export default function useUserMovies(
   user: User
-): [Array<MoviePreference>, ChangeMoviePreference, () => void] {
+): {
+  userMovies: Array<MoviePreference>;
+  handleChangeMoviePreference: ChangeMoviePreference;
+  refetchUserMovies: () => void;
+} {
   const [userMovies, setUserMovies] = useState<Array<MoviePreference>>([]);
-  const doFetchUserMovies = () => fetchMovies(user, setUserMovies);
-  useEffect(doFetchUserMovies, [user]);
+  const refetchUserMovies = () => fetchMovies(user, setUserMovies);
+  useEffect(refetchUserMovies, [user]);
 
   const handleChangeMoviePreference = async (
     externalMovieId: string,
@@ -29,12 +33,12 @@ export default function useUserMovies(
         user,
         preferenceType
       );
-      doFetchUserMovies();
+      refetchUserMovies();
     } else {
       await addMoviePreference(user, Number(externalMovieId), preferenceType);
-      doFetchUserMovies();
+      refetchUserMovies();
     }
   };
 
-  return [userMovies, handleChangeMoviePreference, doFetchUserMovies];
+  return { userMovies, handleChangeMoviePreference, refetchUserMovies };
 }

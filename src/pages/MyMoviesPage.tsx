@@ -12,11 +12,11 @@ const MyMoviesPage = ({
   sessionUser,
   setSessionUser
 }: AuthenticatedPageProps): JSX.Element => {
-  const [
+  const {
     userMovies,
     handleChangeMoviePreference,
     refetchUserMovies
-  ] = useUserMovies(sessionUser);
+  } = useUserMovies(sessionUser);
 
   return (
     <LayoutContainer

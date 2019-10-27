@@ -12,11 +12,7 @@ const ExploreMovieList = (props: {
   setMovies: SetMovies;
 }): JSX.Element => {
   useEffect(props.fetchExploreMovies, []);
-  const [
-    _userMovies,
-    handleChangeMoviePreference,
-    _refetchUserMovies
-  ] = useUserMovies(props.user);
+  const { handleChangeMoviePreference } = useUserMovies(props.user);
 
   return (
     <MovieList
