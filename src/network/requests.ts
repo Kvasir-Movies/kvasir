@@ -6,7 +6,6 @@ import {
   SetMoviePreferences,
   User
 } from "../types";
-import { SearchResult } from "semantic-ui-react";
 
 export const addMoviePreference = (
   user: User,

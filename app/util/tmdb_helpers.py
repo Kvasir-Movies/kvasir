@@ -28,7 +28,6 @@ class APIException(Exception):
 def _process_tmdb_data(tmdb_data):
     movie_data = { desired_key: tmdb_data.get(desired_key, None) for desired_key in DESIRED_KEYS }
     movie_data['externalMovieId'] = tmdb_data['id']
-    print(tmdb_data)
     poster_path = tmdb_data.get('poster_path', None)
     movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}'.format(poster_path) if poster_path else None
     return movie_data
