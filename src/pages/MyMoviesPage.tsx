@@ -33,9 +33,7 @@ const MyMoviesPage = ({
         }}
       >
         <Container text>
-          <Header as="h1" inverted>
-            My movies
-          </Header>
+          <Header as="h2">My movies</Header>
           <MovieAdder user={sessionUser} fetchUserMovies={refetchUserMovies} />
           <div style={{ marginTop: 20 }}>
             <MovieList

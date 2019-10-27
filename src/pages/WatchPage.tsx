@@ -17,7 +17,7 @@ const WatchPage = ({
       setSessionUser={setSessionUser}
     >
       <Container text>
-        <Header as="h1">Find a movie to watch with friends</Header>
+        <Header as="h2">Find a movie to watch with friends</Header>
         <MovieRecommender sessionUser={sessionUser} />
       </Container>
     </LayoutContainer>
