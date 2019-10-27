@@ -8,10 +8,8 @@ import useUserMovies from "../hooks/useUserMovies";
 const ExploreMovieList = (props: {
   user: User;
   movies: Array<Movie>;
-  fetchExploreMovies: () => void;
   setMovies: SetMovies;
 }): JSX.Element => {
-  useEffect(props.fetchExploreMovies, []);
   const { handleChangeMoviePreference } = useUserMovies(props.user);
 
   return (
