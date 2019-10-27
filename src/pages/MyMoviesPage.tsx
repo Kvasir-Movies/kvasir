@@ -16,7 +16,7 @@ const MyMoviesPage = ({
   const fetchUserMovies = () => {
     fetchMovies(sessionUser, setMovies);
   };
-  useEffect(fetchUserMovies, []);
+  useEffect(fetchUserMovies, [sessionUser, setMovies]);
 
   return (
     <LayoutContainer
