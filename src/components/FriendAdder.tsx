@@ -31,7 +31,7 @@ const FriendAdder = ({
   };
 
   return (
-    <Form className="flex-fill" inverted onSubmit={handleOnSubmit}>
+    <Form className="flex-fill" onSubmit={handleOnSubmit}>
       <input
         className="flex-fill"
         name="email"

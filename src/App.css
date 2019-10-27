@@ -66,6 +66,11 @@
   height: 100%;
 }
 
+.flex-fill {
+  display: flex;
+  flex-grow: 1;
+}
+
 @keyframes spin {
   100% {
     transform: rotate(360deg);
