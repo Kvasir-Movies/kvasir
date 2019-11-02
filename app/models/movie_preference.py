@@ -21,7 +21,7 @@ class MoviePreference(db.Model):
         UniqueConstraint('user_id', 'external_movie_id', name='user_and_external_movie'),
     )
 
-    user = relationship("User", back_populates="movies")
+    user = relationship("User", back_populates="movie_preferences")
 
     def __init__(self, user, external_movie_id, preference_type=PreferenceTypes.positive):
         self.user = user
@@ -31,7 +31,7 @@ class MoviePreference(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
-            'external_movie_id': self.external_movie_id,
+            'userId': self.user_id,
+            'externalMovieId': self.external_movie_id,
             'preferenceType': self.preference_type.value,
         }

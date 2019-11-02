@@ -10,7 +10,7 @@ class User(db.Model):
     id = Column(Integer, primary_key=True)
     email = Column(String(80), unique=True, nullable=False)
     password_hash = Column(String(64), nullable=False)
-    movies = relationship("MoviePreference", back_populates="user")
+    movie_preferences = relationship("MoviePreference", back_populates="user")
     friendships = relationship("Friendship", foreign_keys=[Friendship.user_id], back_populates="user")
 
     def __init__(self, email, password):

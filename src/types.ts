@@ -6,7 +6,7 @@ export interface Friend {
 
 export interface MoviePreference {
   userId: number;
-  movie: Movie;
+  externalMovieId: string;
   preferenceType: PreferenceType;
 }
 
@@ -14,8 +14,9 @@ export interface Movie {
   externalMovieId: string;
   title: string;
   overview: string;
-  posterPath: string;
+  posterPath?: string;
   releaseDate?: string;
+  currentUserPreference?: MoviePreference;
 }
 
 export interface User {

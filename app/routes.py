@@ -2,12 +2,11 @@ from flask import jsonify, send_from_directory
 
 from app import app, BUILD_DIR
 from app.controllers import (
-    ExploreController,
     FriendshipController,
     LoginController,
     LogoutController,
+    MovieController,
     MoviePreferenceController,
-    MovieSearchController,
     RecommendationController,
     SignupController,
     SlackController,
@@ -46,7 +45,12 @@ def login():
 @app.route('/search-movies')
 @login_required
 def search_movies():
-    return MovieSearchController().handle()
+    return MovieController().search_movies()
+
+
+@app.route('/explore')
+def get_explore():
+    return MovieController().explore_movies()
 
 
 @app.route('/signup', methods=['POST'])
@@ -60,12 +64,6 @@ def logout():
 
 
 # REST resource APIs
-@app.route('/users/<user_id>/movie-preferences/', methods=['GET'])
-@authorization_required
-def get_movie_preferences(user):
-    return MoviePreferenceController().get_all(user)
-
-
 @app.route('/users/<user_id>/movie-preferences', methods=['POST'])
 @authorization_required
 def create_movie_preference(user):
@@ -103,8 +101,3 @@ def search_users():
 @app.route('/slack', methods=['POST'])
 def get_slack():
     return SlackController().handle()
-
-
-@app.route('/explore')
-def get_explore():
-    return ExploreController().handle()

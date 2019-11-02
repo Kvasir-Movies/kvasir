@@ -2,8 +2,6 @@ from flask import abort, jsonify, request
 
 from app import db
 from app.models import MoviePreference, PreferenceTypes
-from app.util.tmdb_helpers import get_movie
-from app.util.concurrency import call_one_func_parallel
 
 class MoviePreferenceController():
     def create(self, user):
@@ -33,21 +31,6 @@ class MoviePreferenceController():
         db.session.commit()
 
         return jsonify(mp.to_dict())
-
-    def get_all(self, user):
-        user_movie_preferences = user.movies
-
-        results = call_one_func_parallel(user_movie_preferences, lambda mp: get_movie(mp.external_movie_id))
-
-        movie_preferences = []
-        for mp, external_movie in results:
-            movie_preference_dict = mp.to_dict()
-            movie_preference_dict['movie'] = external_movie
-            movie_preferences.append(movie_preference_dict)
-
-        movie_preferences.sort(key=lambda m: m['movie']["title"])
-
-        return jsonify({'moviePreferences': movie_preferences})
 
     def delete(self, user, movie_preference_id):
         movie_preference = MoviePreference.query.get(movie_preference_id)

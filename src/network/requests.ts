@@ -49,10 +49,7 @@ export const fetchExploreMovies = (
     });
 };
 
-export const fetchMovies = (
-  user: User,
-  setMovies: SetMoviePreferences
-): void => {
+export const fetchMovies = (user: User, setMovies: SetMovies): void => {
   fetch(`/users/${user.id}/movie-preferences/`, {
     method: "GET",
     headers: {
