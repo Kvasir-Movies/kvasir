@@ -20,7 +20,7 @@ class MoviePreferenceController():
 
     def update(self, user, movie_preference_id):
         data = request.get_json()
-        preference_type = data.get('preference_type')
+        preference_type = data.get('preferenceType')
         if not movie_preference_id:
             abort(400)
 
@@ -34,20 +34,20 @@ class MoviePreferenceController():
 
         return jsonify(mp.to_dict())
 
-    def get(self, user):
+    def get_all(self, user):
         user_movie_preferences = user.movies
 
         results = call_one_func_parallel(user_movie_preferences, lambda mp: get_movie(mp.external_movie_id))
 
-        movies = []
+        movie_preferences = []
         for mp, external_movie in results:
             movie_preference_dict = mp.to_dict()
-            movie_preference_dict.update(external_movie)
-            movies.append(movie_preference_dict)
+            movie_preference_dict['movie'] = external_movie
+            movie_preferences.append(movie_preference_dict)
 
-        movies.sort(key=lambda m: m["title"])
+        movie_preferences.sort(key=lambda m: m['movie']["title"])
 
-        return jsonify({'movies': movies})
+        return jsonify({'moviePreferences': movie_preferences})
 
     def delete(self, user, movie_preference_id):
         movie_preference = MoviePreference.query.get(movie_preference_id)

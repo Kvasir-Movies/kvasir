@@ -63,7 +63,7 @@ def logout():
 @app.route('/users/<user_id>/movie-preferences/', methods=['GET'])
 @authorization_required
 def get_movie_preferences(user):
-    return MoviePreferenceController().get(user)
+    return MoviePreferenceController().get_all(user)
 
 
 @app.route('/users/<user_id>/movie-preferences', methods=['POST'])

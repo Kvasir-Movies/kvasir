@@ -68,8 +68,8 @@ export const fetchMovies = (
       }
       return response.json();
     })
-    .then((data: { movies: Array<MoviePreference> }) => {
-      setMovies(data.movies);
+    .then((data: { moviePreferences: Array<MoviePreference> }) => {
+      setMovies(data.moviePreferences);
     });
 };
 

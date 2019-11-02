@@ -27,7 +27,7 @@ const MovieCard = ({
             setIsHovering(false);
           }}
         >
-          <Image centered fluid src={movie.poster_path} />
+          <Image centered fluid src={movie.posterPath} />
           <Dimmer active={isHovering} className="contain-text">
             <Header inverted>{movie.title}</Header>
             {movie.overview}

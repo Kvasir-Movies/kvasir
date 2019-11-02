@@ -11,7 +11,7 @@ def handle_movie_data(movie):
     movie_data['externalMovieId'] = movie.get('id')
     # NOTE: Poster paths can be found by calling the /configuration API endpoint.
     #   Current API response found at https://developers.themoviedb.org/3/configuration/get-api-configuration
-    movie_data['poster_path'] = 'https://image.tmdb.org/t/p/w500/{}'.format(movie.get('poster_path'))
+    movie_data['posterPath'] = 'https://image.tmdb.org/t/p/w500/{}'.format(movie.get('poster_path'))
     return movie_data
 
 class ExploreController():

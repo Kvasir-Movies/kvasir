@@ -52,13 +52,13 @@ const MovieAdder = (props: {
 
   const Option = (props: OptionProps<MovieOption>) => {
     const movie = props.data.movie;
-    const releaseYear = movie.release_date
-      ? new Date(movie.release_date).getUTCFullYear()
+    const releaseYear = movie.releaseDate
+      ? new Date(movie.releaseDate).getUTCFullYear()
       : null;
     return (
       <components.Option {...props}>
         <div className="movieDropdownOption">
-          {movie.poster_path && <Image src={movie.poster_path} size="mini" />}
+          {movie.posterPath && <Image src={movie.posterPath} size="mini" />}
           <div className="movieDropdownOption-label">
             <b>{movie.title}</b>
             {releaseYear && (
