@@ -5,11 +5,10 @@ import FriendAdder from "../components/FriendAdder";
 import FriendList from "../components/FriendList";
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { useSelector } from "react-redux";
-import { GlobalState } from "../types";
+import useSessionUser from "../hooks/useSessionUser";
 
 const FriendsPage = (): JSX.Element => {
-  const sessionUser = useSelector((state: GlobalState) => state.sessionUser!);
+  const sessionUser = useSessionUser()!;
   return (
     <LayoutContainer activePath={Path.friendsPage}>
       <Container text>

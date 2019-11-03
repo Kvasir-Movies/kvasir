@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import { Button, Form, Header, Segment } from "semantic-ui-react";
 
-import { Movie, User } from "../types";
+import { Movie } from "../types";
 import { getRecommendation } from "../network/requests";
 import UserPicker from "./UserPicker";
 import MovieList from "./MovieList";
 
-const MovieRecommender = ({
-  sessionUser
-}: {
-  sessionUser: User;
-}): JSX.Element => {
+const MovieRecommender = (): JSX.Element => {
   const [recommendedMovies, setRecommendedMovies] = useState<Array<Movie>>([]);
   const [selectedEmails, setSelectedEmails] = useState<Array<string>>([]);
   const [fetchCompleted, setFetchCompleted] = useState(false);
@@ -36,7 +32,6 @@ const MovieRecommender = ({
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex" }}>
           <UserPicker
-            sessionUser={sessionUser}
             selectedEmails={selectedEmails}
             setSelectedEmails={resetEmails}
           />
@@ -55,10 +50,7 @@ const MovieRecommender = ({
         {fetchCompleted &&
           selectedEmails.length > 0 &&
           (recommendedMovies.length ? (
-            <MovieList
-              movies={recommendedMovies}
-              changeMoviePreference={() => {}}
-            />
+            <MovieList movies={recommendedMovies} />
           ) : (
             "No common movies found - try adding more movies to your lists to find ones in common"
           ))}

@@ -20,9 +20,16 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}: {}>'.format(self.id, self.email)
 
-    def to_dict(self):
-        return {
+    def to_dict(self, include_lists=False):
+        data = {
             'id': self.id,
-            'email': self.email,
-            'friends': [{'email': friendship.friend.email} for friendship in self.friendships]
+            'email': self.email
         }
+
+        if include_lists:
+            data.update({
+                'friends': [{'email': friendship.friend.email} for friendship in self.friendships],
+                'moviePreferences': [mp.to_dict() for mp in self.movie_preferences]
+            })
+
+        return data

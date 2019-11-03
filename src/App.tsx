@@ -12,6 +12,7 @@ import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Path } from "./constants";
+import useSessionUser from "./hooks/useSessionUser";
 import ExplorePage from "./pages/ExplorePage";
 import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
@@ -19,7 +20,7 @@ import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
 import WatchPage from "./pages/WatchPage";
-import { GlobalState, User } from "./types";
+import { FullUser, GlobalState, User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
   sessionUser: User | null;
@@ -56,13 +57,13 @@ const App = (): JSX.Element => {
   const hasSessionLoaded = useSelector(
     (state: GlobalState) => state.hasSessionLoaded
   );
-  const sessionUser = useSelector((state: GlobalState) => state.sessionUser);
+  const sessionUser = useSessionUser();
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
-      .then((data: { user: User | null }) => {
+      .then((data: { user: FullUser | null }) => {
         dispatch(setSessionLoaded(true));
         dispatch(setSessionUser(data.user));
       })

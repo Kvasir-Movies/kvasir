@@ -3,8 +3,6 @@ import requests
 
 from flask import g
 
-from models import MoviePreferenceController
-
 TMDB_API_KEY = app.config.get('TMDB_API_KEY')
 TMDB_SEARCH_MOVIE_URL = 'https://api.themoviedb.org/3/search/movie'
 TMDB_FIND_MOVIE_URL = 'https://api.themoviedb.org/3/movie/'
@@ -36,7 +34,7 @@ class APIException(Exception):
 def _format_tmdb_movie(tmdb_movie):
     formatted_movie = { desired_key: tmdb_movie.get(desired_key, None)
                         for desired_key in DESIRED_KEYS }
-    formatted_movie['externalMovieId'] = tmdb_movie.get('id')
+    formatted_movie['externalMovieId'] = str(tmdb_movie.get('id'))
     formatted_movie['releaseDate'] = tmdb_movie.get('release_date', None)
     poster_path = tmdb_movie.get('poster_path', None)
     formatted_movie['posterPath'] = (

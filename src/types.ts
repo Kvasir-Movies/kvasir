@@ -16,13 +16,17 @@ export interface Movie {
   overview: string;
   posterPath?: string;
   releaseDate?: string;
-  currentUserPreference?: MoviePreference;
 }
 
 export interface User {
   id: number;
   email: string;
+}
+
+// Includes lists of information, which can potentially be very large
+export interface FullUser extends User {
   friends: Array<Friend>;
+  moviePreferences: Array<MoviePreference>;
 }
 
 export interface AuthenticatedPageProps {
@@ -35,13 +39,14 @@ export interface UnauthenticatedPageProps {
 }
 
 export interface GlobalState {
-  sessionUser: User | null;
+  sessionUser: FullUser | null;
   hasSessionLoaded: boolean;
 }
 
 export interface Action {
   type: string;
   hasSessionLoaded?: boolean;
+  moviePreference?: MoviePreference;
   user?: User;
 }
 

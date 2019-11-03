@@ -5,33 +5,24 @@ import { PreferenceType } from "../constants";
 
 import { Button, Icon } from "semantic-ui-react";
 
-export type ChangeMoviePreference = (
-  externalMovieId: string,
-  preferenceType: PreferenceType
-) => void;
-
 export default function MovieCardBottom(props: {
   movie: Movie;
-  changeMoviePreference: ChangeMoviePreference;
+  handleChangeMoviePreference: (preferenceType: PreferenceType) => void;
 }): JSX.Element {
   const movie = props.movie;
-  const changeMoviePreference = props.changeMoviePreference;
+  const handleChangeMoviePreference = props.handleChangeMoviePreference;
 
   return (
     <Button.Group fluid>
       <Button
         color="green"
-        onClick={() =>
-          changeMoviePreference(movie.externalMovieId, PreferenceType.positive)
-        }
+        onClick={() => handleChangeMoviePreference(PreferenceType.positive)}
       >
         <Icon name="checkmark" />
       </Button>
       <Button
         color="black"
-        onClick={() =>
-          changeMoviePreference(movie.externalMovieId, PreferenceType.negative)
-        }
+        onClick={() => handleChangeMoviePreference(PreferenceType.negative)}
       >
         <Icon name="close" />
       </Button>

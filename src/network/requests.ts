@@ -1,28 +1,4 @@
-import { PreferenceType } from "../constants";
-import {
-  Movie,
-  MoviePreference,
-  SetMovies,
-  SetMoviePreferences,
-  User
-} from "../types";
-
-export const addMoviePreference = (
-  user: User,
-  externalMovieId: number,
-  preferenceType: PreferenceType
-): void => {
-  fetch(`/users/${user.id}/movie-preferences`, {
-    method: "POST",
-    body: JSON.stringify({
-      externalMovieId: externalMovieId,
-      preferenceType: preferenceType
-    }),
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    }
-  });
-};
+import { Movie, MoviePreference, SetMovies, User } from "../types";
 
 export const fetchExploreMovies = (
   setMovies: SetMovies,
@@ -49,8 +25,11 @@ export const fetchExploreMovies = (
     });
 };
 
-export const fetchMovies = (user: User, setMovies: SetMovies): void => {
-  fetch(`/users/${user.id}/movie-preferences/`, {
+export const fetchWatchlistMovies = (
+  user: User,
+  setMovies: SetMovies
+): void => {
+  fetch(`/users/${user.id}/actions:get-watchlist`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json; charset=utf-8"
@@ -65,8 +44,8 @@ export const fetchMovies = (user: User, setMovies: SetMovies): void => {
       }
       return response.json();
     })
-    .then((data: { moviePreferences: Array<MoviePreference> }) => {
-      setMovies(data.moviePreferences);
+    .then((data: { movies: Array<Movie> }) => {
+      setMovies(data.movies);
     });
 };
 
@@ -74,8 +53,8 @@ export const loadMovieOptions = (inputValue: string) => {
   const searchParams = new URLSearchParams({ search: inputValue });
   return fetch("/search-movies?" + searchParams.toString())
     .then(response => response.json())
-    .then(function(json: { searchResults: Array<Movie> }) {
-      return json.searchResults.map(movie => ({
+    .then(function(data: { movies: Array<Movie> }) {
+      return data.movies.map(movie => ({
         movie: movie,
         label: movie.title,
         value: movie.externalMovieId
@@ -83,50 +62,17 @@ export const loadMovieOptions = (inputValue: string) => {
     });
 };
 
-export const deleteMovie = (
-  user: User,
-  moviePreference: MoviePreference,
-  setMovies: SetMoviePreferences
-) => {
-  return fetch(`/users/${user.id}/movie-preferences/${moviePreference.id}`, {
-    method: "DELETE"
-  })
-    .then(response => response.json())
-    .then(() => fetchMovies(user, setMovies));
-};
-
-export const updateMoviePreferenceAsync = async (
-  id: number,
-  user: User,
-  preferenceType: PreferenceType
-) => {
-  const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
-    method: "PATCH",
+export const upsertMoviePreference = async (mp: MoviePreference) => {
+  return fetch(`/users/${mp.userId}/movie-preferences`, {
+    method: "PUT",
+    body: JSON.stringify({
+      externalMovieId: mp.externalMovieId,
+      preferenceType: mp.preferenceType
+    }),
     headers: {
       "Content-Type": "application/json; charset=utf-8"
-    },
-    body: JSON.stringify({ preference_type: preferenceType })
+    }
   });
-};
-
-export const updateMoviePreference = async (
-  id: number,
-  user: User,
-  preferenceType: PreferenceType,
-  setMovies: SetMoviePreferences
-) => {
-  const response = await fetch(`users/${user.id}/movie-preferences/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8"
-    },
-    body: JSON.stringify({ preference_type: preferenceType })
-  });
-  if (response.status !== 200) {
-    alert("Failed to update movie preference.");
-  } else {
-    fetchMovies(user, setMovies);
-  }
 };
 
 export const getRecommendation = async (emails: string) => {

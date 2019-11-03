@@ -3,18 +3,14 @@ import { Card, SemanticWIDTHS } from "semantic-ui-react";
 
 import useWindowSize from "../hooks/useWindowSize";
 import { Movie } from "../types";
-import { ChangeMoviePreference } from "./MovieCardBottom";
 import MovieCard from "./MovieCard";
-
-interface MovieListProps {
-  changeMoviePreference: ChangeMoviePreference;
-  movies: Array<Movie>;
-}
 
 /**
  * Presentational component to render a list of movies
  */
-export default function MovieList(props: MovieListProps): JSX.Element {
+export default function MovieList(props: {
+  movies: Array<Movie>;
+}): JSX.Element {
   const windowWidth = useWindowSize().width || 0;
   // NOTE: Another factor is the mobile view which is handled by Card.Group's stackable property.
   const MIN_COLUMNS = 3;
@@ -34,11 +30,7 @@ export default function MovieList(props: MovieListProps): JSX.Element {
       itemsPerRow={("" + numColumns) as SemanticWIDTHS}
     >
       {props.movies.map((movie, index) => (
-        <MovieCard
-          key={index}
-          movie={movie}
-          changeMoviePreference={props.changeMoviePreference}
-        />
+        <MovieCard key={index} movie={movie} />
       ))}
     </Card.Group>
   );

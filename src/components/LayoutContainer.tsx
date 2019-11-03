@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   Icon,
@@ -12,8 +12,8 @@ import {
 
 import { setSessionUser } from "../actions";
 import { Path } from "../constants";
+import useSessionUser from "../hooks/useSessionUser";
 import logo from "../images/reel-politik-logo-1.png";
-import { GlobalState } from "../types";
 
 const Logo = () => <Image className="logo" src={logo} />;
 
@@ -51,7 +51,7 @@ const LayoutContainer: React.SFC<{
   activePath?: Path;
 }> = ({ activePath, children }): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const sessionUser = useSelector((state: GlobalState) => state.sessionUser);
+  const sessionUser = useSessionUser();
   const dispatch = useDispatch();
 
   function handleSidebarHide() {

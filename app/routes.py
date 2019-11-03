@@ -32,7 +32,7 @@ def serve(path):
 @app.route('/session', methods=['GET'])
 def get_session():
     if is_user_logged_in():
-        return jsonify(user=get_current_session_user().to_dict())
+        return jsonify(user=get_current_session_user().to_dict(include_lists=True))
     else:
         return jsonify(user=None)
 
@@ -64,22 +64,16 @@ def logout():
 
 
 # REST resource APIs
-@app.route('/users/<user_id>/movie-preferences', methods=['POST'])
+@app.route('/users/<user_id>/movie-preferences', methods=['PUT'])
 @authorization_required
-def create_movie_preference(user):
-    return MoviePreferenceController().create(user)
+def upsert_movie_preference(user):
+    return MoviePreferenceController().upsert(user)
 
 
-@app.route('/users/<user_id>/movie-preferences/<movie_preference_id>', methods=['PATCH'])
+@app.route('/users/<user_id>/actions:get-watchlist')
 @authorization_required
-def update_movie_preference(user, movie_preference_id):
-    return MoviePreferenceController().update(user, movie_preference_id)
-
-
-@app.route('/users/<user_id>/movie-preferences/<movie_preference_id>', methods=['DELETE'])
-@authorization_required
-def delete_movie_preference(user, movie_preference_id):
-    return MoviePreferenceController().delete(user, movie_preference_id)
+def get_user_watchlist(user):
+    return MovieController().list_liked_movies(user)
 
 
 @app.route('/get-recommendation')
