@@ -1,17 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Container, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import MovieAdder from "../components/MovieAdder";
-import { Path } from "../constants";
-import { AuthenticatedPageProps } from "../types";
-import useUserMovies from "../hooks/useUserMovies";
 import MovieList from "../components/MovieList";
+import { Path } from "../constants";
+import useUserMovies from "../hooks/useUserMovies";
+import { GlobalState } from "../types";
 
-const MyMoviesPage = ({
-  sessionUser,
-  setSessionUser
-}: AuthenticatedPageProps): JSX.Element => {
+const MyMoviesPage = (): JSX.Element => {
+  const sessionUser = useSelector((state: GlobalState) => state.sessionUser!);
   const {
     userMovies,
     handleChangeMoviePreference,
@@ -19,11 +18,7 @@ const MyMoviesPage = ({
   } = useUserMovies(sessionUser);
 
   return (
-    <LayoutContainer
-      activePath={Path.myMoviesPage}
-      sessionUser={sessionUser}
-      setSessionUser={setSessionUser}
-    >
+    <LayoutContainer activePath={Path.myMoviesPage}>
       <div
         style={{
           alignItems: "center",

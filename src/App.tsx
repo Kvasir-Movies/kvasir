@@ -75,58 +75,46 @@ const App = (): JSX.Element => {
         {hasSessionLoaded ? (
           <div className="fill-height">
             <UnauthenticatedRoute path="/" exact sessionUser={sessionUser}>
-              <LandingPage setSessionUser={setSessionUser} />
+              <LandingPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.landingPage}
               sessionUser={sessionUser}
             >
-              <LandingPage setSessionUser={setSessionUser} />
+              <LandingPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.loginPage}
               sessionUser={sessionUser}
             >
-              <LoginPage setSessionUser={setSessionUser} />
+              <LoginPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.signupPage}
               sessionUser={sessionUser}
             >
-              <SignupPage setSessionUser={setSessionUser} />
+              <SignupPage />
             </UnauthenticatedRoute>
             <AuthenticatedRoute
               path={Path.explorePage}
               sessionUser={sessionUser}
             >
-              <ExplorePage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <ExplorePage />
             </AuthenticatedRoute>
             <AuthenticatedRoute path={Path.watchPage} sessionUser={sessionUser}>
-              <WatchPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <WatchPage />
             </AuthenticatedRoute>
             <AuthenticatedRoute
               path={Path.myMoviesPage}
               sessionUser={sessionUser}
             >
-              <MyMoviesPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <MyMoviesPage />
             </AuthenticatedRoute>
             <AuthenticatedRoute
               path={Path.friendsPage}
               sessionUser={sessionUser}
             >
-              <FriendsPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <FriendsPage />
             </AuthenticatedRoute>
           </div>
         ) : (
