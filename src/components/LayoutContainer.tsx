@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   Icon,
@@ -9,9 +10,10 @@ import {
   Button
 } from "semantic-ui-react";
 
+import { setSessionUser } from "../actions";
 import { Path } from "../constants";
 import logo from "../images/reel-politik-logo-1.png";
-import { User } from "../types";
+import { GlobalState } from "../types";
 
 const Logo = () => <Image className="logo" src={logo} />;
 
@@ -47,10 +49,11 @@ const PageMenuItem = ({
 
 const LayoutContainer: React.SFC<{
   activePath?: Path;
-  sessionUser?: User | null;
-  setSessionUser: (sessionUser: User | null) => void;
-}> = ({ activePath, children, sessionUser, setSessionUser }): JSX.Element => {
+}> = ({ activePath, children }): JSX.Element => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sessionUser = useSelector((state: GlobalState) => state.sessionUser);
+  const dispatch = useDispatch();
+
   function handleSidebarHide() {
     setSidebarOpen(false);
   }
@@ -61,7 +64,7 @@ const LayoutContainer: React.SFC<{
   const handleLogout = () => {
     fetch("/logout", { method: "POST" }).then(response => {
       if (response.ok) {
-        setSessionUser(null);
+        dispatch(setSessionUser(null));
       }
     });
   };

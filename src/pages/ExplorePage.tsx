@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Container, Dropdown, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { AuthenticatedPageProps, Movie, User } from "../types";
+import { AuthenticatedPageProps, Movie, User, GlobalState } from "../types";
 import ExploreMovieList from "../components/ExploreMovieList";
 import { fetchExploreMovies } from "../network/requests";
 
-import { Container, Dropdown, Header } from "semantic-ui-react";
-
-const ExplorePage = ({
-  sessionUser,
-  setSessionUser
-}: AuthenticatedPageProps): JSX.Element => {
+const ExplorePage = (): JSX.Element => {
   const [movies, setMovies] = useState<Array<Movie>>([]);
   const [sortMethod, setSortMethod] = useState("");
+  const sessionUser = useSelector((state: GlobalState) => state.sessionUser);
   const doFetchExploreMovies = (sortMethod: string) =>
     fetchExploreMovies(setMovies, sortMethod);
   useEffect(() => doFetchExploreMovies(sortMethod), [sortMethod]);
 
   return (
-    <LayoutContainer
-      activePath={Path.explorePage}
-      sessionUser={sessionUser}
-      setSessionUser={setSessionUser}
-    >
+    <LayoutContainer activePath={Path.explorePage}>
       <Dropdown>
         <Dropdown.Menu>
           <Dropdown.Item

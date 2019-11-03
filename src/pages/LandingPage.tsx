@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { UnauthenticatedPageProps } from "../types";
 
-const LandingPage = ({
-  setSessionUser
-}: UnauthenticatedPageProps): JSX.Element => {
+const LandingPage = (): JSX.Element => {
   return (
-    <LayoutContainer sessionUser={null} setSessionUser={setSessionUser}>
+    <LayoutContainer>
       <h1>Try out Reel Politik</h1>
       <Link to={Path.loginPage}>Log In</Link>
       <Link to={Path.signupPage}>Sign Up</Link>
