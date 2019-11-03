@@ -7,7 +7,7 @@ import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { User } from "../types";
+import { FullUser } from "../types";
 
 const SignupPage = (): JSX.Element => {
   const { value: emailValue, onChange: onEmailChange } = useFormInput("");
@@ -33,7 +33,7 @@ const SignupPage = (): JSX.Element => {
           );
         }
       })
-      .then((user: User) => {
+      .then((user: FullUser) => {
         dispatch(setSessionUser(user));
       })
       .catch(errorMessage => alert(errorMessage));

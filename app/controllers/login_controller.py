@@ -21,7 +21,7 @@ class LoginController():
 
         if is_password_valid:
             create_session(email)
-            return jsonify(user.to_dict())
+            return jsonify(user.to_dict(include_lists=True))
         else:
             delete_session()
             return '', 401
