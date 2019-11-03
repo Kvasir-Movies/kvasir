@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 
+import { setSessionLoaded, setSessionUser } from "./actions";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
@@ -17,7 +19,7 @@ import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
 import WatchPage from "./pages/WatchPage";
-import { User } from "./types";
+import { GlobalState, User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
   sessionUser: User | null;
@@ -51,15 +53,18 @@ const UnauthenticatedRoute = ({
 );
 
 const App = (): JSX.Element => {
-  const [sessionUser, setSessionUser] = useState<User | null>(null);
-  const [hasSessionLoaded, setSessionLoaded] = useState(false);
+  const hasSessionLoaded = useSelector(
+    (state: GlobalState) => state.hasSessionLoaded
+  );
+  const sessionUser = useSelector((state: GlobalState) => state.sessionUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
       .then((data: { user: User | null }) => {
-        setSessionUser(data.user);
-        setSessionLoaded(true);
+        dispatch(setSessionLoaded(true));
+        dispatch(setSessionUser(data.user));
       })
       .catch(error => alert("Something went wrong, please refresh the page."));
   }, []);
