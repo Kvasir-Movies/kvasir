@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,10 +7,12 @@ import {
   Redirect
 } from "react-router-dom";
 
+import { setSessionData } from "./actions";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
 import { Path } from "./constants";
+import useSessionUser from "./hooks/useSessionUser";
 import ExplorePage from "./pages/ExplorePage";
 import FriendsPage from "./pages/FriendsPage";
 import LandingPage from "./pages/LandingPage";
@@ -17,7 +20,7 @@ import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
 import WatchPage from "./pages/WatchPage";
-import { User } from "./types";
+import { GlobalState, User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
   sessionUser: User | null;
@@ -51,15 +54,17 @@ const UnauthenticatedRoute = ({
 );
 
 const App = (): JSX.Element => {
-  const [sessionUser, setSessionUser] = useState<User | null>(null);
-  const [hasSessionLoaded, setSessionLoaded] = useState(false);
+  const hasSessionLoaded = useSelector(
+    (state: GlobalState) => state.hasSessionLoaded
+  );
+  const sessionUser = useSessionUser();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
       .then((data: { user: User | null }) => {
-        setSessionUser(data.user);
-        setSessionLoaded(true);
+        dispatch(setSessionData(true, data.user));
       })
       .catch(error => alert("Something went wrong, please refresh the page."));
   }, []);
@@ -70,58 +75,46 @@ const App = (): JSX.Element => {
         {hasSessionLoaded ? (
           <div className="fill-height">
             <UnauthenticatedRoute path="/" exact sessionUser={sessionUser}>
-              <LandingPage setSessionUser={setSessionUser} />
+              <LandingPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.landingPage}
               sessionUser={sessionUser}
             >
-              <LandingPage setSessionUser={setSessionUser} />
+              <LandingPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.loginPage}
               sessionUser={sessionUser}
             >
-              <LoginPage setSessionUser={setSessionUser} />
+              <LoginPage />
             </UnauthenticatedRoute>
             <UnauthenticatedRoute
               path={Path.signupPage}
               sessionUser={sessionUser}
             >
-              <SignupPage setSessionUser={setSessionUser} />
+              <SignupPage />
             </UnauthenticatedRoute>
             <AuthenticatedRoute
               path={Path.explorePage}
               sessionUser={sessionUser}
             >
-              <ExplorePage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <ExplorePage />
             </AuthenticatedRoute>
             <AuthenticatedRoute path={Path.watchPage} sessionUser={sessionUser}>
-              <WatchPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <WatchPage />
             </AuthenticatedRoute>
             <AuthenticatedRoute
               path={Path.myMoviesPage}
               sessionUser={sessionUser}
             >
-              <MyMoviesPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <MyMoviesPage />
             </AuthenticatedRoute>
             <AuthenticatedRoute
               path={Path.friendsPage}
               sessionUser={sessionUser}
             >
-              <FriendsPage
-                sessionUser={sessionUser!}
-                setSessionUser={setSessionUser}
-              />
+              <FriendsPage />
             </AuthenticatedRoute>
           </div>
         ) : (

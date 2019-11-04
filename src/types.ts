@@ -37,6 +37,17 @@ export interface UnauthenticatedPageProps {
   setSessionUser: SetSessionUser;
 }
 
+export interface GlobalState {
+  sessionUser: User | null;
+  hasSessionLoaded: boolean;
+}
+
+export interface Action {
+  type: string;
+  hasSessionLoaded?: boolean;
+  user?: User | null;
+}
+
 export type SetMovies = (movies: Array<Movie>) => void;
 export type SetMoviePreferences = (movies: Array<MoviePreference>) => void;
 export type SetSessionUser = (sessionUser: User | null) => void;

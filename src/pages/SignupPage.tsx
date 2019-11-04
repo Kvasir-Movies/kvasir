@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { setSessionUser } from "../actions";
 import useFormInput from "../hooks/useFormInput";
 import AuthenticationForm from "../components/AuthenticationForm";
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { UnauthenticatedPageProps, User } from "../types";
+import { User } from "../types";
 
-const SignupPage = ({
-  setSessionUser
-}: UnauthenticatedPageProps): JSX.Element => {
+const SignupPage = (): JSX.Element => {
   const { value: emailValue, onChange: onEmailChange } = useFormInput("");
   const { value: passwordValue, onChange: onPasswordChange } = useFormInput("");
+  const dispatch = useDispatch();
 
   function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -33,13 +34,13 @@ const SignupPage = ({
         }
       })
       .then((user: User) => {
-        setSessionUser(user);
+        dispatch(setSessionUser(user));
       })
       .catch(errorMessage => alert(errorMessage));
   }
 
   return (
-    <LayoutContainer setSessionUser={setSessionUser}>
+    <LayoutContainer>
       <AuthenticationForm
         emailValue={emailValue}
         footer={

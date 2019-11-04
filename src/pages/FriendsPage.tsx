@@ -5,24 +5,15 @@ import FriendAdder from "../components/FriendAdder";
 import FriendList from "../components/FriendList";
 import LayoutContainer from "../components/LayoutContainer";
 import { Path } from "../constants";
-import { AuthenticatedPageProps, User } from "../types";
+import useSessionUser from "../hooks/useSessionUser";
 
-const FriendsPage = ({
-  sessionUser,
-  setSessionUser
-}: AuthenticatedPageProps): JSX.Element => {
+const FriendsPage = (): JSX.Element => {
+  const sessionUser = useSessionUser()!;
   return (
-    <LayoutContainer
-      activePath={Path.friendsPage}
-      sessionUser={sessionUser}
-      setSessionUser={setSessionUser}
-    >
+    <LayoutContainer activePath={Path.friendsPage}>
       <Container text>
         <Header as="h2">Friends</Header>
-        <FriendAdder
-          sessionUser={sessionUser}
-          setSessionUser={setSessionUser}
-        />
+        <FriendAdder sessionUser={sessionUser} />
         <FriendList sessionUser={sessionUser} />
       </Container>
     </LayoutContainer>
