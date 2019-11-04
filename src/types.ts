@@ -45,7 +45,7 @@ export interface GlobalState {
 export interface Action {
   type: string;
   hasSessionLoaded?: boolean;
-  user?: User;
+  user?: User | null;
 }
 
 export type SetMovies = (movies: Array<Movie>) => void;
