@@ -23,9 +23,6 @@ class MoviePreferenceController():
         if not external_movie_id:
             abort(400)
 
-        print(data)
-        print(external_movie_id)
-
         mp = MoviePreference.query.filter_by(
             user=user, external_movie_id=external_movie_id).one_or_none()
         if mp:
