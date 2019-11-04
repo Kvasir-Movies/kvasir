@@ -47,7 +47,7 @@ export interface Action {
   type: string;
   hasSessionLoaded?: boolean;
   moviePreference?: MoviePreference;
-  user?: User;
+  user?: FullUser | null;
 }
 
 export type SetMovies = (movies: Array<Movie>) => void;

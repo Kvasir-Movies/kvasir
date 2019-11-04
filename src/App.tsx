@@ -7,7 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import { setSessionLoaded, setSessionUser } from "./actions";
+import { setSessionData } from "./actions";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import ReelSpinner from "./components/ReelSpinner";
@@ -64,8 +64,7 @@ const App = (): JSX.Element => {
     fetch("/session")
       .then(response => response.json())
       .then((data: { user: FullUser | null }) => {
-        dispatch(setSessionLoaded(true));
-        dispatch(setSessionUser(data.user));
+        dispatch(setSessionData(true, data.user));
       })
       .catch(error => alert("Something went wrong, please refresh the page."));
   }, []);
