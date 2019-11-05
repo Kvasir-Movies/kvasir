@@ -48,7 +48,7 @@ const LoginPage = (): JSX.Element => {
             <Link to={Path.signupPage}>Sign up here.</Link>
           </span>
         }
-        formName="Log In"
+        formName="Log in"
         handleOnSubmit={handleOnSubmit}
         onEmailChange={onEmailChange}
         onPasswordChange={onPasswordChange}
