@@ -14,7 +14,8 @@ export default function rootReducer(
     case SET_SESSION_DATA:
       return {
         ...state,
-        ...{ hasSessionLoaded: action.hasSessionLoaded! }
+        ...{ hasSessionLoaded: action.hasSessionLoaded! },
+        ...{ sessionUser: action.user! }
       };
     case SET_SESSION_USER:
       return {
