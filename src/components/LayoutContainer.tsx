@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
+  Container,
   Icon,
   Image,
   Menu,
@@ -103,12 +104,8 @@ const LayoutContainer: React.SFC<{
   ];
 
   return (
-    <div className="fill-height">
-      <Responsive
-        as="div"
-        className="fill-height"
-        maxWidth={Responsive.onlyMobile.maxWidth}
-      >
+    <div>
+      <Responsive as="div" maxWidth={Responsive.onlyMobile.maxWidth}>
         <Sidebar.Pushable>
           <Sidebar
             animation="overlay"
@@ -120,7 +117,7 @@ const LayoutContainer: React.SFC<{
           >
             {pageMenuItems}
           </Sidebar>
-          <Sidebar.Pusher className="fill-height" dimmed={sidebarOpen}>
+          <Sidebar.Pusher dimmed={sidebarOpen}>
             <NavBar mobile>
               <div className="navbar-section">
                 {Boolean(sessionUser) && (
@@ -142,21 +139,23 @@ const LayoutContainer: React.SFC<{
       </Responsive>
       <Responsive minWidth={Responsive.onlyMobile.maxWidth}>
         <NavBar>
-          {Boolean(sessionUser) ? (
-            <Menu pointing secondary size="large">
-              <Logo />
-              {pageMenuItems}
-              <div className="authentication-buttons">
-                <LogoutButton />
-              </div>
-            </Menu>
-          ) : (
-            <Menu pointing secondary size="large">
-              <Logo />
-            </Menu>
-          )}
+          <Container>
+            {Boolean(sessionUser) ? (
+              <Menu pointing secondary size="large">
+                <Logo />
+                {pageMenuItems}
+                <div className="authentication-buttons">
+                  <LogoutButton />
+                </div>
+              </Menu>
+            ) : (
+              <Menu pointing secondary size="large">
+                <Logo />
+              </Menu>
+            )}
+          </Container>
         </NavBar>
-        <div className="content">{children}</div>
+        <Container className="content">{children}</Container>
       </Responsive>
     </div>
   );

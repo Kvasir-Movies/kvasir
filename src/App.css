@@ -29,6 +29,8 @@
 .navbar {
   background-color: var(--red);
   color: var(--black);
+  display: flex;
+  justify-content: center;
 }
 
 .pageContent {
