@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, SyntheticEvent } from "react";
 import { Dropdown, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
@@ -16,27 +16,35 @@ const ExplorePage = (): JSX.Element => {
     fetchExploreMovies(setMovies, sortMethod);
   useEffect(() => doFetchExploreMovies(sortMethod), [sortMethod]);
 
+  const options = [
+    {
+      text: "Popular",
+      value: "popularity"
+    },
+    {
+      text: "Trending (Daily)",
+      value: "day_trend"
+    },
+    {
+      text: "Trending (Weekly)",
+      value: "week_trend"
+    }
+  ];
+
   return (
     <LayoutContainer activePath={Path.explorePage}>
-      <Dropdown>
-        <Dropdown.Menu>
-          <Dropdown.Item
-            text="Popular"
-            onClick={() => setSortMethod("popularity")}
-          />
-          <Dropdown.Item
-            text="Trending (Daily)"
-            onClick={() => setSortMethod("day_trend")}
-          />
-          <Dropdown.Item
-            text="Trending (Weekly)"
-            onClick={() => setSortMethod("week_trend")}
-          />
-        </Dropdown.Menu>
-      </Dropdown>
-      <Header as="h2" textAlign="center">
-        Explore
-      </Header>
+      <Dropdown
+        as="h3"
+        className="movieListHeader"
+        inline
+        options={options}
+        defaultValue="popularity"
+        onChange={(e, data) => {
+          if (data.value) {
+            setSortMethod(data.value as string);
+          }
+        }}
+      />
       {sessionUser != null && <MovieList movies={movies} />}
     </LayoutContainer>
   );

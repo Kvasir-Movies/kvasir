@@ -82,7 +82,7 @@
 
 .card-description {
   max-height: 10em;
-  overflow: hidden;
+  overflow: ellipsis;
 }
 
 .movieDropdownOption {
@@ -100,6 +100,12 @@
 
 .contain-text div {
   overflow: hidden;
+}
+
+.movieListHeader {
+  padding-bottom: 0.5em;
+  border-bottom: solid var(--red);
+  width: 100%;
 }
 
 /*
