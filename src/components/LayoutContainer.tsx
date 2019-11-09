@@ -141,21 +141,21 @@ const LayoutContainer: React.SFC<{
         <NavBar>
           <Container>
             {Boolean(sessionUser) ? (
-              <Menu pointing secondary size="large">
-                <Logo />
+              <Menu inverted pointing secondary size="large">
+                {/* <Logo /> */}
                 {pageMenuItems}
                 <div className="authentication-buttons">
                   <LogoutButton />
                 </div>
               </Menu>
             ) : (
-              <Menu pointing secondary size="large">
-                <Logo />
+              <Menu inverted pointing secondary size="large">
+                {/* <Logo /> */}
               </Menu>
             )}
           </Container>
         </NavBar>
-        <Container className="content">{children}</Container>
+        <Container className="pageContent">{children}</Container>
       </Responsive>
     </div>
   );

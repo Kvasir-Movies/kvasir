@@ -21,7 +21,7 @@ const MovieCard = ({ movie }: { movie: Movie }): JSX.Element => {
   }
 
   return (
-    <Card>
+    <Card className="movieCard">
       <Card.Content className="no-padding">
         <Dimmer.Dimmable
           blurring

@@ -36,7 +36,6 @@ const ExplorePage = (): JSX.Element => {
       <Dropdown
         as="h3"
         className="movieListHeader"
-        inline
         options={options}
         defaultValue="popularity"
         onChange={(e, data) => {
