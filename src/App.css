@@ -1,17 +1,10 @@
 /* Root-level stuff */
 :root {
-  --black: #231f20;
-  --red: #cf2625;
-  /* --navbar-color: #0072D9; */
-  --text-color: #ffffff;
-  --background-color: #15111d;
+  --background-color: #1d1b22;
+  --navbar-color: #090511;
   --accent-color: #0072d9;
   --dark-accent-color: #00427d;
-  /* --accent-color: #00DC89; */
-  --navbar-color: #00427d;
-
-  --secondary-color: #0800de;
-  --tertiary-color: #00dc89;
+  --text-color: #ffffff;
 }
 
 #root {
@@ -58,8 +51,13 @@
   padding: 0.5em;
 }
 
-.navbar .ui.menu {
+.navbar .ui.menu.pointing.secondary {
   border-color: transparent !important;
+}
+
+.navbar .ui.menu.pointing.secondary .active.item {
+  border-color: var(--accent-color) !important;
+  color: var(--accent-color) !important;
 }
 
 .navbar.mobile {
@@ -117,7 +115,7 @@
 
 .movieListHeader {
   padding-bottom: 0.5em;
-  border-bottom: solid var(--accent-color);
+  border-bottom: thin solid var(--accent-color);
   width: 100%;
   color: var(--text-color);
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, SemanticWIDTHS } from "semantic-ui-react";
+import { Card, Responsive, SemanticWIDTHS } from "semantic-ui-react";
 
 import useWindowSize from "../hooks/useWindowSize";
 import { Movie } from "../types";
@@ -14,8 +14,9 @@ export default function MovieList(props: {
   const windowWidth = useWindowSize().width || 0;
   // NOTE: Another factor is the mobile view which is handled by Card.Group's stackable property.
   const MIN_COLUMNS = 3;
-  const NEXT_COLUMN_START = 800; // when to use more than 3 columns, in px;
-  const COLUMN_INTERVAL = 200; // add a new column after multiple of this interval, in px
+  // When to use more than 3 columns, in px;
+  const NEXT_COLUMN_START = Responsive.onlyComputer.minWidth as number;
+  const COLUMN_INTERVAL = 250; // add a new column after multiple of this interval, in px
   const numColumns = Math.max(
     MIN_COLUMNS,
     Math.floor(
