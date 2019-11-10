@@ -4,7 +4,7 @@ import { Segment } from "semantic-ui-react";
 import { FullUser } from "../types";
 
 const FriendList = ({ sessionUser }: { sessionUser: FullUser }) => (
-  <Segment.Group>
+  <Segment.Group className="friendList">
     {sessionUser.friends.map(friend => (
       <Segment key={friend.email}>{friend.email}</Segment>
     ))}

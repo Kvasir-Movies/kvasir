@@ -3,14 +3,16 @@
   --background-color: #1d1b22;
   --navbar-color: #090511;
   --accent-color: #0072d9;
-  --dark-accent-color: #00427d;
-  --text-color: #ffffff;
+  --accent-color-dark: #00427d;
+  --text-color-light: #ffffff;
+  --text-color-dark: #1d1b22;
 }
 
 #root {
   min-height: 100%;
   width: 100%;
   background-color: var(--background-color);
+  color: var(--text-color-light);
 }
 
 /* Components */
@@ -30,7 +32,7 @@
 
 .navbar {
   background-color: var(--navbar-color);
-  color: var(--text-color);
+  color: var(--text-color-light);
   display: flex;
   justify-content: center;
 }
@@ -117,12 +119,16 @@
   padding-bottom: 0.5em;
   border-bottom: thin solid var(--accent-color);
   width: 100%;
-  color: var(--text-color);
+  color: var(--text-color-light);
 }
 
 .movieCard.ui.card,
 .ui.cards > .movieCard.card {
-  box-shadow: 0 0 2px 1px var(--dark-accent-color);
+  box-shadow: 0 0 2px 1px var(--accent-color-dark);
+}
+
+.friendList {
+  color: var(--text-color-dark);
 }
 
 /*

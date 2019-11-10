@@ -9,7 +9,9 @@ const WatchPage = (): JSX.Element => {
   return (
     <LayoutContainer activePath={Path.watchPage}>
       <Container text>
-        <Header as="h2">Find a movie to watch with friends</Header>
+        <Header inverted as="h2">
+          Find a movie to watch with friends
+        </Header>
         <MovieRecommender />
       </Container>
     </LayoutContainer>

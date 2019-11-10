@@ -33,7 +33,9 @@ const MyMoviesPage = (): JSX.Element => {
         }}
       >
         <Container text>
-          <Header as="h2">My movies</Header>
+          <Header as="h2" inverted>
+            My movies
+          </Header>
           <MovieAdder handleAddMovie={handleAddMoviePreference} />
         </Container>
         <div style={{ marginTop: 20 }}>

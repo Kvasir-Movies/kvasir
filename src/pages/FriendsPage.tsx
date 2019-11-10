@@ -12,7 +12,9 @@ const FriendsPage = (): JSX.Element => {
   return (
     <LayoutContainer activePath={Path.friendsPage}>
       <Container text>
-        <Header as="h2">Friends</Header>
+        <Header as="h2" inverted>
+          Friends
+        </Header>
         <FriendAdder sessionUser={sessionUser} />
         <FriendList sessionUser={sessionUser} />
       </Container>

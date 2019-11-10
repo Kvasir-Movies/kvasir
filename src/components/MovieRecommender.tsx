@@ -28,7 +28,9 @@ const MovieRecommender = (): JSX.Element => {
 
   return (
     <>
-      <Header as="h3">Who's watching today?</Header>
+      <Header as="h3" inverted>
+        Who's watching today?
+      </Header>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex" }}>
           <UserPicker
@@ -36,6 +38,7 @@ const MovieRecommender = (): JSX.Element => {
             setSelectedEmails={resetEmails}
           />
           <Button
+            inverted
             onClick={handleFetchMovieRecommendation}
             primary
             disabled={!selectedEmails.length}
@@ -44,7 +47,9 @@ const MovieRecommender = (): JSX.Element => {
           </Button>
         </div>
 
-        <Header as="h3">Movies in Common</Header>
+        <Header as="h3" inverted>
+          Movies in Common
+        </Header>
         {selectedEmails.length === 0 &&
           "Search for friends to find movies you all want to watch."}
         {fetchCompleted &&
