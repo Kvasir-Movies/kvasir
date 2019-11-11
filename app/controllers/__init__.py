@@ -10,15 +10,15 @@ from .slack_controller import SlackController
 from .user_search_controller import UserSearchController
 
 __all__ = [
-    'ExploreController',
-    'FriendshipController',
-    'LoginController',
-    'LoginController',
-    'LogoutController',
-    'MoviePreferenceController',
-    'MovieSearchController',
-    'RecommendationController',
-    'SignupController',
-    'SlackController',
-    'UserSearchController'
+    "ExploreController",
+    "FriendshipController",
+    "LoginController",
+    "LoginController",
+    "LogoutController",
+    "MoviePreferenceController",
+    "MovieSearchController",
+    "RecommendationController",
+    "SignupController",
+    "SlackController",
+    "UserSearchController",
 ]
