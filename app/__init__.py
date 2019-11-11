@@ -5,13 +5,13 @@ from flask_migrate import Migrate
 from datetime import timedelta
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(os.environ["APP_SETTINGS"])
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-BUILD_DIR = os.path.join(os.path.dirname(app.root_path), 'build')
-app.static_folder = os.path.join(BUILD_DIR, 'static')
+BUILD_DIR = os.path.join(os.path.dirname(app.root_path), "build")
+app.static_folder = os.path.join(BUILD_DIR, "static")
 
 
 from app import models
@@ -27,13 +27,13 @@ def make_session_permanent():
 @app.shell_context_processor
 def make_shell_context():
     return {
-        'db': db,
-        'dsc': db.session.commit,
-        'dsr': db.session.rollback,
-        'User': models.User,
-        'MoviePreference': models.MoviePreference,
+        "db": db,
+        "dsc": db.session.commit,
+        "dsr": db.session.rollback,
+        "User": models.User,
+        "MoviePreference": models.MoviePreference,
     }
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

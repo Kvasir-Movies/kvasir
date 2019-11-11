@@ -6,7 +6,7 @@ from ..models import User
 
 
 def is_user_logged_in():
-    return 'email' in session
+    return "email" in session
 
 
 def delete_session():
@@ -14,19 +14,20 @@ def delete_session():
 
 
 def create_session(email):
-    session['email'] = email
+    session["email"] = email
 
 
 def get_current_session_user():
-    return User.query.filter(User.email == session['email']).one_or_none()
+    return User.query.filter(User.email == session["email"]).one_or_none()
 
 
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not is_user_logged_in():
-            return redirect(url_for('login'))
+            return redirect(url_for("login"))
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -38,4 +39,5 @@ def authorization_required(f):
         if user is not User.query.get(user_id):
             abort(403)
         return f(user, *args, **kwargs)
+
     return decorated_function
