@@ -1,6 +1,8 @@
 from app import app
 import requests
 
+from flask import g
+
 TMDB_API_KEY = app.config.get("TMDB_API_KEY")
 TMDB_SEARCH_MOVIE_URL = "https://api.themoviedb.org/3/search/movie"
 TMDB_FIND_MOVIE_URL = "https://api.themoviedb.org/3/movie/"
@@ -12,6 +14,8 @@ TMDB_EXPLORE_URLS = {
 EXPLORE_DEFAULT = "popularity"
 
 DESIRED_KEYS = ["title", "overview", "genres", "status", "release_date"]
+
+DESIRED_KEYS = ["title", "overview", "genres", "status"]
 
 
 class APIException(Exception):
@@ -26,18 +30,19 @@ class APIException(Exception):
         self.message = message
 
 
-def _process_tmdb_data(tmdb_data):
-    movie_data = {
-        desired_key: tmdb_data.get(desired_key, None) for desired_key in DESIRED_KEYS
+def _format_tmdb_movie(tmdb_movie):
+    formatted_movie = {
+        desired_key: tmdb_movie.get(desired_key, None) for desired_key in DESIRED_KEYS
     }
-    movie_data["externalMovieId"] = tmdb_data["id"]
-    poster_path = tmdb_data.get("poster_path", None)
-    movie_data["poster_path"] = (
+    formatted_movie["externalMovieId"] = str(tmdb_movie.get("id"))
+    formatted_movie["releaseDate"] = tmdb_movie.get("release_date", None)
+    poster_path = tmdb_movie.get("poster_path", None)
+    formatted_movie["posterPath"] = (
         "https://image.tmdb.org/t/p/w370_and_h556_bestv2/{}".format(poster_path)
         if poster_path
         else None
     )
-    return movie_data
+    return formatted_movie
 
 
 def search_movies(search_term):
@@ -45,7 +50,7 @@ def search_movies(search_term):
     response = requests.get(TMDB_SEARCH_MOVIE_URL, params=params)
     if response.status_code != 200:
         raise APIException(response.status_code, response.json()["status_message"])
-    return [_process_tmdb_data(result) for result in response.json()["results"]]
+    return [_format_tmdb_movie(result) for result in response.json()["results"]]
 
 
 def get_movie(movie_id):
@@ -57,7 +62,7 @@ def get_movie(movie_id):
     if response.status_code != 200:
         raise APIException(response.status_code, response.json()["status_message"])
 
-    return _process_tmdb_data(response.json())
+    return _format_tmdb_movie(response.json())
 
 
 def explore(sort_method):
@@ -73,4 +78,4 @@ def explore(sort_method):
     if response.status_code != 200:
         raise APIException(response.status_code, response.json()["status_message"])
 
-    return response.json().get("results")
+    return [_format_tmdb_movie(result) for result in response.json()["results"]]

@@ -11,7 +11,7 @@ class User(db.Model):
     id = Column(Integer, primary_key=True)
     email = Column(String(80), unique=True, nullable=False)
     password_hash = Column(String(64), nullable=False)
-    movies = relationship("MoviePreference", back_populates="user")
+    movie_preferences = relationship("MoviePreference", back_populates="user")
     friendships = relationship(
         "Friendship", foreign_keys=[Friendship.user_id], back_populates="user"
     )
@@ -23,11 +23,18 @@ class User(db.Model):
     def __repr__(self):
         return "<User {}: {}>".format(self.id, self.email)
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "email": self.email,
-            "friends": [
-                {"email": friendship.friend.email} for friendship in self.friendships
-            ],
-        }
+    def to_dict(self, include_lists=False):
+        data = {"id": self.id, "email": self.email}
+
+        if include_lists:
+            data.update(
+                {
+                    "friends": [
+                        {"email": friendship.friend.email}
+                        for friendship in self.friendships
+                    ],
+                    "moviePreferences": [mp.to_dict() for mp in self.movie_preferences],
+                }
+            )
+
+        return data

@@ -1,18 +1,18 @@
 import React, { useState, SyntheticEvent } from "react";
 import { Dropdown, DropdownProps, Input } from "semantic-ui-react";
 
+import useSessionUser from "../hooks/useSessionUser";
 import { searchUsers } from "../network/requests";
 import { User } from "../types";
 
 const UserPicker = ({
-  sessionUser,
   selectedEmails,
   setSelectedEmails
 }: {
-  sessionUser: User;
   selectedEmails: Array<string>;
   setSelectedEmails: (emails: Array<string>) => void;
 }): JSX.Element => {
+  const sessionUser = useSessionUser();
   const emailsToOptions = (
     optionEmails: Array<string>,
     selectedEmails: Array<string>
@@ -33,7 +33,9 @@ const UserPicker = ({
     return options;
   };
 
-  const defaultEmails = sessionUser.friends.map(friend => friend.email);
+  const defaultEmails = sessionUser
+    ? sessionUser.friends.map(friend => friend.email)
+    : [];
   const [options, setOptions] = useState(
     emailsToOptions(defaultEmails, selectedEmails)
   );

@@ -1,21 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Container, Header } from "semantic-ui-react";
 
 import LayoutContainer from "../components/LayoutContainer";
 import MovieAdder from "../components/MovieAdder";
 import MovieList from "../components/MovieList";
-import { Path } from "../constants";
+import { Path, PreferenceType } from "../constants";
+import useSessionUser from "../hooks/useSessionUser";
+import useUpsertMoviePreference from "../hooks/useUpsertMoviePreferences";
 import useUserMovies from "../hooks/useUserMovies";
-import { GlobalState } from "../types";
 
 const MyMoviesPage = (): JSX.Element => {
-  const sessionUser = useSelector((state: GlobalState) => state.sessionUser!);
-  const {
-    userMovies,
-    handleChangeMoviePreference,
-    refetchUserMovies
-  } = useUserMovies(sessionUser);
+  const sessionUser = useSessionUser()!;
+  const movies = useUserMovies(sessionUser);
+  const upsertMoviePreference = useUpsertMoviePreference();
+
+  function handleAddMoviePreference(externalMovieId: string) {
+    upsertMoviePreference({
+      externalMovieId,
+      preferenceType: PreferenceType.positive,
+      userId: sessionUser.id
+    });
+  }
 
   return (
     <LayoutContainer activePath={Path.myMoviesPage}>
@@ -29,13 +34,10 @@ const MyMoviesPage = (): JSX.Element => {
       >
         <Container text>
           <Header as="h2">My movies</Header>
-          <MovieAdder user={sessionUser} fetchUserMovies={refetchUserMovies} />
+          <MovieAdder handleAddMovie={handleAddMoviePreference} />
         </Container>
         <div style={{ marginTop: 20 }}>
-          <MovieList
-            movies={userMovies}
-            changeMoviePreference={handleChangeMoviePreference}
-          />
+          <MovieList movies={movies} />
         </div>
       </div>
     </LayoutContainer>

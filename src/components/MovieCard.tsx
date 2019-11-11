@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-
 import { Card, Dimmer, Header, Image } from "semantic-ui-react";
 
-import { Movie, User } from "../types";
+import useSessionUser from "../hooks/useSessionUser";
+import MovieCardBottom from "./MovieCardBottom";
+import { Movie } from "../types";
 import { PreferenceType } from "../constants";
-import MovieCardBottom, { ChangeMoviePreference } from "./MovieCardBottom";
+import useUpsertMoviePreference from "../hooks/useUpsertMoviePreferences";
 
-const MovieCard = ({
-  movie,
-  changeMoviePreference
-}: {
-  movie: Movie;
-  changeMoviePreference: ChangeMoviePreference;
-}): JSX.Element => {
+const MovieCard = ({ movie }: { movie: Movie }): JSX.Element => {
   const [isHovering, setIsHovering] = useState(false);
+  const upsertMoviePreference = useUpsertMoviePreference();
+  const sessionUser = useSessionUser();
+
+  function handleChangeMoviePreference(preferenceType: PreferenceType) {
+    upsertMoviePreference({
+      externalMovieId: movie.externalMovieId,
+      preferenceType,
+      userId: sessionUser!.id
+    });
+  }
+
   return (
     <Card>
       <Card.Content className="no-padding">
@@ -27,19 +33,21 @@ const MovieCard = ({
             setIsHovering(false);
           }}
         >
-          <Image centered fluid src={movie.poster_path} />
+          <Image centered fluid src={movie.posterPath} />
           <Dimmer active={isHovering} className="contain-text">
             <Header inverted>{movie.title}</Header>
             {movie.overview}
           </Dimmer>
         </Dimmer.Dimmable>
       </Card.Content>
-      <Card.Content extra className="no-padding">
-        <MovieCardBottom
-          movie={movie}
-          changeMoviePreference={changeMoviePreference}
-        />
-      </Card.Content>
+      {sessionUser && (
+        <Card.Content extra className="no-padding">
+          <MovieCardBottom
+            movie={movie}
+            handleChangeMoviePreference={handleChangeMoviePreference}
+          />
+        </Card.Content>
+      )}
     </Card>
   );
 };

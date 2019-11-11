@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import { Button, Image } from "semantic-ui-react";
 import { debounce } from "underscore";
 
 import { loadMovieOptions } from "../network/requests";
-import { User, Movie } from "../types";
+import { Movie } from "../types";
 import { OptionProps } from "react-select/src/components/Option";
 
 interface MovieOption {
@@ -14,9 +14,10 @@ interface MovieOption {
   movie: Movie;
 }
 
-const MovieAdder = (props: {
-  user: User;
-  fetchUserMovies: () => void;
+const MovieAdder = ({
+  handleAddMovie
+}: {
+  handleAddMovie: (externalMovieId: string) => void;
 }): JSX.Element => {
   const [selectedMovie, setSelectedMovie] = useState<MovieOption | null>(null);
   const handleChange = (value: any, data: { action: string }) => {
@@ -29,36 +30,22 @@ const MovieAdder = (props: {
     setSelectedMovie(null);
   };
 
-  const handleAddMoviePreference = async () => {
-    if (!selectedMovie) {
-      return;
+  function onClick(e: MouseEvent) {
+    if (selectedMovie) {
+      handleAddMovie(selectedMovie.movie.externalMovieId);
+      clearValue();
     }
-
-    const response = await fetch(`/users/${props.user.id}/movie-preferences`, {
-      method: "POST",
-      body: JSON.stringify({ externalMovieId: selectedMovie.value }),
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      }
-    });
-    if (response.status !== 200) {
-      alert(
-        `Adding movie failed: ${response.status} ${response.statusText || ""}`
-      );
-    }
-    clearValue();
-    props.fetchUserMovies();
-  };
+  }
 
   const Option = (props: OptionProps<MovieOption>) => {
     const movie = props.data.movie;
-    const releaseYear = movie.release_date
-      ? new Date(movie.release_date).getUTCFullYear()
+    const releaseYear = movie.releaseDate
+      ? new Date(movie.releaseDate).getUTCFullYear()
       : null;
     return (
       <components.Option {...props}>
         <div className="movieDropdownOption">
-          {movie.poster_path && <Image src={movie.poster_path} size="mini" />}
+          {movie.posterPath && <Image src={movie.posterPath} size="mini" />}
           <div className="movieDropdownOption-label">
             <b>{movie.title}</b>
             {releaseYear && (
@@ -83,11 +70,7 @@ const MovieAdder = (props: {
         onMenuOpen={clearValue}
         value={selectedMovie}
       />
-      <Button
-        onClick={handleAddMoviePreference}
-        primary
-        style={{ marginLeft: "0.5em" }}
-      >
+      <Button onClick={onClick} primary style={{ marginLeft: "0.5em" }}>
         Add
       </Button>
     </div>

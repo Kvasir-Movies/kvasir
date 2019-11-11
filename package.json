@@ -14,6 +14,7 @@
     "@types/underscore": "^1.8.9",
     "browserslist": "^4.7.2",
     "caniuse-lite": "^1.0.30001005",
+    "immutability-helper": "^3.0.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.1",

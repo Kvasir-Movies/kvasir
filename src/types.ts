@@ -5,12 +5,8 @@ export interface Friend {
 }
 
 export interface MoviePreference {
-  id: number;
-  user_id: number;
+  userId: number;
   externalMovieId: string;
-  title: string;
-  overview: string;
-  poster_path: string;
   preferenceType: PreferenceType;
 }
 
@@ -18,14 +14,19 @@ export interface Movie {
   externalMovieId: string;
   title: string;
   overview: string;
-  poster_path: string;
-  release_date?: string;
+  posterPath?: string;
+  releaseDate?: string;
 }
 
 export interface User {
   id: number;
   email: string;
+}
+
+// Includes lists of information, which can potentially be very large
+export interface FullUser extends User {
   friends: Array<Friend>;
+  moviePreferences: Array<MoviePreference>;
 }
 
 export interface AuthenticatedPageProps {
@@ -38,14 +39,15 @@ export interface UnauthenticatedPageProps {
 }
 
 export interface GlobalState {
-  sessionUser: User | null;
+  sessionUser: FullUser | null;
   hasSessionLoaded: boolean;
 }
 
 export interface Action {
   type: string;
   hasSessionLoaded?: boolean;
-  user?: User | null;
+  moviePreference?: MoviePreference;
+  user?: FullUser | null;
 }
 
 export type SetMovies = (movies: Array<Movie>) => void;

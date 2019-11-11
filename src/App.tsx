@@ -20,7 +20,7 @@ import LoginPage from "./pages/LoginPage";
 import MyMoviesPage from "./pages/MyMoviesPage";
 import SignupPage from "./pages/SignupPage";
 import WatchPage from "./pages/WatchPage";
-import { GlobalState, User } from "./types";
+import { FullUser, GlobalState, User } from "./types";
 
 interface AuthenticationRouteProps extends RouteProps {
   sessionUser: User | null;
@@ -63,7 +63,7 @@ const App = (): JSX.Element => {
   useEffect(() => {
     fetch("/session")
       .then(response => response.json())
-      .then((data: { user: User | null }) => {
+      .then((data: { user: FullUser | null }) => {
         dispatch(setSessionData(true, data.user));
       })
       .catch(error => alert("Something went wrong, please refresh the page."));

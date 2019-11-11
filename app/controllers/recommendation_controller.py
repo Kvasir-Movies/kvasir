@@ -16,19 +16,19 @@ class RecommendationController:
         negative_movie_id_sets = []
 
         for user in users:
-            user_movies = user.movies
+            movie_preferences = user.movie_preferences
             positive_movie_id_sets.append(
                 {
-                    m.external_movie_id
-                    for m in user_movies
-                    if m.preference_type == PreferenceTypes.positive
+                    mp.external_movie_id
+                    for mp in movie_preferences
+                    if mp.preference_type == PreferenceTypes.positive
                 }
             )
             negative_movie_id_sets.append(
                 {
-                    m.external_movie_id
-                    for m in user_movies
-                    if m.preference_type == PreferenceTypes.negative
+                    mp.external_movie_id
+                    for mp in movie_preferences
+                    if mp.preference_type == PreferenceTypes.negative
                 }
             )
 

@@ -2,12 +2,11 @@ from flask import jsonify, send_from_directory
 
 from app import app, BUILD_DIR
 from app.controllers import (
-    ExploreController,
     FriendshipController,
     LoginController,
     LogoutController,
+    MovieController,
     MoviePreferenceController,
-    MovieSearchController,
     RecommendationController,
     SignupController,
     SlackController,
@@ -33,7 +32,7 @@ def serve(path):
 @app.route("/session", methods=["GET"])
 def get_session():
     if is_user_logged_in():
-        return jsonify(user=get_current_session_user().to_dict())
+        return jsonify(user=get_current_session_user().to_dict(include_lists=True))
     else:
         return jsonify(user=None)
 
@@ -46,7 +45,12 @@ def login():
 @app.route("/search-movies")
 @login_required
 def search_movies():
-    return MovieSearchController().handle()
+    return MovieController().search_movies()
+
+
+@app.route("/explore")
+def get_explore():
+    return MovieController().explore_movies()
 
 
 @app.route("/signup", methods=["POST"])
@@ -60,32 +64,16 @@ def logout():
 
 
 # REST resource APIs
-@app.route("/users/<user_id>/movie-preferences/", methods=["GET"])
+@app.route("/users/<user_id>/movie-preferences", methods=["PUT"])
 @authorization_required
-def get_movie_preferences(user):
-    return MoviePreferenceController().get(user)
+def upsert_movie_preference(user):
+    return MoviePreferenceController().upsert(user)
 
 
-@app.route("/users/<user_id>/movie-preferences", methods=["POST"])
+@app.route("/users/<user_id>/actions:get-watchlist")
 @authorization_required
-def create_movie_preference(user):
-    return MoviePreferenceController().create(user)
-
-
-@app.route(
-    "/users/<user_id>/movie-preferences/<movie_preference_id>", methods=["PATCH"]
-)
-@authorization_required
-def update_movie_preference(user, movie_preference_id):
-    return MoviePreferenceController().update(user, movie_preference_id)
-
-
-@app.route(
-    "/users/<user_id>/movie-preferences/<movie_preference_id>", methods=["DELETE"]
-)
-@authorization_required
-def delete_movie_preference(user, movie_preference_id):
-    return MoviePreferenceController().delete(user, movie_preference_id)
+def get_user_watchlist(user):
+    return MovieController().list_liked_movies(user)
 
 
 @app.route("/get-recommendation")
@@ -109,8 +97,3 @@ def search_users():
 @app.route("/slack", methods=["POST"])
 def get_slack():
     return SlackController().handle()
-
-
-@app.route("/explore")
-def get_explore():
-    return ExploreController().handle()

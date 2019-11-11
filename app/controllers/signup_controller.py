@@ -20,4 +20,4 @@ class SignupController:
         db.session.commit()
 
         create_session(email)
-        return jsonify(user.to_dict())
+        return jsonify(user.to_dict(include_lists=True))
