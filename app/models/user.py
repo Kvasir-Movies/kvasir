@@ -5,31 +5,36 @@ from sqlalchemy.orm import relationship
 
 from . import Friendship
 
+
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     email = Column(String(80), unique=True, nullable=False)
     password_hash = Column(String(64), nullable=False)
     movie_preferences = relationship("MoviePreference", back_populates="user")
-    friendships = relationship("Friendship", foreign_keys=[Friendship.user_id], back_populates="user")
+    friendships = relationship(
+        "Friendship", foreign_keys=[Friendship.user_id], back_populates="user"
+    )
 
     def __init__(self, email, password):
         self.email = email
         self.password_hash = hash_password(password)
 
     def __repr__(self):
-        return '<User {}: {}>'.format(self.id, self.email)
+        return "<User {}: {}>".format(self.id, self.email)
 
     def to_dict(self, include_lists=False):
-        data = {
-            'id': self.id,
-            'email': self.email
-        }
+        data = {"id": self.id, "email": self.email}
 
         if include_lists:
-            data.update({
-                'friends': [{'email': friendship.friend.email} for friendship in self.friendships],
-                'moviePreferences': [mp.to_dict() for mp in self.movie_preferences]
-            })
+            data.update(
+                {
+                    "friends": [
+                        {"email": friendship.friend.email}
+                        for friendship in self.friendships
+                    ],
+                    "moviePreferences": [mp.to_dict() for mp in self.movie_preferences],
+                }
+            )
 
         return data

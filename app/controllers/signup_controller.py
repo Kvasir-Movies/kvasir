@@ -6,14 +6,14 @@ from flask import jsonify, request
 from app.util.session_util import create_session
 
 
-class SignupController():
+class SignupController:
     def handle(self):
         data = request.json
-        email = data['email']
-        password = data['password']
+        email = data["email"]
+        password = data["password"]
 
         if User.query.filter_by(email=email).one_or_none():
-            return 'A user with this email already exists', 400
+            return "A user with this email already exists", 400
 
         user = User(email, password)
         db.session.add(user)
