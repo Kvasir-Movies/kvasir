@@ -25,7 +25,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
     "typescript": "^3.1.6",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   },
   "scripts": {
     "start": "react-scripts start",
